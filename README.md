@@ -3,7 +3,7 @@
 ## cmpe226-team2-spartan-recreation
 
 
-#Commit Rules
+# Commit Rules
 1) All Members should commit on their local git repo and will push on seperate branch. No one will be able to push directly on the Master.
 2) all Pull request will require atleast one approval.
 3) Resolve the conflicts before merging.
@@ -33,4 +33,3 @@ Please Join https://trello.com/invite/b/iSROWB4Y/b5bc86ae329fa2c2420adfa2fda0b1b
 2) git remote add origin git@github.com:username/repositoryName.git
 3) git config master.remote origin
 4) git config master.merge refs/heads/master
-
