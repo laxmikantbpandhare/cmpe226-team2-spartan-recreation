@@ -1,1 +1,1 @@
-# cmpe22-team2-spartan-recreation
+# cmpe226-team2-spartan-recreation
