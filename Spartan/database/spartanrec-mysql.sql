@@ -1,6 +1,6 @@
-drop database if exists spartanrec;
-create database spartanrec;
-use spartanrec;
+drop database if exists cmpe226_Spartan;
+create database cmpe226_Spartan;
+use cmpe226_Spartan;
 
 create table student (
 	sjsu_id	int primary key, 
