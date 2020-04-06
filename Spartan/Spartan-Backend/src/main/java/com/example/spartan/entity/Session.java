@@ -1,6 +1,7 @@
 package com.example.spartan.entity;
 
 import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 public class Session {
 
@@ -9,8 +10,9 @@ public class Session {
 	int capacity;
 	String section; 
 	int room_number; 
-	Date start_time; 
-	Date end_time; 
+	Date session_date;
+	String start_time; 
+	String end_time; 
 	String activity_id;
 	String instructor_ssn;
 	
@@ -20,17 +22,31 @@ public class Session {
 	
 	
 	public Session(String session_id, String session_name, int capacity, String section, int room_number,
-			Date start_time, Date end_time, String activity_id, String instructor_ssn) {
+			String start_time, String end_time, String activity_id, String instructor_ssn , Date session_date) {
 		super();
 		this.session_id = session_id;
 		this.session_name = session_name;
 		this.capacity = capacity;
 		this.section = section;
 		this.room_number = room_number;
+		this.session_date = session_date;
+//		DateTimeFormatter format =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//		this.start_time = String.parse(start_time, format);
+//		this.end_time = String.parse(end_time, format);
 		this.start_time = start_time;
 		this.end_time = end_time;
 		this.activity_id = activity_id;
 		this.instructor_ssn = instructor_ssn;
+	}
+
+
+	public Date getSession_date() {
+		return session_date;
+	}
+
+
+	public void setSession_date(Date session_date) {
+		this.session_date = session_date;
 	}
 
 
@@ -84,22 +100,22 @@ public class Session {
 	}
 
 
-	public Date getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
 
 
-	public void setStart_time(Date start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
 
 
-	public Date getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
 
 
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 
