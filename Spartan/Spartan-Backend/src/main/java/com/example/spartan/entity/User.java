@@ -8,6 +8,7 @@ public class User {
     String emailid;
     String city;
     String country;
+    String password;
 
     public int getId() {
         return id;
@@ -63,5 +64,9 @@ public class User {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

@@ -9,8 +9,6 @@ import LogoutComponent from "./LogoutComponent";
 import SignUP from "./SignUp";
 import SerchSessions from "./SearchSessions"
 
-
-
 // import AssetDisplay from "./AssetDisplay.jsx";
 
 class OpenHome extends Component {
@@ -31,7 +29,7 @@ class OpenHome extends Component {
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
               {/* <Route path="/signup" component={SignUP} /> */}
               {/* <Route path="/welcomeuser/:name" component={WelcomeUser} /> */}
-            
+
               {/* <Route path="/property/new" component={CreateProperty} />
               <Route path="/userbilling" component={UserBilling} />
               <Route path="/hostbilling" component={HostBilling} />
@@ -41,7 +39,6 @@ class OpenHome extends Component {
 
               <Route component={ErrorComponent} />
             </Switch>
-           
           </>
         </Router>
       </div>

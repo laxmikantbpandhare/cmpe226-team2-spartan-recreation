@@ -2,6 +2,17 @@ drop database if exists cmpe226_Spartan;
 create database cmpe226_Spartan;
 use cmpe226_Spartan;
 
+create table user (
+	firstname	varchar(100) not null, 		
+	lastname	varchar(100) not null,
+	city varchar(100),
+	country varchar(100),
+    phoneno varchar(100),
+    emailid	varchar(100) not null,
+    password varchar(10) not null 
+);
+
+
 create table student (
 	sjsu_id	int primary key, 
 	fname	varchar(20) not null, 		
