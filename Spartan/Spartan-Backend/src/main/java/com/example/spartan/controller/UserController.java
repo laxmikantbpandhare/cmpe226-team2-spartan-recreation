@@ -47,6 +47,7 @@ public class  UserController {
         }
 
 //priya
+
 @CrossOrigin(origins="*")
     @PostMapping("/authenticate")
     public boolean auth(@RequestBody User person) {

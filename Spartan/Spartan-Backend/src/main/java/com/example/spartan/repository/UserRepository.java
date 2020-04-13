@@ -46,7 +46,6 @@ public class UserRepository {
     }
 
     //Priya
-
     public String getUserpPassword(String Email_id) {
 
         String query = "SELECT password FROM user WHERE emailid = ?";
