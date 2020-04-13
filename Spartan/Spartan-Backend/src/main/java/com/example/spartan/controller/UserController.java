@@ -18,10 +18,10 @@ public class  UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/test")
-    public String test(){
-        return "testing Bhava";
-    }
+//    @GetMapping("/test")
+//    public String test(){
+//        return "testing";
+//    }
 
    @GetMapping
     public List<User> getAllUsers(){
