@@ -19,12 +19,12 @@ public class UserRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<User> getUser(){
-        return  jdbcTemplate.query("select id,firstname,lastname,city , country , phoneno,emailid from user",new UserRowMapper());
+        return  jdbcTemplate.query("select firstname,lastname,city , country , phoneno,emailid,password from user",new UserRowMapper());
     }
 
     public Boolean saveUser(User user){
 
-        String query="insert into user values(NULL ,?,?,?,?,?,?)";
+        String query="insert into user values(?,?,?,?,?,?,?)";
         return jdbcTemplate.execute(query,new PreparedStatementCallback<Boolean>(){
             @Override
             public Boolean doInPreparedStatement(PreparedStatement ps)
@@ -36,6 +36,7 @@ public class UserRepository {
                 ps.setString(4,user.getCountry());
                 ps.setString(5,user.getPhoneno());
                 ps.setString(6,user.getEmailid());
+                ps.setString(7,user.getPassword());
 
                 return ps.execute();
 
@@ -44,4 +45,14 @@ public class UserRepository {
 
     }
 
+    //Priya
+
+    public String getUserpPassword(String Email_id) {
+
+        String query = "SELECT password FROM user WHERE emailid = ?";
+        Object[] inputs = new Object[] {Email_id};
+        String password = jdbcTemplate.queryForObject(query, inputs, String.class);
+
+        return password;
+    }
 }

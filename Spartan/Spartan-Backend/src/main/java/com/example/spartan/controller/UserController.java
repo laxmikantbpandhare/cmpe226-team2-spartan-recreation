@@ -10,7 +10,7 @@ import java.util.List;
 @CrossOrigin(origins="*")
 @RestController
 //@RequestMapping("/user")
-public class UserController {
+public class  UserController {
 
 //    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //    String secretKey = "spartan";
@@ -23,7 +23,7 @@ public class UserController {
         return "testing Bhava";
     }
 
-    @GetMapping
+   @GetMapping
     public List<User> getAllUsers(){
         return userRepository.getUser();
     }
@@ -45,6 +45,21 @@ public class UserController {
         return userRepository.saveUser(person);
 
         }
-//    }
-//
+
+//priya
+@CrossOrigin(origins="*")
+    @PostMapping("/authenticate")
+    public boolean auth(@RequestBody User person) {
+
+        System.out.println("email" + (person.getEmailid()));
+        System.out.println("passwrd" + (person.getPassword()));
+        String user_password = userRepository.getUserpPassword(person.getEmailid());
+        System.out.println("DB passwrd" + (user_password));
+
+        if (person.getPassword().equals(user_password))
+            return true;
+        else return false;
+    }
+
+
 }
