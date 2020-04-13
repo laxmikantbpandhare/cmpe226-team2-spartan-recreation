@@ -1,6 +1,6 @@
 package com.example.spartan.entity;
 
-public class Student {
+public class 	Student {
 
 	int sjsu_id;
 	String fname; 
@@ -12,8 +12,7 @@ public class Student {
 	
 	public Student() {}
 	
-	public Student(int sjsu_id, String fname, String lname, String college_year, String password,
-			String registered_by) {
+	public Student(int sjsu_id, String fname, String lname, String college_year, String password, String registered_by) {
 		super();
 		this.sjsu_id = sjsu_id;
 		this.fname = fname;
@@ -22,6 +21,7 @@ public class Student {
 		this.password = password;
 		this.registered_by = registered_by;
 	}
+
 	public int getSjsu_id() {
 		return sjsu_id;
 	}

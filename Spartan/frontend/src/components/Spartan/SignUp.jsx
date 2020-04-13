@@ -186,7 +186,7 @@ class SignUp extends Component {
                                         <div className="form-group">
 
                                             <br />
-                                            <input type="submit" className="form-control btn btn-danger" />
+                                            <input type="submit" className="form-control btn btn-success" />
                                             <br />
                                             <br />
                                         </div>

@@ -7,6 +7,7 @@ import HeaderComponent from "./HeaderComponent";
 //import FooterComponent from "./FooterComponent";
 import LogoutComponent from "./LogoutComponent";
 import SignUP from "./SignUp";
+import SerchSessions from "./SearchSessions"
 
 
 
@@ -21,6 +22,7 @@ class OpenHome extends Component {
             <HeaderComponent />
             <Switch>
               <Route path="/" exact component={SignUP} />
+              <Route path="/search" exact component={SerchSessions} />
               {/* <Route path="/search/searchResults" component={SearchResults} />
               <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
