@@ -30,7 +30,7 @@ class LoginComponent extends Component {
     e.preventDefault();
 
     const data = {
-      emailid: this.state.email,
+      email: this.state.email,
       password: this.state.password,
     };
     console.log("data", data);

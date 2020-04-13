@@ -18,33 +18,24 @@ public class StudentController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/test")
-    public String test(){
-        return "testing Bhava";
-    }
 
-    @GetMapping
-    public List<User> getAllUsers(){
-        return userRepository.getUser();
-    }
-
-
-    @PostMapping("/persons")
-    public Boolean createStudent(@RequestBody User person) {
-//        System.out.println("Thisis" + repo.findByEmail(person.getEmail()));
-//        Optional<User> p = Optional.ofNullable(repo.findByEmail(person.getEmail()));
-//        if (!p.isPresent()) {
-
-
-        System.out.println("email" + (person.getEmailid()));
-        System.out.println("city" + (person.getCity()));
-        System.out.println("firstname" + (person.getFirstname()));
-        System.out.println("lastname" + (person.getLastname()));
-        System.out.println("phoneno" + (person.getPhoneno()));
-
-        return userRepository.saveUser(person);
-
-    }
+//    @GetMapping
+//    public List<User> getAllUsers(){
+//        return userRepository.getUser();
 //    }
+
+
+//    @PostMapping("/persons")
+//    public Boolean createStudent(@RequestBody User person) {
 //
+//
+//        System.out.println("email" + (person.getEmailid()));
+//        System.out.println("city" + (person.getCity()));
+//        System.out.println("firstname" + (person.getFirstname()));
+//        System.out.println("lastname" + (person.getLastname()));
+//        System.out.println("phoneno" + (person.getPhoneno()));
+//
+//        return userRepository.saveUser(person);
+//
+//    }
 }
