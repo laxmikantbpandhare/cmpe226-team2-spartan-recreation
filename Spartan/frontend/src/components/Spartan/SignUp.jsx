@@ -8,18 +8,19 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: sessionStorage.getItem("googleName"),
-      lastname: "",
-      role: "",
+      fname: sessionStorage.getItem("googleName"),
+      lname: "",
+      role: "Student",
       email: sessionStorage.getItem("googleEmail"),
+      ssn: "",
       signup_status: "",
       hasFailed: false,
       showSuccessMessage: false,
-      phoneno: "",
-      country: "",
-      city: "",
+      // phoneno: "",
+      college_year: "",
+      // city: "",
       expiryDate: "",
-      password: "",
+      password: ""
     };
     this.submitSignUp = this.submitSignUp.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -33,26 +34,33 @@ class SignUp extends Component {
     });
   };
 
+
+  changeHandler = (name, e) => {
+    this.setState({
+      [name]: e.target.value
+    });
+  };
+
   submitSignUp = (e) => {
-    let role = "";
-    if (this.state.email.includes("@sjsu.edu")) {
-      role = "host";
-    } else {
-      role = "user";
-    }
+    // let role = "";
+    // if (this.state.email.includes("@sjsu.edu")) {
+    //   role = "host";
+    // } else {
+    //   role = "user";
+    // }
 
     console.log("submit login called");
     //  var headers = new Headers();
     //prevent page from refresh
     e.preventDefault();
     const data = {
-      emailid: this.state.email,
-      lastname: this.state.lastname,
-      firstname: this.state.firstname,
-      city: this.state.city,
-      phoneno: this.state.phoneno,
-      country: this.state.country,
+      email_id: this.state.email,
+      ssn: this.state.ssn,
+      lname: this.state.lname,
+      fname: this.state.fname,
+      college_year: this.state.college_year,
       password: this.state.password,
+      user_role: this.state.role
     };
     console.log("data", data);
     //set the with credentials to true
@@ -128,35 +136,19 @@ class SignUp extends Component {
                   <div className="col-sm-1 col-md-1"></div>
                 </div>
                 <div className="row">
-                  <div className="col-sm-6 col-md-6">
+                  <div className="col-sm-12 col-md-12">
+                    <br />
                     <div className="form-group">
                       <label htmlFor="where">
-                        <h5>First Name</h5>
+                        <h5>SSN</h5>
                       </label>
                       <input
-                        type="text"
+                        type="ssn"
                         className="form-control"
-                        name="firstname"
-                        id="firstname"
-                        placeholder="Your First Name"
-                        value={this.state.firstname}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="where">
-                        <h5>Last Name</h5>
-                      </label>
-                      <input
-                        type="lastname"
-                        className="form-control"
-                        name="lastname"
-                        id="lastname"
-                        placeholder="lastname"
-                        value={this.state.lastname}
+                        name="ssn"
+                        id="ssn"
+                        placeholder="Your SSN"
+                        value={this.state.ssn}
                         onChange={this.handleChange}
                         required
                       />
@@ -169,58 +161,86 @@ class SignUp extends Component {
                   <div className="col-sm-6 col-md-6">
                     <div className="form-group">
                       <label htmlFor="where">
-                        <h5>City</h5>
+                        <h5>First Name</h5>
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        name="city"
-                        id="city"
-                        placeholder="city"
-                        value={this.state.city}
+                        name="fname"
+                        id="fname"
+                        placeholder="Your First Name"
+                        value={this.state.fname}
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-6 col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="where">
+                        <h5>Last Name</h5>
+                      </label>
+                      <input
+                        type="lname"
+                        className="form-control"
+                        name="lname"
+                        id="lname"
+                        placeholder="lname"
+                        value={this.state.lname}
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-sm-1 col-md-1"></div>
+                </div>
+
+                <div className="row">
+                  
+                  
+
+                  <div className="col-sm-6 col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="where">
+                        <h5>College Year</h5>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="college_year"
+                        id="college_year"
+                        placeholder="college_year"
+                        value={this.state.college_year}
                         onChange={this.handleChange}
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="where">
-                        <h5>Phone Number</h5>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="phoneno"
-                        id="phoneno"
-                        placeholder="phoneno"
-                        value={this.state.phoneno}
-                        onChange={this.handleChange}
-                        pattern="[0-9]{10}"
-                        required
-                      />
-                    </div>
-                  </div>
+                  
 
-                  <div className="col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="where">
-                        <h5>Country</h5>
+                
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <label for="where">
+                        <h5>Role</h5>
                       </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="country"
-                        id="country"
-                        placeholder="country"
-                        value={this.state.country}
-                        onChange={this.handleChange}
-                        required
-                      />
+                      <div class="form-group">
+                        <select
+                          class="form-control"
+                          id="role"
+                          onChange={this.changeHandler.bind(this, "role")}
+                        >
+                          <option value="Student">Student</option>
+                          <option value="Coach">Coach</option>
+                          <option value="Instructor">Instructor</option>
+                          <option value="Front Desk Assistant">Front Desk Assistant</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-sm-6 col-md-6">
+                  </div>   
+
+                  <div className="col-sm-12 col-md-12 ">
                     <div className="form-group">
                       <label htmlFor="where">
                         <h5>Password</h5>
@@ -236,9 +256,10 @@ class SignUp extends Component {
                         required
                       />
                     </div>
-                  </div>
-
-                  <div className="col-sm-1 col-md-1"></div>
+                  </div>               
+                
+                
+                <div className="col-sm-1 col-md-1"></div>
                 </div>
 
                 <div className="row">

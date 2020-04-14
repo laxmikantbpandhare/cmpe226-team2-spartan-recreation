@@ -9,13 +9,13 @@ public class UserRowMapper implements RowMapper
 {
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
-        user.setFirstname(rs.getString("firstname"));
-        user.setLastname(rs.getString("lastname"));
-        user.setCity(rs.getString("city"));
-        user.setCountry(rs.getString("country"));
-        user.setPhoneno(rs.getString("phoneno"));
-        user.setEmailid(rs.getString("emailid"));
-
+        user.setSsn(rs.getString("ssn"));
+        user.setEmail_id(rs.getString("email_id"));
+        user.setFname(rs.getString("firstname"));
+        user.setLname(rs.getString("lastname"));
+        user.setCollege_year(rs.getString("collegeyear"));
+        user.setPassword(rs.getString("password"));
+        user.setUser_role(rs.getString("user_role"));
         return user;
     }
 

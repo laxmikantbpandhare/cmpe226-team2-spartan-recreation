@@ -1,6 +1,7 @@
 package com.example.spartan.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,21 @@ public class SessionController {
 		try {
 			List<Session> result = sessionRepo.getSessionByInstructor(instructor_ssn);
 			System.out.println(result);
+			return result;
+		}
+		catch(Exception e) {
+			return null;
+		}
+	}
+
+
+	@PostMapping("/search")
+	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {
+
+		try {
+			System.out.println("payload"+payload);
+			List<Session> result = sessionRepo.getSessionList(payload);
+			System.out.println("result"+result);
 			return result;
 		}
 		catch(Exception e) {
