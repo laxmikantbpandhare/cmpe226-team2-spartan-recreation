@@ -31,7 +31,7 @@ public class SessionRepository {
     JdbcTemplate jdbcTemplate;
     
     public Boolean createSession(Session s) throws Exception {
-    	String query="insert into session values(?,?,?,?,?,?,?,?,?,?)";
+    	String query="insert into session values(?,?,?,?,?,?,?,?,?,?,?)";
     	
     	return jdbcTemplate.execute(query , new PreparedStatementCallback<Boolean>() {
 
@@ -49,6 +49,7 @@ public class SessionRepository {
 				ps.setString(8, s.getActivity_id());
 				ps.setString(9, s.getInstructor_ssn());
 				ps.setString(10,s.getSession_date().toString());
+				ps.setString(11,s.getSession_description().toString());
                            
                 return ps.executeUpdate() > 0;
 							
@@ -152,8 +153,9 @@ public class SessionRepository {
 					s.setStart_time(rs.getString(6));
 					s.setEnd_time(rs.getString(7));
 					s.setActivity_id(rs.getString(8));
-//					s.setInstructor_ssn(instructor_ssn);
+					s.setInstructor_ssn(rs.getString(9));
 					s.setSession_date(rs.getDate(10));
+					s.setSession_description(rs.getString(11));
 					resultList.add(s);
 				}
 

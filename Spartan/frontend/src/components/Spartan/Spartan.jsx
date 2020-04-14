@@ -9,6 +9,7 @@ import LogoutComponent from "./LogoutComponent";
 import DashBoard from "./DashBoard";
 import SignUP from "./SignUp";
 import SerchSessions from "./SearchSessions"
+import SearchResults from "./SearchResults"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -23,8 +24,8 @@ class OpenHome extends Component {
               <Route path="/" exact component={DashBoard} />
               <Route path="/signup" exact component={SignUP} />
               <Route path="/search" exact component={SerchSessions} />
-              {/* <Route path="/search/searchResults" component={SearchResults} />
-              <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
+              <Route path="/search/searchResults" component={SearchResults} />
+              {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
               <Route component={ErrorComponent} />

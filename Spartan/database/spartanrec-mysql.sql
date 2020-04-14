@@ -77,7 +77,8 @@ create table session (
 	end_time time not null,
     activity_id varchar(10),
     instructor_ssn varchar(10),
-	session_description varchar(100)
+	session_date Date,
+	session_description varchar(10000)
 );
 
 create table enrollment (
