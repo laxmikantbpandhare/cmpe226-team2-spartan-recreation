@@ -80,7 +80,7 @@ class SearchSessions extends Component {
                     console.log("Status Code : ",response.status);
                     if(response.status === 200){
                         this.setState({
-                            responseData:response.data//,
+                            responseData:response.data
                         })
                         console.log(response);
                         if(!response.data){
@@ -147,7 +147,7 @@ class SearchSessions extends Component {
 
         return (
             <div>
-                {/* {redirectvar} */}
+                {redirectvar}
                 <div class="container-fluid">
                     <br />
                     <br />
