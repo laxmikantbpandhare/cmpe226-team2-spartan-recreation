@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.10",
     "@mobiscroll/react-lite": "^4.9.0",
     "@progress/kendo-react-dateinputs": "^3.9.0",
     "axios": "^0.18.1",
