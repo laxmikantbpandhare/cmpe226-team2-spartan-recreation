@@ -8,12 +8,9 @@ import HeaderComponent from "./HeaderComponent";
 import LogoutComponent from "./LogoutComponent";
 import DashBoard from "./DashBoard";
 import SignUP from "./SignUp";
-<<<<<<< HEAD
 import SerchSessions from "./SearchSessions"
 import SearchResults from "./SearchResults"
-=======
 import SessionsComponent from "./SessionsComponent";
->>>>>>> 2dc30c8... Session Info page frontend and backend
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -31,8 +28,6 @@ class OpenHome extends Component {
               <Route path="/search/searchResults" component={SearchResults} />
               {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
-<<<<<<< HEAD
-=======
 
               <Route path = "/sessions" exact component = {SessionsComponent} />
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
@@ -46,7 +41,6 @@ class OpenHome extends Component {
               <Route path="/hostbilling" component={HostBilling} />
               <Route path="/property/:propertyId" component={PropertyDetails} />
               <Route path="/reservation/:propertyId" component={PropertyReservationDetails} /> */}
->>>>>>> 2dc30c8... Session Info page frontend and backend
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
               <Route component={ErrorComponent} />
             </Switch>

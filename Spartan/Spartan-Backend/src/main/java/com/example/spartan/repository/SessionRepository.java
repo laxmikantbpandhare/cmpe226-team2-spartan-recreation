@@ -143,8 +143,22 @@ public class SessionRepository {
 
 				while(rs.next()) {
 					Session s = new Session();
+					s.setSession_id(rs.getString(1));
+					s.setSession_name(rs.getString(2));
+					s.setCapacity(rs.getInt(3));
+					s.setSection(rs.getString(4));
+					s.setRoom_number(rs.getInt(5));
+					s.setStart_time(rs.getString(6));
+					s.setEnd_time(rs.getString(7));
+					s.setActivity_id(rs.getString(8));
+					s.setInstructor_ssn(rs.getString(9));
+					s.setSession_date(rs.getDate(10));
+					s.setSession_description(rs.getString(11));
+					resultList.add(s);
 				
 				}
+
+				return resultList;
 			}
 		});
 	}
