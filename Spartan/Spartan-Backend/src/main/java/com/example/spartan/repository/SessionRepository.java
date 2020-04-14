@@ -18,6 +18,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Repository;
 
 import com.example.spartan.entity.Coach;
@@ -56,6 +57,7 @@ public class SessionRepository {
 			}
 		});
     }
+    
 
 	public List<Session> getSessionByInstructor(String instructor_ssn) {
 		
@@ -121,10 +123,6 @@ public class SessionRepository {
 		System.out.println("payload.keySet().toArray()[0]"+payload.get(payload.keySet().toArray()[3]));
 
 
-
-
-
-
 		String query;
 
 		if(!description.equals("")){
@@ -145,6 +143,26 @@ public class SessionRepository {
 
 				while(rs.next()) {
 					Session s = new Session();
+				
+				}
+			}
+		});
+	}
+		
+				
+				
+
+	public Session getSessionByID(String id) {
+		
+		System.out.println("ID = "+id);
+		String sql = "select * from session where session_id = '"+id+"'";
+		return jdbcTemplate.query(sql, new ResultSetExtractor<Session>() {
+
+			@Override
+			public Session extractData(ResultSet rs) throws SQLException, DataAccessException {
+				
+				Session s = new Session();
+				while(rs.next()) {					
 					s.setSession_id(rs.getString(1));
 					s.setSession_name(rs.getString(2));
 					s.setCapacity(rs.getInt(3));
@@ -153,24 +171,14 @@ public class SessionRepository {
 					s.setStart_time(rs.getString(6));
 					s.setEnd_time(rs.getString(7));
 					s.setActivity_id(rs.getString(8));
-					s.setInstructor_ssn(rs.getString(9));
 					s.setSession_date(rs.getDate(10));
-					s.setSession_description(rs.getString(11));
-					resultList.add(s);
-				}
-
-				return resultList;
+				}				
+				return s;
 			}
-
+			
 		});
-
-
-//		}
-//		catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-
-
 	}
-
 }
+
+
+			

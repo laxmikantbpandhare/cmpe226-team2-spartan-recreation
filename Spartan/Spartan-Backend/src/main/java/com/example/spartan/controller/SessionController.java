@@ -68,6 +68,11 @@ public class SessionController {
 		}
 	}
 	
+	@GetMapping("/{id}")
+	public Session getSessionByID(@PathVariable String id) {
+		return sessionRepo.getSessionByID(id);
+	}
+	
 	@GetMapping("/test")
 	public void testAPI() {
 		System.out.println("Welcome to Sessions");
