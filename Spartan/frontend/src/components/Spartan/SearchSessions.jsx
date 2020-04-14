@@ -67,14 +67,15 @@ class SearchSessions extends Component {
 
              const data = {
                 city : this.state.location,
-                endDate : this.state.endDate,
                 startDate : this.state.startDate,
+                endDate : this.state.endDate,
                 propertyDescription: this.state.propertyDescription
             }
 
+            console.log("data",data)
             localStorage.setItem('product_details', JSON.stringify(data));
            
-            axios.post( API_URL + `/search/property`,data)
+            axios.post( API_URL + `/sessions/search`,data)
                 .then(response => {
                     console.log("Status Code : ",response.status);
                     if(response.status === 200){
@@ -104,32 +105,32 @@ class SearchSessions extends Component {
         this.setState(change)
     }
 
-    componentDidMount(){
+    // componentDidMount(){
 
-        axios.get(API_URL + `/admin/date/`)
-        .then(response => {
-            console.log("Status Code : ", response.status);
-            if (response.status === 200) {
-                this.setState({
-                    currentdate: response.data,
-                    datefound: true
-                })
-                console.log("response data",response.data)
+    //         axios.get(API_URL + `/admin/date/`)
+    //         .then(response => {
+    //             console.log("Status Code : ", response.status);
+    //             if (response.status === 200) {
+    //                 this.setState({
+    //                     currentdate: response.data,
+    //                     datefound: true
+    //                 })
+    //                 console.log("response data",response.data)
 
-                if (!response.data) {
-                    alert("No Available Properties")
-                }
-            }
-            else {
-                this.setState({
-                    flag: false
-                })
-            }
-        })
-        .catch(err => {
-            alert(err);
-        });
-    }
+    //                 if (!response.data) {
+    //                     alert("No Available Properties")
+    //                 }
+    //             }
+    //             else {
+    //                 this.setState({
+    //                     flag: false
+    //                 })
+    //             }
+    //         })
+    //         .catch(err => {
+    //             alert(err);
+    //         });
+    // }
     
 
     render() {
@@ -146,7 +147,7 @@ class SearchSessions extends Component {
 
         return (
             <div>
-                {redirectvar}
+                {/* {redirectvar} */}
                 <div class="container-fluid">
                     <br />
                     <br />

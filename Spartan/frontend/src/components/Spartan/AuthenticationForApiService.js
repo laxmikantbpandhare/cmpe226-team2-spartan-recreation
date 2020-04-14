@@ -4,11 +4,12 @@ import { API_URL } from "../../Constants";
 export const AUTHENTICATED_USER_SESSION = "authenticatedUser";
 
 class AuthenticationForApiService {
-  authenticate(emailid,password) {
+  authenticate(email_id,password,role) {
     console.log("Authenticate call");
     return axios.post(`${API_URL}/authenticate`, {
-      emailid,  
-      password
+      email_id,  
+      password,
+      role
     });
   }
 

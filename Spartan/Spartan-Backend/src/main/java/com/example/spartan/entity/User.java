@@ -1,72 +1,67 @@
 package com.example.spartan.entity;
 public class User {
 
-    int id;
-    String firstname;
-    String lastname;
-    String phoneno;
-    String emailid;
-    String city;
-    String country;
+    String ssn;
+    String email_id;
+    String fname;
+    String lname;
+    String college_year;
     String password;
+    String user_role;
 
-    public int getId() {
-        return id;
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getEmail_id() {
+        return email_id;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setEmail_id(String email_id) {
+        this.email_id = email_id;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getFname() {
+        return fname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String getPhoneno() {
-        return phoneno;
+    public String getLname() {
+        return lname;
     }
 
-    public void setPhoneno(String phoneno) {
-        this.phoneno = phoneno;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public String getEmailid() {
-        return emailid;
+    public String getCollege_year() {
+        return college_year;
     }
 
-    public void setEmailid(String emailid) {
-        this.emailid = emailid;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCollege_year(String college_year) {
+        this.college_year = college_year;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUser_role() {
+        return user_role;
+    }
+
+    public void setUser_role(String user_role) {
+        this.user_role = user_role;
     }
 }

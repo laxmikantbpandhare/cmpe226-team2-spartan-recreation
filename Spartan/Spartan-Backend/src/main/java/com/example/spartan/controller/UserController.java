@@ -1,5 +1,6 @@
 package com.example.spartan.controller;
 
+import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +31,12 @@ public class  UserController {
 
 
     @PostMapping("/persons")
-    public Boolean createStudent(@RequestBody User person) {
-//        System.out.println("Thisis" + repo.findByEmail(person.getEmail()));
-//        Optional<User> p = Optional.ofNullable(repo.findByEmail(person.getEmail()));
-//        if (!p.isPresent()) {
+    public Boolean createStudent(@RequestBody Student person) {
 
-
-        System.out.println("email" + (person.getEmailid()));
-        System.out.println("city" + (person.getCity()));
-        System.out.println("firstname" + (person.getFirstname()));
-        System.out.println("lastname" + (person.getLastname()));
-        System.out.println("phoneno" + (person.getPhoneno()));
+        System.out.println("email" + (person.getEmail_id()));
+        System.out.println("city" + (person.getCollege_year()));
+        System.out.println("firstname" + (person.getFname()));
+        System.out.println("lastname" + (person.getLname()));
 
         return userRepository.saveUser(person);
 
@@ -50,11 +46,11 @@ public class  UserController {
 
 @CrossOrigin(origins="*")
     @PostMapping("/authenticate")
-    public boolean auth(@RequestBody User person) {
+    public boolean auth(@RequestBody Student person) {
 
-        System.out.println("email" + (person.getEmailid()));
+        System.out.println("email" + (person.getEmail_id()));
         System.out.println("passwrd" + (person.getPassword()));
-        String user_password = userRepository.getUserpPassword(person.getEmailid());
+        String user_password = userRepository.getUserpPassword(person.getEmail_id());
         System.out.println("DB passwrd" + (user_password));
 
         if (person.getPassword().equals(user_password))

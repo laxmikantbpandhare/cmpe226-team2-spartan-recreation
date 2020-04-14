@@ -15,6 +15,7 @@ public class Session {
 	String end_time; 
 	String activity_id;
 	String instructor_ssn;
+	String description;
 	
 	public Session() {
 		
@@ -22,7 +23,7 @@ public class Session {
 	
 	
 	public Session(String session_id, String session_name, int capacity, String section, int room_number,
-			String start_time, String end_time, String activity_id, String instructor_ssn , Date session_date) {
+			String start_time, String end_time, String activity_id, String instructor_ssn , Date session_date, String description) {
 		super();
 		this.session_id = session_id;
 		this.session_name = session_name;
@@ -37,6 +38,7 @@ public class Session {
 		this.end_time = end_time;
 		this.activity_id = activity_id;
 		this.instructor_ssn = instructor_ssn;
+		this.description = description;
 	}
 
 
@@ -138,11 +140,4 @@ public class Session {
 	public void setInstructor_ssn(String instructor_ssn) {
 		this.instructor_ssn = instructor_ssn;
 	}
-	
-	
-	
-	
-	
-	
-		
 }

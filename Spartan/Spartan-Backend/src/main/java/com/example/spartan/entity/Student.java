@@ -1,66 +1,67 @@
 package com.example.spartan.entity;
+public class Student {
 
-public class 	Student {
+	String ssn;
+	String email_id;
+	String fname;
+	String lname;
+	String college_year;
+	String password;
+	String user_role;
 
-	int sjsu_id;
-	String fname; 
-	String lname; 
-	String college_year; 
-	String password; 
-	String registered_by;
-	
-	
-	public Student() {}
-	
-	public Student(int sjsu_id, String fname, String lname, String college_year, String password, String registered_by) {
-		super();
-		this.sjsu_id = sjsu_id;
-		this.fname = fname;
-		this.lname = lname;
-		this.college_year = college_year;
-		this.password = password;
-		this.registered_by = registered_by;
+	public String getSsn() {
+		return ssn;
 	}
 
-	public int getSjsu_id() {
-		return sjsu_id;
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
 	}
-	public void setSjsu_id(int sjsu_id) {
-		this.sjsu_id = sjsu_id;
+
+	public String getEmail_id() {
+		return email_id;
 	}
+
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
+
 	public String getFname() {
 		return fname;
 	}
+
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
+
 	public String getLname() {
 		return lname;
 	}
+
 	public void setLname(String lname) {
 		this.lname = lname;
 	}
+
 	public String getCollege_year() {
 		return college_year;
 	}
+
 	public void setCollege_year(String college_year) {
 		this.college_year = college_year;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRegistered_by() {
-		return registered_by;
+
+	public String getUser_role() {
+		return user_role;
 	}
-	public void setRegistered_by(String registered_by) {
-		this.registered_by = registered_by;
+
+	public void setUser_role(String user_role) {
+		this.user_role = user_role;
 	}
-	
-	
-	
 }
-
-
