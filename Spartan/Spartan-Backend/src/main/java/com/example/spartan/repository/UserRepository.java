@@ -1,17 +1,17 @@
 package com.example.spartan.repository;
 
-import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.entity.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+
 
 @Repository
 public class UserRepository {
@@ -20,35 +20,33 @@ public class UserRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<User> getUser(){
-        return  jdbcTemplate.query("select firstname,lastname,city , country , phoneno,emailid,password from user",new UserRowMapper());
+        return  jdbcTemplate.query("select email_id,ssn,password,user_role from user",new UserRowMapper());
     }
 
-    public Boolean saveUser(Student user){
+    public boolean saveUser(Map<String, String> payload){
 
-        String query="insert into Student values(?,?,?,?,?,?,?)";
-        return jdbcTemplate.execute(query,new PreparedStatementCallback<Boolean>(){
-            @Override
-            public Boolean doInPreparedStatement(PreparedStatement ps)
-                    throws SQLException, DataAccessException {
+        SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("SP_CREATE_USER");
 
-                ps.setString(1,user.getSsn());
-                ps.setString(2,user.getEmail_id());
-                ps.setString(3,user.getFname());
-                ps.setString(4,user.getLname());
-                ps.setString(5,user.getCollege_year());
-                ps.setString(6,user.getPassword());
-                ps.setString(7,user.getUser_role());
-                return ps.execute();
+        SqlParameterSource paramMap = new MapSqlParameterSource()
+                .addValue("sp_email_id", payload.get(payload.keySet().toArray()[0]))
+                .addValue("sp_ssn", payload.get(payload.keySet().toArray()[1]))
+                .addValue("sp_firstname", payload.get(payload.keySet().toArray()[3]))
+                .addValue("sp_lastname", payload.get(payload.keySet().toArray()[2]))
+                .addValue("sp_year", payload.get(payload.keySet().toArray()[4]))
+                .addValue("sp_password", payload.get(payload.keySet().toArray()[5]))
+                .addValue("sp_role", payload.get(payload.keySet().toArray()[6]));
 
-            }
-        });
+        Boolean CallResult = call.executeFunction(Boolean.class, paramMap);
 
+        System.out.println("Status of saving to stored proc: " + CallResult);
+
+        return CallResult;
     }
 
-    //Priya
-    public String getUserpPassword(String Email_id) {
+    public String getUserPassword(String Email_id) {
 
-        String query = "SELECT password FROM Student WHERE email_id = ?";
+        String query = "SELECT password FROM User WHERE email_id = ?";
         Object[] inputs = new Object[] {Email_id};
         String password = jdbcTemplate.queryForObject(query, inputs, String.class);
 

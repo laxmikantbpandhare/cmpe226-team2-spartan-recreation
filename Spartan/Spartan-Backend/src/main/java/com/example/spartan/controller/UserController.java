@@ -1,16 +1,17 @@
 package com.example.spartan.controller;
 
-import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins="*")
 @RestController
-//@RequestMapping("/user")
 public class  UserController {
 
 //    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -19,39 +20,28 @@ public class  UserController {
     @Autowired
     UserRepository userRepository;
 
-//    @GetMapping("/test")
-//    public String test(){
-//        return "testing";
-//    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    private SimpleJdbcCall simpleJdbcCall;
 
    @GetMapping
     public List<User> getAllUsers(){
         return userRepository.getUser();
     }
 
-
     @PostMapping("/persons")
-    public Boolean createStudent(@RequestBody Student person) {
+    public Boolean createUser(@RequestBody Map<String, String> payload) {
 
-        System.out.println("email" + (person.getEmail_id()));
-        System.out.println("city" + (person.getCollege_year()));
-        System.out.println("firstname" + (person.getFname()));
-        System.out.println("lastname" + (person.getLname()));
-
-        return userRepository.saveUser(person);
-
+        boolean status = userRepository.saveUser(payload);
+        System.out.println("status"+status);
+        return status;
         }
-
-//priya
 
 @CrossOrigin(origins="*")
     @PostMapping("/authenticate")
-    public boolean auth(@RequestBody Student person) {
+    public boolean auth(@RequestBody User person) {
 
-        System.out.println("email" + (person.getEmail_id()));
-        System.out.println("passwrd" + (person.getPassword()));
-        String user_password = userRepository.getUserpPassword(person.getEmail_id());
-        System.out.println("DB passwrd" + (user_password));
+        String user_password = userRepository.getUserPassword(person.getEmail_id());
 
         if (person.getPassword().equals(user_password))
             return true;

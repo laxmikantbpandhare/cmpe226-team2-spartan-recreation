@@ -3,24 +3,18 @@ create database cmpe226_Spartan;
 use cmpe226_Spartan;
 
 create table user (
-	firstname	varchar(100) not null, 		
-	lastname	varchar(100) not null,
-	city varchar(100),
-	country varchar(100),
-    phoneno varchar(100),
-    emailid	varchar(100) not null,
-    password varchar(10) not null 
+	ssn	varchar(10) primary key, 
+	email_id	varchar(50) not null
 );
-
 
 create table student (
 	ssn	varchar(10) primary key, 
 	email_id	varchar(50) not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
-	college_year varchar(4) not null,
+	college_year varchar(15) not null,
 	password varchar(80) not null,
-    user_role varchar(10)
+    user_role varchar(25)
 	-- registered_by varchar(10)
 );
 
@@ -29,9 +23,9 @@ create table coach (
 	email_id	varchar(50) not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
-	joining_year varchar(4) not null,
+	joining_year varchar(15) not null,
 	password varchar(80) not null,
-    user_role varchar(10)
+    user_role varchar(25)
 );
 
 create table front_desk_assistant (
@@ -39,9 +33,9 @@ create table front_desk_assistant (
 	email_id	varchar(50) not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
-	joining_year varchar(4) not null,
+	joining_year varchar(15) not null,
 	password varchar(80) not null,
-    user_role varchar(10)
+    user_role varchar(25)
 );
 
 create table instructor (
@@ -49,9 +43,9 @@ create table instructor (
 	email_id	varchar(50) not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
-	joining_year varchar(4) not null,
+	joining_year varchar(15) not null,
 	password varchar(80) not null,
-    user_role varchar(10)
+    user_role varchar(25)
 );
 
 create table team (
@@ -105,4 +99,97 @@ alter table team add foreign key (activity_id) references activity(activity_id) 
 alter table team add foreign key (coach_ssn) references coach(ssn) on delete set null on update cascade;
 alter table session add foreign key (instructor_ssn) references instructor(ssn) on delete set null on update cascade;
 alter table session add foreign key (activity_id) references activity(activity_id) on delete set null on update cascade;
+
+
+delimiter $$
+create 
+#definer=`root`@`localhost` 
+procedure cmpe226_Spartan.sp_create_user(
+in sp_email_id varchar(50),
+in sp_ssn varchar(10),
+in sp_firstname varchar(50),
+in sp_lastname varchar(50),
+in sp_year varchar(15),
+in sp_password varchar(80),
+in sp_role varchar(25),
+OUT status_out BOOLEAN
+)
+begin
+
+DECLARE exit handler for sqlexception
+  BEGIN
+  SELECT 'Error occured';
+  ROLLBACK;
+  RESIGNAL;
+END;
+	
+SET status_out = FALSE;
+
+START TRANSACTION;
+    
+		if (select exists (select 1 from user where ssn = sp_ssn) ) then 
+			
+            if ( select exists (select 1 from user where ssn = sp_ssn) ) then
+					select 'User exists !!';
+			end if;
+        
+        else
+		
+			if TRIM(sp_role) like '%Student%' then 
+				select 'Student Insert!!';
+				insert into student (ssn, fname, lname, email_id,college_year, password,user_role) values (sp_ssn,sp_firstname, sp_lastname, sp_email_id,sp_year,sp_password,sp_role);
+				SET status_out = TRUE;
+				
+			elseif sp_role = 'Instructor' then 
+
+				insert into instructor (ssn, fname, lname, email_id, joining_year, password,user_role) values (sp_ssn,sp_firstname, sp_lastname, sp_email_id,sp_year,sp_password,sp_role);
+				SET status_out = TRUE;
+
+			elseif sp_role = 'Coach' then 
+			
+				insert into coach (ssn, fname, lname, email_id, joining_year, password,user_role) values (sp_ssn,sp_firstname, sp_lastname, sp_email_id,sp_year,sp_password,sp_role);
+				SET status_out = TRUE;
+			else
+				insert into front_desk_assistant (ssn, fname, lname, email_id, joining_year, password,user_role) values (sp_ssn,sp_firstname, sp_lastname, sp_email_id,sp_year,sp_password,sp_role);
+				SET status_out = TRUE;
+		
+		end if;
+	end if;
+    COMMIT;
+end$$
+delimiter ;
+
+delimiter $$
+create trigger InsertStudentTrigger after insert on Student
+for each row
+	begin
+		insert into user(ssn, email_id) values (new.ssn, new.email_id);
+	end$$
+delimiter ;
+
+delimiter $$
+create trigger InsertInstructorTrigger after insert on Instructor
+for each row
+	begin
+		insert into user(ssn, email_id) values (new.ssn, new.email_id);
+	end$$
+delimiter ;
+
+
+delimiter $$
+create trigger InsertCoachTrigger after insert on Coach
+for each row
+	begin
+		insert into user(ssn, email_id) values (new.ssn, new.email_id);
+	end$$
+delimiter ;
+
+
+delimiter $$
+create trigger InsertFDATrigger after insert on Front_desk_assistant
+for each row
+	begin
+		insert into user(ssn, email_id) values (new.ssn, new.email_id);
+	end$$
+delimiter ;
 
