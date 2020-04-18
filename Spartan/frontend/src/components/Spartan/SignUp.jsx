@@ -15,12 +15,13 @@ class SignUp extends Component {
       ssn: "",
       signup_status: "",
       hasFailed: false,
+      isDuplicateUser: false,
       showSuccessMessage: false,
       // phoneno: "",
       college_year: "",
       // city: "",
       expiryDate: "",
-      password: ""
+      password: "",
     };
     this.submitSignUp = this.submitSignUp.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -34,10 +35,9 @@ class SignUp extends Component {
     });
   };
 
-
   changeHandler = (name, e) => {
     this.setState({
-      [name]: e.target.value
+      [name]: e.target.value,
     });
   };
 
@@ -60,7 +60,7 @@ class SignUp extends Component {
       fname: this.state.fname,
       college_year: this.state.college_year,
       password: this.state.password,
-      user_role: this.state.role
+      user_role: this.state.role,
     };
     console.log("data", data);
     //set the with credentials to true
@@ -70,10 +70,17 @@ class SignUp extends Component {
       console.log("Status Code : ", response.status);
       if (response.status === 200) {
         console.log(response.data);
-        this.setState({
-          signup_status: response.data.message,
-          showSuccessMessage: true,
-        });
+        if (response.data) {
+          this.setState({
+            signup_status: response.data.message,
+            showSuccessMessage: true,
+          });
+        } else {
+          this.setState({
+            signup_status: "User already exists",
+            isDuplicateUser: true,
+          });
+        }
       } else {
         console.log(response.data.error);
         this.setState({
@@ -196,9 +203,6 @@ class SignUp extends Component {
                 </div>
 
                 <div className="row">
-                  
-                  
-
                   <div className="col-sm-6 col-md-6">
                     <div className="form-group">
                       <label htmlFor="where">
@@ -217,9 +221,6 @@ class SignUp extends Component {
                     </div>
                   </div>
 
-                  
-
-                
                   <div class="col-sm-6 col-md-6">
                     <div class="form-group">
                       <label for="where">
@@ -234,11 +235,13 @@ class SignUp extends Component {
                           <option value="Student">Student</option>
                           <option value="Coach">Coach</option>
                           <option value="Instructor">Instructor</option>
-                          <option value="Front Desk Assistant">Front Desk Assistant</option>
+                          <option value="Front Desk Assistant">
+                            Front Desk Assistant
+                          </option>
                         </select>
                       </div>
                     </div>
-                  </div>   
+                  </div>
 
                   <div className="col-sm-12 col-md-12 ">
                     <div className="form-group">
@@ -256,10 +259,9 @@ class SignUp extends Component {
                         required
                       />
                     </div>
-                  </div>               
-                
-                
-                <div className="col-sm-1 col-md-1"></div>
+                  </div>
+
+                  <div className="col-sm-1 col-md-1"></div>
                 </div>
 
                 <div className="row">
@@ -281,6 +283,12 @@ class SignUp extends Component {
                       User Creation Failed Check console for More Info.
                     </div>
                   )}
+                  {this.state.isDuplicateUser && (
+                    <div className="alert alert-warning">
+                      User already exists.
+                    </div>
+                  )}
+
                   {this.state.showSuccessMessage && (
                     <div className="alert alert-warning">
                       User Created Successfully
