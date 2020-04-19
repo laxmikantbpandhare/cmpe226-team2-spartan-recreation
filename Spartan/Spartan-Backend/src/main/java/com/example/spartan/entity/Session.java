@@ -42,6 +42,15 @@ public class Session {
 	}
 
 
+	@Override
+	public String toString() {
+
+
+		return this.session_date+" "+this.start_time+" "+this.end_time;
+
+	}
+
+
 	public Date getSession_date() {
 		return session_date;
 	}

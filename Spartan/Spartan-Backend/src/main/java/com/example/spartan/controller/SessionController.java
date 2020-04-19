@@ -29,13 +29,16 @@ public class SessionController {
 	@PostMapping("/new")
 	public ResponseEntity<String> createNewSession(@RequestBody Session session) {
 		System.out.println("New session to be created - \n"+ 
-							"name = "+session.getSession_name());
+							"name = "+session.getSession_name()+
+							" date ="+session.getSession_date());
 				
 		try {
 			sessionRepo.createSession(session);
+			System.out.println("SUCCESS");
 			return ResponseEntity.ok().body("");
 		}
-		catch(Exception e) {			
+		catch(Exception e) {		
+			e.printStackTrace();	
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getCause().toString());
 		}		
 	}

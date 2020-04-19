@@ -11,6 +11,7 @@ import SignUP from "./SignUp";
 import SerchSessions from "./SearchSessions"
 import SearchResults from "./SearchResults"
 import SessionsComponent from "./SessionsComponent";
+import SessionCreation from "./SessionCreation"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -28,8 +29,8 @@ class OpenHome extends Component {
               <Route path="/search/searchResults" component={SearchResults} />
               {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
-
-              <Route path = "/sessions" exact component = {SessionsComponent} />
+              <Route path = "/sessionCreation" exact component = {SessionCreation}/>
+              <Route path = "/sessionDetails" exact component = {SessionsComponent} />
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
