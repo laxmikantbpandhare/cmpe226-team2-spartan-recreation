@@ -26,6 +26,9 @@ class SearchSessions extends Component {
   SearchButton = (e) => {
     e.preventDefault();
 
+    // console.log("session email",sessionStorage.userEmail);
+    // console.log("session ssn",sessionStorage.ssn);
+
     var date1 = new Date(this.state.startDate);
     var date2 = new Date(this.state.endDate);
     var difference = date2 - date1;

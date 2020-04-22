@@ -1,14 +1,21 @@
 package com.example.spartan.repository;
 
+import com.example.spartan.entity.Session;
+import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.entity.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -44,9 +51,35 @@ public class UserRepository {
         return CallResult;
     }
 
+    public Student getUserDetails(String email_id) throws ParseException {
+
+
+        String sql = "select * from Student as s where s.email_id = '"+email_id+"'";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Student>() {
+
+            @Override
+            public Student extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+                Student s = new Student();
+                while(rs.next()) {
+                    s.setSsn(rs.getString(1));
+                    s.setUser_role(rs.getString(2));
+                    s.setLname(rs.getString(3));
+                    s.setFname(rs.getString(4));
+                    s.setEmail_id(rs.getString(5));
+                    s.setCollege_year(rs.getString(6));
+                    s.setPassword(rs.getString(7));
+                }
+                return s;
+            }
+
+        });
+    }
+
+
     public String getUserPassword(String Email_id) {
 
-        String query = "SELECT password FROM User WHERE email_id = ?";
+        String query = "SELECT password FROM Student WHERE email_id = ?";
         Object[] inputs = new Object[] {Email_id};
         String password = jdbcTemplate.queryForObject(query, inputs, String.class);
 

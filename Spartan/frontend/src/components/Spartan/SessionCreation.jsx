@@ -36,6 +36,9 @@ class SessionCreation extends Component {
 
     submitSession = (e) => {
 
+
+        // console.log(sessionStorage.userEmail);
+        // console.log(sessionStorage.ssn);
       const data = {           
         session_id : this.state.session_id,
         session_name : this.state.session_name,
