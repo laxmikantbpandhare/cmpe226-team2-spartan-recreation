@@ -94,18 +94,12 @@ public class SessionRepository {
 
 	public List<Session> getSessionList(Map<String, String> payload) throws ParseException {
 
-//		System.out.println("city"+payload.get(payload.keySet().toArray()[0]));
-//		System.out.println("endDate"+payload.get(payload.keySet().toArray()[1]));
-//		System.out.println("startDate"+payload.get(payload.keySet().toArray()[2]));
-//		System.out.println("payload.keySet().toArray()[0]"+payload.get(payload.keySet().toArray()[3]));
 
 
 //		try {
 				String city1 = (String)payload.get(payload.keySet().toArray()[0]);
 				String description = (String)payload.get(payload.keySet().toArray()[3]);
 				DateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-		//		System.out.println("city"+city);
-		//		System.out.println("descr"+description);
 
 				String sdate = payload.get(payload.keySet().toArray()[1]);
 				String edate = payload.get(payload.keySet().toArray()[2]);
@@ -113,14 +107,6 @@ public class SessionRepository {
 				java.util.Date start_date = sdf1.parse(sdate);
 				java.util.Date end_date = sdf1.parse(edate);
 
-		//			System.out.println("endDate"+start_date);
-		//			System.out.println("startDate"+end_date);
-
-
-		System.out.println("city"+payload.get(payload.keySet().toArray()[0]));
-		System.out.println("endDate"+payload.get(payload.keySet().toArray()[1]));
-		System.out.println("startDate"+payload.get(payload.keySet().toArray()[2]));
-		System.out.println("payload.keySet().toArray()[0]"+payload.get(payload.keySet().toArray()[3]));
 
 
 		String query;

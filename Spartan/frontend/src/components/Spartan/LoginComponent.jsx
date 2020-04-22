@@ -54,12 +54,12 @@ class LoginComponent extends Component {
           this.state.email,
           response.data.token
         );
-        sessionStorage.setItem("userEmail", response.data.email);
-        sessionStorage.setItem("userId", response.data.id);
-        sessionStorage.setItem("userRole", response.data.role);
-        sessionStorage.setItem("userName", response.data.name);
-        sessionStorage.setItem("JWT", response.data.token);
-        sessionStorage.setItem("verified", response.data.verified);
+        sessionStorage.setItem("userEmail", response.data.email_id);
+        sessionStorage.setItem("ssn", response.data.ssn);
+        // sessionStorage.setItem("userRole", response.data.role);
+        // sessionStorage.setItem("userName", response.data.name);
+        // sessionStorage.setItem("JWT", response.data.token);
+        // sessionStorage.setItem("verified", response.data.verified);
         /*if(response.data.role === "user"){
                     this.props.history.push(`/welcomeuser/${response.data.name}`)
                 }
@@ -70,8 +70,12 @@ class LoginComponent extends Component {
                     //this.props.history.push(`/welcome/${response.data.name}`)
                     console.log("submit login called")
                 }*/   
-        if(response.data){
+        console.log("lucky",response.data)
+        if(response.data.valid === "valid"){
           this.props.history.push(`/search`)
+        }
+        else {
+          this.setState({ hasLoginFailed: true });
         }
         console.log("submit login called");
       })
