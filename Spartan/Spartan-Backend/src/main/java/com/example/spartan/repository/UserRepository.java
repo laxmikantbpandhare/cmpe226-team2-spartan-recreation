@@ -1,6 +1,5 @@
 package com.example.spartan.repository;
 
-import com.example.spartan.entity.Session;
 import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.entity.UserRowMapper;

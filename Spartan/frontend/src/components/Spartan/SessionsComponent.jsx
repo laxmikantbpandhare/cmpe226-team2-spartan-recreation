@@ -64,6 +64,16 @@ class SessionDetails extends React.Component {
             sessionDate : "",
             instructorName : ""
         }
+        this.enrollStudent = this.enrollStudent.bind(this)
+    }
+
+    enrollStudent() {
+
+        const data = {
+            session_id : this.state.session_id,
+            capacity : this.state.capacity,
+            student_ssn : sessionStorage.getItem('ssn')
+        }
     }
 
 
@@ -95,7 +105,6 @@ class SessionDetails extends React.Component {
                 endTime : response.data.end_time,
                 sessionDate : response.data.session_date
             })
-
 
 
           })
@@ -158,7 +167,7 @@ class SessionDetails extends React.Component {
                         </Table>
                     </TableContainer> 
                     <CardActions>
-                        <Button className = {classes.btn} >Enroll</Button>
+                        <Button onClick={this.enrollStudent} className = {classes.btn} >Enroll</Button>
                     </CardActions>
                 </CardContent>
             </Card>   

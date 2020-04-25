@@ -18,7 +18,7 @@ class SessionCreation extends Component {
             start_time: "10:15",
             end_time: "12:00",
             activity_id: "2",
-            instructor_ssn : "123456789a",
+            instructor_ssn : "",
             session_date : "2020-08-23",
             session_description : ""
         }
@@ -48,14 +48,12 @@ class SessionCreation extends Component {
         start_time: this.state.start_time,
         end_time: this.state.end_time,
         activity_id: this.state.activity_id,
-        instructor_ssn : "123456789a",
+        instructor_ssn : sessionStorage.getItem('ssn'),
         session_date : this.state.session_date,
         session_description : this.state.session_description
     }
 
     
-
-
       axios.post(API_URL+"/sessions/new" , data).then( (response) => {
 
         if(response.status == 200) {
