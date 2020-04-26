@@ -155,9 +155,9 @@ public class SessionRepository {
 
 			@Override
 			public Session extractData(ResultSet rs) throws SQLException, DataAccessException {
-				
+
 				Session s = new Session();
-				while(rs.next()) {					
+				while (rs.next()) {
 					s.setSession_id(rs.getString(1));
 					s.setSession_name(rs.getString(2));
 					s.setCapacity(rs.getInt(3));
@@ -167,10 +167,9 @@ public class SessionRepository {
 					s.setEnd_time(rs.getString(7));
 					s.setActivity_id(rs.getString(8));
 					s.setSession_date(rs.getDate(10));
-				}				
+				}
 				return s;
 			}
-			
 		});
 	}
 }
