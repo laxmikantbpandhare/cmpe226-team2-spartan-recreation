@@ -40,8 +40,9 @@ public class  UserController {
         return status;
         }
 
+        
 @CrossOrigin(origins="*")
-    @PostMapping("/authenticate")
+    @PostMapping("/authenticateStudent")
     public  Map<String, String> auth(@RequestBody Student person) throws ParseException {
 
         String user_password = userRepository.getUserPassword(person.getEmail_id());
@@ -58,6 +59,6 @@ public class  UserController {
             return map;
         }
     }
-
+    
 
 }

@@ -1,7 +1,6 @@
 package com.example.spartan.entity;
 
 import java.sql.Date;
-import java.time.format.DateTimeFormatter;
 
 public class Session {
 

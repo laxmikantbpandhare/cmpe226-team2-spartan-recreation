@@ -25,6 +25,14 @@ public class SessionController {
 
 	@Autowired
 	SessionRepository sessionRepo;
+
+
+	@PostMapping("/enroll") 
+	public boolean enrollStudent() {
+
+		return true;
+	}
+
 	
 	@PostMapping("/new")
 	public ResponseEntity<String> createNewSession(@RequestBody Session session) {

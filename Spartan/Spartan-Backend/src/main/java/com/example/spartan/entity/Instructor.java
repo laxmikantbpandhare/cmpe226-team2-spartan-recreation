@@ -4,12 +4,29 @@ import java.sql.Date;
 
 public class Instructor {
 	
+	String email_id;
 	String ssn;
     String fname;
     String lname;
     String password; 
-    Date joining_date;
-    
+	Date joining_date;
+	String user_role;
+
+	public String getUser_role() {
+		return user_role;
+	}
+
+	public void setUser_role(String user_role) {
+		this.user_role = user_role;
+	}
+	
+	public String getEmail_id() {
+		return email_id;
+	}
+
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
      
 	public String getSsn() {
 		return ssn;
