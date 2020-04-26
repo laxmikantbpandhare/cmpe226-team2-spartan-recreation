@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -31,6 +32,8 @@ public class UserRepository {
 
     public boolean saveUser(Map<String, String> payload){
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(payload.get(payload.keySet().toArray()[5]));
         SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("SP_CREATE_USER");
 
@@ -40,7 +43,7 @@ public class UserRepository {
                 .addValue("sp_firstname", payload.get(payload.keySet().toArray()[3]))
                 .addValue("sp_lastname", payload.get(payload.keySet().toArray()[2]))
                 .addValue("sp_year", payload.get(payload.keySet().toArray()[4]))
-                .addValue("sp_password", payload.get(payload.keySet().toArray()[5]))
+                .addValue("sp_password", hashedPassword)
                 .addValue("sp_role", payload.get(payload.keySet().toArray()[6]));
 
         Boolean CallResult = call.executeFunction(Boolean.class, paramMap);

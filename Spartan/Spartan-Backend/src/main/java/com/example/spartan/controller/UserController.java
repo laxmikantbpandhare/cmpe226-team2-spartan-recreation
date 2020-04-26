@@ -6,6 +6,7 @@ import com.example.spartan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -41,7 +42,7 @@ public class  UserController {
         }
 
         
-@CrossOrigin(origins="*")
+    @CrossOrigin(origins="*")
     @PostMapping("/authenticateStudent")
     public  Map<String, String> auth(@RequestBody Student person) throws ParseException {
 
@@ -50,7 +51,10 @@ public class  UserController {
         Student s= userRepository.getUserDetails(person.getEmail_id());
         map.put("email_id", person.getEmail_id());
         map.put("ssn", s.getSsn());
-        if (person.getPassword().equals(user_password)){
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        boolean isPasswordMatch = encoder.matches(person.getPassword(), user_password);
+        if (isPasswordMatch){
             map.put("valid", "valid");
             return map;
         }
