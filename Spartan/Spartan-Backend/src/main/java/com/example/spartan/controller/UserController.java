@@ -14,6 +14,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.spartan.entity.Student;
+import com.example.spartan.entity.User;
+import com.example.spartan.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 @CrossOrigin(origins="*")
 @RestController
 public class  UserController {
@@ -24,11 +35,8 @@ public class  UserController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcCall simpleJdbcCall;
 
-   @GetMapping
+    @GetMapping
     public List<User> getAllUsers(){
         return userRepository.getUser();
     }
