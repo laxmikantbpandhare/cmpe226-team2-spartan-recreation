@@ -89,8 +89,6 @@ public class SessionRepository {
 
 	public List<Session> getSessionList(Map<String, String> payload) throws ParseException {
 
-
-
 //		try {
 				String city1 = (String)payload.get(payload.keySet().toArray()[0]);
 				String description = (String)payload.get(payload.keySet().toArray()[3]);
@@ -117,8 +115,6 @@ public class SessionRepository {
 
 			@Override
 			public List<Session> extractData(ResultSet rs) throws SQLException, DataAccessException {
-
-
 
 				List<Session> resultList = new ArrayList<Session>();
 

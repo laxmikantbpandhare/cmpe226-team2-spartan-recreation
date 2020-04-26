@@ -53,38 +53,51 @@ public class UserRepository {
         return CallResult;
     }
 
-    public Student getUserDetails(String email_id) throws ParseException {
+    public String getUserDetails(String email_id, String role) throws ParseException {
 
 
-        String sql = "select * from Student as s where s.email_id = '"+email_id+"'";
-        return jdbcTemplate.query(sql, new ResultSetExtractor<Student>() {
+        SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("sp_login_user");
 
-            @Override
-            public Student extractData(ResultSet rs) throws SQLException, DataAccessException {
+        SqlParameterSource paramMap = new MapSqlParameterSource()
+                .addValue("sp_email_id", email_id)
+                .addValue("sp_role", role);
 
-                Student s = new Student();
-                while(rs.next()) {
-                    s.setSsn(rs.getString(1));
-                    s.setUser_role(rs.getString(2));
-                    s.setLname(rs.getString(3));
-                    s.setFname(rs.getString(4));
-                    s.setEmail_id(rs.getString(5));
-                    s.setCollege_year(rs.getString(6));
-                    s.setPassword(rs.getString(7));
-                }
-                return s;
-            }
+        System.out.println("Callfdfd"+paramMap);
+        String CallResult = call.executeFunction(String.class, paramMap);
 
-        });
+        System.out.println("Callresu = "+CallResult);
+        return CallResult;
+
+//        String sql = "select * from Student as s where s.email_id = '"+email_id+"'";
+//        return jdbcTemplate.query(sql, new ResultSetExtractor<Student>() {
+//
+//            @Override
+//            public Student extractData(ResultSet rs) throws SQLException, DataAccessException {
+//
+//                Student s = new Student();
+//                while(rs.next()) {
+//                    s.setSsn(rs.getString(1));
+//                    s.setUser_role(rs.getString(2));
+//                    s.setLname(rs.getString(3));
+//                    s.setFname(rs.getString(4));
+//                    s.setEmail_id(rs.getString(5));
+//                    s.setCollege_year(rs.getString(6));
+//                    s.setPassword(rs.getString(7));
+//                }
+//                return s;
+//            }
+//
+//        });
     }
 
 
-    public String getUserPassword(String Email_id) {
+    public String getUserSSN(String Email_id) {
 
-        String query = "SELECT password FROM Student WHERE email_id = ?";
+        String query = "SELECT ssn FROM user WHERE email_id = ?";
         Object[] inputs = new Object[] {Email_id};
-        String password = jdbcTemplate.queryForObject(query, inputs, String.class);
+        String ssn = jdbcTemplate.queryForObject(query, inputs, String.class);
 
-        return password;
+        return ssn;
     }
 }
