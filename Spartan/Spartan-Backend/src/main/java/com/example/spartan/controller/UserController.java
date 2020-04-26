@@ -43,17 +43,23 @@ public class  UserController {
 
         
     @CrossOrigin(origins="*")
-    @PostMapping("/authenticateStudent")
-    public  Map<String, String> auth(@RequestBody Student person) throws ParseException {
+    @PostMapping("/authenticate")
+    public  Map<String, String> auth(@RequestBody Map<String, String> payload) throws ParseException {
+        System.out.println("payload"+payload);
+        String email_id = (String)payload.get(payload.keySet().toArray()[0]);
+        String password = (String)payload.get(payload.keySet().toArray()[1]);
+        String role = (String)payload.get(payload.keySet().toArray()[2]);
 
-        String user_password = userRepository.getUserPassword(person.getEmail_id());
+
         HashMap<String, String> map = new HashMap<>();
-        Student s= userRepository.getUserDetails(person.getEmail_id());
-        map.put("email_id", person.getEmail_id());
-        map.put("ssn", s.getSsn());
-
+        String s= userRepository.getUserDetails(email_id,role);
+        map.put("email_id", email_id);
+        // SSN ius required to store so that one can idetify the Current Logged in User
+        String ssn = userRepository.getUserSSN(email_id);
+        map.put("ssn", ssn);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        boolean isPasswordMatch = encoder.matches(person.getPassword(), user_password);
+        String hashedPassword = encoder.encode(password);
+        boolean isPasswordMatch = encoder.matches(password, s);
         if (isPasswordMatch){
             map.put("valid", "valid");
             return map;
