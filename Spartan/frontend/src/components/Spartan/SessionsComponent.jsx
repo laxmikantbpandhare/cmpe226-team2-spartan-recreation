@@ -62,7 +62,10 @@ class SessionDetails extends React.Component {
             startTime : "",
             endTime : "",
             sessionDate : "",
-            instructorName : ""
+            instructorName : "",
+            enrolled : false,
+            waitlisted : false,
+            enrollmentMessage : ""
         }
         this.enrollStudent = this.enrollStudent.bind(this)
     }
@@ -70,10 +73,29 @@ class SessionDetails extends React.Component {
     enrollStudent() {
 
         const data = {
-            session_id : this.state.session_id,
-            capacity : this.state.capacity,
-            student_ssn : sessionStorage.getItem('ssn')
+            session_id : 3,
+            // capacity : this.state.capacity,
+            capacity : 3,
+            // student_ssn : sessionStorage.getItem('ssn')
+            student_ssn : "3123456789"
         }
+
+        axios.post(API_URL+"/sessions/enroll" , data).then( (response) => {
+            console.log("Enrollment response",response);
+            if(response.data.includes('Enrolled')) {
+                this.setState({
+                    enrolled : true,
+                    enrollmentMessage : response.data.split('-')[1]
+                })
+            }
+            else if(response.data.includes('Waitlisted')) {
+                this.setState({
+                    waitlisted : true,
+                    enrollmentMessage : response.data.split('-')[1]
+                })
+            }
+
+        })
     }
 
 
@@ -92,7 +114,7 @@ class SessionDetails extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(API_URL +"/sessions/1")
+        axios.get(API_URL +"/sessions/3")
           .then( (response) => {
 
             
@@ -106,14 +128,10 @@ class SessionDetails extends React.Component {
                 sessionDate : response.data.session_date
             })
 
-
           })
           .catch( (error) => {
             console.log(error);
-          })
-
-         
-        
+          })       
     }
     
  
@@ -169,6 +187,14 @@ class SessionDetails extends React.Component {
                     <CardActions>
                         <Button onClick={this.enrollStudent} className = {classes.btn} >Enroll</Button>
                     </CardActions>
+                    <br />
+                {this.state.enrolled && (
+                  <div className="alert alert-warning">You have been successfully enrolled! You are at number {this.state.enrollmentMessage}</div>
+                )}
+                 <br />
+                {this.state.waitlisted && (
+                  <div className="alert alert-warning">You have been waitlisted! You are at number {this.state.enrollmentMessage}</div>
+                )}
                 </CardContent>
             </Card>   
          </div>
