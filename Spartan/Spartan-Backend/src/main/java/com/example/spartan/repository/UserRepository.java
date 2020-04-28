@@ -50,7 +50,23 @@ public class UserRepository {
 
         System.out.println("Status of saving to stored proc: " + CallResult);
 
+        //insert into student_registrations table {student_ssn , status (false) , registered_by}
+        String role = payload.get(payload.keySet().toArray()[6]);
+        if(role.toLowerCase().equals("student")) {
+            System.out.println("Inserting to student registrations!");
+            int result = jdbcTemplate.update("insert into student_registration(student_ssn,status) values(?,?)", 
+                    payload.get(payload.keySet().toArray()[1]) , 
+                    false);
+            
+            if( result == 0 ) {
+                System.out.println("No rows affected. Operation failed");
+                return false;
+            }
+        }
+
         return CallResult;
+
+        //
     }
 
     public String getUserDetails(String email_id, String role) throws ParseException {
