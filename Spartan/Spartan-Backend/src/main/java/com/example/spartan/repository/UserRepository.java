@@ -63,10 +63,10 @@ public class UserRepository {
                 .addValue("sp_email_id", email_id)
                 .addValue("sp_role", role);
 
-        System.out.println("Callfdfd"+paramMap);
+//        System.out.println("Callfdfd"+paramMap);
         String CallResult = call.executeFunction(String.class, paramMap);
 
-        System.out.println("Callresu = "+CallResult);
+//        System.out.println("Callresu = "+CallResult);
         return CallResult;
 
 //        String sql = "select * from Student as s where s.email_id = '"+email_id+"'";

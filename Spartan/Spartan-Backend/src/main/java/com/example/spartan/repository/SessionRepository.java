@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.example.spartan.entity.Enrollment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +19,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import com.example.spartan.entity.Session;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Repository
 public class SessionRepository {
@@ -26,26 +28,50 @@ public class SessionRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
     
-    public Boolean createSession(Session s) throws Exception {
+    public Boolean createSession(@RequestBody Map<String, String> payload) throws Exception {
     	String query="insert into session values(?,?,?,?,?,?,?,?,?,?,?)";
-    	
+
+		String session_id = (String)payload.get(payload.keySet().toArray()[0]);
+		String session_name = (String)payload.get(payload.keySet().toArray()[1]);
+		int capacity = Integer.parseInt(payload.get(payload.keySet().toArray()[2]));
+		String section = (String)payload.get(payload.keySet().toArray()[3]);
+		int room_no = Integer.parseInt(payload.get(payload.keySet().toArray()[4]));
+		String start_time = (String)payload.get(payload.keySet().toArray()[5]);
+		String end_time = (String)payload.get(payload.keySet().toArray()[6]);
+		String activity_id = (String)payload.get(payload.keySet().toArray()[7]);
+		String instructor_ssn = (String)payload.get(payload.keySet().toArray()[8]);
+		String date = (String)payload.get(payload.keySet().toArray()[10]);
+		String description = (String)payload.get(payload.keySet().toArray()[11]);
+
     	return jdbcTemplate.execute(query , new PreparedStatementCallback<Boolean>() {
 
 			@Override
 			public Boolean doInPreparedStatement(PreparedStatement ps) 
 					throws SQLException, DataAccessException {
+
+				ps.setString(1, session_id);
+				ps.setString(2, session_name);
+				ps.setInt(3 , capacity );
+				ps.setString(4, section);
+				ps.setInt(5, room_no);
+				ps.setString(6 , start_time);
+				ps.setString(7, end_time);
+				ps.setString(8, activity_id);
+				ps.setString(9, instructor_ssn);
+				ps.setString(10,date);
+				ps.setString(11,description);
 				
-				ps.setString(1, s.getSession_id());
-				ps.setString(2, s.getSession_name());
-				ps.setInt(3 , s.getCapacity() );
-				ps.setString(4, s.getSection());
-				ps.setInt(5, s.getRoom_number());
-				ps.setString(6 , s.getStart_time());
-				ps.setString(7, s.getEnd_time());
-				ps.setString(8, s.getActivity_id());
-				ps.setString(9, s.getInstructor_ssn());
-				ps.setString(10,s.getSession_date().toString());
-				ps.setString(11,s.getSession_description().toString());
+//				ps.setString(1, s.getSession_id());
+//				ps.setString(2, s.getSession_name());
+//				ps.setInt(3 , s.getCapacity() );
+//				ps.setString(4, s.getSection());
+//				ps.setInt(5, s.getRoom_number());
+//				ps.setString(6 , s.getStart_time());
+//				ps.setString(7, s.getEnd_time());
+//				ps.setString(8, s.getActivity_id());
+//				ps.setString(9, s.getInstructor_ssn());
+//				ps.setString(10,s.getSession_date().toString());
+//				ps.setString(11,s.getSession_description().toString());
                            
                 return ps.executeUpdate() > 0;
 							
@@ -85,6 +111,27 @@ public class SessionRepository {
 		});
 	}
 
+	public List<Enrollment> getEnrolledSessionByStudents(String student_ssn) {
+
+		String query = "select * from enrollment as e where e.student_id ='"+student_ssn+"'";
+
+		return jdbcTemplate.query(query, new ResultSetExtractor<List<Enrollment>>() {
+
+			@Override
+			public List<Enrollment> extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				List<Enrollment> resultList = new ArrayList<Enrollment>();
+				while(rs.next()) {
+					Enrollment s = new Enrollment();
+					s.setStudent_id(rs.getInt(1));
+					s.setSession_id(rs.getString(2));
+					resultList.add(s);
+				}
+				return resultList;
+			}
+		});
+	}
+
 
 
 	public List<Session> getSessionList(Map<String, String> payload) throws ParseException {
@@ -99,8 +146,6 @@ public class SessionRepository {
 				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 				java.util.Date start_date = sdf1.parse(sdate);
 				java.util.Date end_date = sdf1.parse(edate);
-
-
 
 		String query;
 

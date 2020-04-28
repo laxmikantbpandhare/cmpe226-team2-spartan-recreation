@@ -3,6 +3,8 @@ package com.example.spartan.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.example.spartan.entity.Enrollment;
+import com.example.spartan.mail.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,14 +57,24 @@ public class SessionController {
 
 	
 	@PostMapping("/new")
-	public ResponseEntity<String> createNewSession(@RequestBody Session session) {
+	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
 		System.out.println("New session to be created - \n"+ 
-							"name = "+session.getSession_name()+
-							" date ="+session.getSession_date());
+							"name = "+(String)payload.get(payload.keySet().toArray()[1])+
+							" date ="+(String)payload.get(payload.keySet().toArray()[10])+
+							"email="+(String)payload.get(payload.keySet().toArray()[9]));
 				
 		try {
-			sessionRepo.createSession(session);
+			sessionRepo.createSession(payload);
 			System.out.println("SUCCESS");
+
+			String receiver = (String)payload.get(payload.keySet().toArray()[9]);
+			if(!receiver.equals("")) {
+				SendMail y = new SendMail();
+				y.sendEmail("You have Created Session in Spartan Recreation", receiver,
+						"You have Created Session in Spartan Recreation with name "+ (String)payload.get(payload.keySet().toArray()[1])+"." +"\n\n For more details check your dashboard\n\n " +
+								"Thanks and Regards, \n Spartan Recreation Team");
+			}
+
 			return ResponseEntity.ok().body("");
 		}
 		catch(Exception e) {		
@@ -73,7 +85,7 @@ public class SessionController {
 		
 	@GetMapping("/instructor/{instructor_ssn}")
 	public List<Session> getSessionsForInstructor(@PathVariable String instructor_ssn) {
-		
+
 		try {
 			List<Session> result = sessionRepo.getSessionByInstructor(instructor_ssn);
 			System.out.println(result);
@@ -84,6 +96,18 @@ public class SessionController {
 		}
 	}
 
+	@GetMapping("/sessions/{student_ssn}")
+	public List<Enrollment> getEnrolledSessionsForStudent(@PathVariable String student_ssn) {
+
+		try {
+			List<Enrollment> result = sessionRepo.getEnrolledSessionByStudents(student_ssn);
+			System.out.println(result);
+			return result;
+		}
+		catch(Exception e) {
+			return null;
+		}
+	}
 
 	@PostMapping("/search")
 	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {
