@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AuthenticationForApiService from "./AuthenticationForApiService.js";
+import { recomposeColor } from "@material-ui/core";
 // import GoogleLogin from "react-google-login";
 // import { API_URL } from "../../Constants";
 // import axios from "axios";
@@ -14,6 +15,7 @@ class LoginComponent extends Component {
       role:"Student",
       hasLoginFailed: false,
       showSuccessMessage: false,
+      unregisteredUser : false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -73,6 +75,12 @@ class LoginComponent extends Component {
         console.log("lucky",response.data)
         if(response.data.valid === "valid"){
           this.props.history.push(`/search`)
+        }
+        else if(response.data.valid === "unregistered") {
+          console.log("User has not been registered yet");
+          this.setState({
+            unregisteredUser : true
+          })
         }
         else {
           this.setState({ hasLoginFailed: true });
@@ -194,6 +202,9 @@ class LoginComponent extends Component {
                 )}
                 {this.state.showSuccessMessage && (
                   <div className="alert alert-warning">Login Successful</div>
+                )}
+                 {this.state.unregisteredUser && (
+                  <div className="alert alert-warning">User is not approved yet</div>
                 )}
                 <br />
               </div>
