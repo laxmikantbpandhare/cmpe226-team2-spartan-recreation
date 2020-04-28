@@ -65,6 +65,14 @@ public class  UserController {
         // SSN ius required to store so that one can idetify the Current Logged in User
         String ssn = userRepository.getUserSSN(email_id);
         map.put("ssn", ssn);
+       
+        /*
+        if(role = student) 
+        check if status = true in student_registration
+        else 
+        return invalid
+        */
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(password);
         boolean isPasswordMatch = encoder.matches(password, s);
