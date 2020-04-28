@@ -49,12 +49,25 @@ create table instructor (
 );
 
 create table team (
-	team_id varchar(10) primary key, 
+	team_id  varchar(10) primary key, 
 	team_name varchar(50) not null,
     activity_id varchar(10),
     coach_ssn varchar(10),
 	year int default 2020
 );
+
+
+create table team_tryouts (
+	student_id varchar(10),
+	coach_ssn varchar(10),
+	team_id varchar(10) unique,
+	status char(8) not null check (status = 'approved' or status = 'rejected' or status = 'pending'),
+    foreign key (student_id) references student(ssn) on delete cascade on update cascade,
+	foreign key (coach_ssn) references coach(ssn) on delete set null on update cascade,
+    foreign key (team_id) references team(team_id) on delete cascade on update cascade
+);
+
+
 
 create table activity (
 	activity_id varchar(10) primary key,
@@ -82,16 +95,6 @@ create table enrollment (
 	list_order int not null,
     foreign key(student_id) references student(ssn) on delete cascade on update cascade,
 	foreign key(session_id) references session(session_id) on delete cascade on update cascade
-);
-
-create table team_tryouts (
-	student_id varchar(10),
-	coach_ssn varchar(10),
-	team_id varchar(10) unique,
-	status char(8) not null check (status = 'approved' or status = 'rejected'),
-    foreign key (student_id) references student(ssn) on delete cascade on update cascade,
-	foreign key (coach_ssn) references coach(ssn) on delete set null on update cascade,
-    foreign key (team_id) references team(team_id) on delete cascade on update cascade
 );
 
 -- alter table student add foreign key (registered_by) references front_desk_assistant(ssn) on delete set null on update cascade;
