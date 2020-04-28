@@ -17,6 +17,7 @@ class SignUp extends Component {
       hasFailed: false,
       isDuplicateUser: false,
       showSuccessMessage: false,
+      studentSignUp : false,
       // phoneno: "",
       college_year: "",
       // city: "",
@@ -68,6 +69,11 @@ class SignUp extends Component {
     //make a post request with the user data
     axios.post(API_URL + "/persons", data).then((response) => {
       console.log("Status Code : ", response.status);
+      if(data.user_role.includes("Student")) {
+        this.setState({
+          studentSignUp : true
+        });
+      }
       if (response.status === 200) {
         console.log(response.data);
         if (response.data) {
@@ -292,6 +298,11 @@ class SignUp extends Component {
                   {this.state.showSuccessMessage && (
                     <div className="alert alert-warning">
                       User Created Successfully
+                    </div>
+                  )}
+                  {this.state.studentSignUp && (
+                    <div className="alert alert-warning">
+                      Your registration is pending with a Front Desk Assistant
                     </div>
                   )}
                   <br />

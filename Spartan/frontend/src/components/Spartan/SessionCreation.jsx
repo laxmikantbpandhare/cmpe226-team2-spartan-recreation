@@ -49,6 +49,7 @@ class SessionCreation extends Component {
         end_time: this.state.end_time,
         activity_id: this.state.activity_id,
         instructor_ssn : sessionStorage.getItem('ssn'),
+        instructor_email : sessionStorage.getItem('userEmail'),
         session_date : this.state.session_date,
         session_description : this.state.session_description
     }
