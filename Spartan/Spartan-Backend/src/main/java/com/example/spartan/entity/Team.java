@@ -3,11 +3,11 @@ package com.example.spartan.entity;
 public class Team {
 
 	
-	String team_id;
-	String team_name;
-	String activity_id;
-	String coach_ssn; 
-	int year;
+	public String team_id;
+	public String team_name;
+	public String activity_id;
+	public String coach_ssn;
+	public int year;
 	
 	
 	public Team() {}

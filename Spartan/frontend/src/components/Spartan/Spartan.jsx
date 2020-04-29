@@ -8,10 +8,11 @@ import HeaderComponent from "./HeaderComponent";
 import LogoutComponent from "./LogoutComponent";
 import DashBoard from "./DashBoard";
 import SignUP from "./SignUp";
-import SerchSessions from "./SearchSessions"
-import SearchResults from "./SearchResults"
+import SerchSessions from "./SearchSessions";
+import SearchResults from "./SearchResults";
 import SessionsComponent from "./SessionsComponent";
-import SessionCreation from "./SessionCreation"
+import SessionCreation from "./SessionCreation";
+import TeamTryOut from "./TeamTryOut";
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -29,14 +30,23 @@ class OpenHome extends Component {
               <Route path="/search/searchResults" component={SearchResults} />
               {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
-              <Route path = "/sessionCreation" exact component = {SessionCreation}/>
-              <Route path = "/sessionDetails" exact component = {SessionsComponent} />
+              <Route
+                path="/sessionCreation"
+                exact
+                component={SessionCreation}
+              />
+              <Route
+                path="/sessionDetails"
+                exact
+                component={SessionsComponent}
+              />
+              <Route path="/teamTryOut" component={TeamTryOut} />
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
               {/* <Route path="/signup" component={SignUP} /> */}
               {/* <Route path="/welcomeuser/:name" component={WelcomeUser} /> */}
-            
+
               {/* <Route path="/property/new" component={CreateProperty} />
               <Route path="/userbilling" component={UserBilling} />
               <Route path="/hostbilling" component={HostBilling} />

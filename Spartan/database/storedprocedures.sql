@@ -5,6 +5,8 @@ drop trigger if exists InsertStudentTrigger;
 drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;
 drop trigger if exists InsertFDATrigger;
+
+
 delimiter $$
 create 
 #definer=`root`@`localhost` 
@@ -97,11 +99,6 @@ for each row
 	end$$
 delimiter ;
 
-
-
-
-
-
 delimiter $$
 create 
 #definer=`root`@`localhost` 
@@ -123,9 +120,9 @@ SET out_password = "";
 
 START TRANSACTION;
     
-		if (select not exists (select 1 from user where email_id != sp_email_id) ) then 
+		if (select not exists (select 1 from user where email_id = sp_email_id) ) then 
 			
-				if ( select NOT exists (select 1 from user where email_id != sp_email_id) ) then
+				if ( select NOT exists (select 1 from user where email_id = sp_email_id) ) then
 					select 'User Does Not exists !!';
                     SET out_password = "Not sp_login_userFound";
 				end if;
@@ -166,7 +163,9 @@ OUT status_out varchar(20)
 begin
 	declare enrolledCount int default 0;
     declare waitlisted int default 0;
+    
     select count(*) from cmpe226_spartan.enrollment where session_id = sp_sessionid into enrolledCount;
+    
     if enrolledCount < sp_capacity then
 		set enrolledCount = enrolledCount + 1;
 		insert into enrollment(student_id,session_id,status,list_order) values (sp_studentssn , sp_sessionid , 'enrolled' , enrolledCount);
