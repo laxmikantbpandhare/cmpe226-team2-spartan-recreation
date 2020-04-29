@@ -1,6 +1,7 @@
 drop PROCEDURE if exists sp_create_user;
 drop PROCEDURE if exists sp_login_user;
 drop PROCEDURE if exists sp_enroll_student;
+drop PROCEDURE if exists sp_approve_student;
 drop trigger if exists InsertStudentTrigger;
 drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;
@@ -177,4 +178,26 @@ begin
 		set status_out = concat('Waitlisted-',waitlisted);
 	end if;
 end$$
+delimiter ;
+
+
+delimiter $$ 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_approve_student`(
+in sp_studentssn varchar(10),
+in sp_fdassn varchar(10),
+out status_out boolean)
+BEGIN
+
+DECLARE exit handler for sqlexception
+  BEGIN
+  SELECT 'Error occured';
+  ROLLBACK;
+  RESIGNAL;
+END;
+
+UPDATE student_registration SET `status` = '1' WHERE student_ssn = sp_studentssn;
+UPDATE student_registration SET `registered_by` = sp_fdassn WHERE student_ssn = sp_studentssn;
+set status_out = TRUE;
+
+END$$
 delimiter ;
