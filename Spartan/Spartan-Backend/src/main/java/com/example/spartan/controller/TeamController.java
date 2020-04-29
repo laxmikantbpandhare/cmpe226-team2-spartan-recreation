@@ -2,10 +2,13 @@ package com.example.spartan.controller;
 
 
 import com.example.spartan.entity.Team;
+import com.example.spartan.mail.SendMail;
 import com.example.spartan.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +21,7 @@ public class TeamController {
     TeamRepository teamRepo;
 
     @PostMapping("/isregister")
-    public boolean getRegistrationStatus(@RequestBody Map<String, String> payload) {
+    public boolean getRegistrationStatus(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
             //String id = payload.get(payload.keySet().toArray()[0]);
 
             System.out.println("entered here");
@@ -32,7 +35,7 @@ public class TeamController {
 
             String receiver = (String)payload.get(payload.keySet().toArray()[1]);
 
-            /*if (status) {
+            if (status) {
                 if (!receiver.equals("")) {
                     SendMail y = new SendMail();
                     y.sendEmail("Team try out session registration", receiver,
@@ -40,18 +43,18 @@ public class TeamController {
                                     "Thanks and Regards, \n Spartan Recreation Team");
                 }
             }
-            else {*/
+            else {
 
-            //teamRepo.teamTryOutRegister(payload);
+            teamRepo.teamTryOutRegister(payload);
 
-           /*     if (!receiver.equals("")) {
+                if (!receiver.equals("")) {
                     SendMail y = new SendMail();
                     y.sendEmail("Team try out session registration", receiver,
                             "You have registered for the try out session of team " + (String) payload.get(payload.keySet().toArray()[1]) + "." + "\n\n For more details check your dashboard\n\n " +
                                     "Thanks and Regards, \n Spartan Recreation Team");
                 }
 
-            }*/
+            }
 
             //System.out.println(status);
             return true;

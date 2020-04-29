@@ -70,8 +70,8 @@ class TeamTryOut extends Component {
     console.log(sessionStorage);
 
     const data = {
-      student_ssn: "8888",
-      student_email: "priyachaitanya.yadav@sjsu.edu",
+      student_ssn: sessionStorage.getItem("ssn"),
+      student_email: sessionStorage.getItem("userEmail"),
       team_name: e.target.id,
     };
 
