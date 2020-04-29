@@ -13,6 +13,8 @@ import SearchResults from "./SearchResults";
 import SessionsComponent from "./SessionsComponent";
 import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
+import SessionCreation from "./SessionCreation"
+import PendingRegistrations from "./PendingRegistrations"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -30,6 +32,7 @@ class OpenHome extends Component {
               <Route path="/search/searchResults" component={SearchResults} />
               {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
+<<<<<<< HEAD
               <Route
                 path="/sessionCreation"
                 exact
@@ -41,6 +44,11 @@ class OpenHome extends Component {
                 component={SessionsComponent}
               />
               <Route path="/teamTryOut" component={TeamTryOut} />
+=======
+              <Route path = "/sessionCreation" exact component = {SessionCreation}/>
+              <Route path = "/sessionDetails" exact component = {SessionsComponent} />
+              <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
+>>>>>>> ee77596... Registration with FDA Part 3
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}

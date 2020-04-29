@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.10",
+    "@material-ui/icons": "^4.9.1",
     "@mobiscroll/react-lite": "^4.9.0",
     "@progress/kendo-react-dateinputs": "^3.9.0",
     "axios": "^0.18.1",
@@ -11,6 +12,7 @@
     "formik": "^1.5.1",
     "google-maps": "^3.3.0",
     "jquery": "^3.4.1",
+    "material-table": "^1.57.2",
     "moment": "^2.24.0",
     "rc-datetime-picker": "^1.6.1",
     "react": "^16.8.4",
