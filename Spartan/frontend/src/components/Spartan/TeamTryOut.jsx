@@ -63,29 +63,29 @@ class TeamTryOut extends Component {
     this.registerStudent = this.registerStudent.bind(this);
   }
 
-  registerStudent() {
-    /*const data = {
-      student_id: 8888,
-    };*/
+  registerStudent(e) {
+    console.log("entered");
+    console.log(e.target.id);
+    //console.log(this.event.target.id);
+    console.log(sessionStorage);
 
-    axios
-      .get(API_URL + "/teamTryOut/isregister", { id: 8888 })
-      .then((response) => {
-        console.log("Registration status", response);
-        if (response.data) {
-          this.setState({
-            alreadyregistered: true,
-          });
-        }
-      });
-  }
+    const data = {
+      student_ssn: "8888",
+      student_email: "priyachaitanya.yadav@sjsu.edu",
+      team_name: e.target.id,
+    };
 
-  /*componentWillMount() {
-    this.setState({
-      teamName: "Basketball",
-      coachName: "John Doe",
+    console.log("data", data);
+
+    axios.post(API_URL + "/teamTryOut/isregister", data).then((response) => {
+      console.log("Registration status", response);
+      if (response.data) {
+        this.setState({
+          alreadyregistered: true,
+        });
+      }
     });
-  }*/
+  }
 
   componentDidMount() {
     axios
@@ -101,6 +101,10 @@ class TeamTryOut extends Component {
       });
   }
 
+  OpenProperty = (property) => {
+    this.props.history.push(`/teamTryOut/isregister/${property.propertyId}`);
+  };
+
   render() {
     const { classes } = this.props;
     console.log("I am here in block", this.state.teamDetails);
@@ -112,9 +116,9 @@ class TeamTryOut extends Component {
           <td id="header"> {team[1]} </td>
           <td id="header"> {team[2]} </td>
           <CardActions>
-            <Button onClick={this.registerStudent} className={classes.btn}>
+            <button id={team[0]} onClick={this.registerStudent.bind(this)}>
               Register
-            </Button>
+            </button>
           </CardActions>
         </tr>
       );
