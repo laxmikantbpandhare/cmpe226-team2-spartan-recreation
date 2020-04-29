@@ -13,7 +13,6 @@ import SearchResults from "./SearchResults";
 import SessionsComponent from "./SessionsComponent";
 import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
-import SessionCreation from "./SessionCreation"
 import PendingRegistrations from "./PendingRegistrations"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
@@ -30,25 +29,12 @@ class OpenHome extends Component {
               <Route path="/signup" exact component={SignUP} />
               <Route path="/search" exact component={SerchSessions} />
               <Route path="/search/searchResults" component={SearchResults} />
+              <Route path="/teamTryOut" component={TeamTryOut} />
               {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
-<<<<<<< HEAD
-              <Route
-                path="/sessionCreation"
-                exact
-                component={SessionCreation}
-              />
-              <Route
-                path="/sessionDetails"
-                exact
-                component={SessionsComponent}
-              />
-              <Route path="/teamTryOut" component={TeamTryOut} />
-=======
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/sessionDetails" exact component = {SessionsComponent} />
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
->>>>>>> ee77596... Registration with FDA Part 3
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
@@ -57,7 +43,7 @@ class OpenHome extends Component {
 
               {/* <Route path="/property/new" component={CreateProperty} />
               <Route path="/userbilling" component={UserBilling} />
-              <Route path="/hostbilling" component={HostBilling} />
+              <Route path="/hostbilling" component={HostBilling} /> .
               <Route path="/property/:propertyId" component={PropertyDetails} />
               <Route path="/reservation/:propertyId" component={PropertyReservationDetails} /> */}
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
