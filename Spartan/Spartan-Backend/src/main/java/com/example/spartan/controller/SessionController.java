@@ -97,11 +97,24 @@ public class SessionController {
 	}
 
 	@GetMapping("/sessions/{student_ssn}")
-	public List<Enrollment> getEnrolledSessionsForStudent(@PathVariable String student_ssn) {
+	public List getEnrolledSessionsForStudent(@PathVariable String student_ssn) {
 
 		try {
-			List<Enrollment> result = sessionRepo.getEnrolledSessionByStudents(student_ssn);
+			List result = sessionRepo.getEnrolledSessionByStudents(student_ssn);
 			System.out.println(result);
+			return result;
+		}
+		catch(Exception e) {
+			return null;
+		}
+	}
+
+	@GetMapping("/enrolled/{session_id}")
+	public List getEnrolledStudentsForSession(@PathVariable String session_id) {
+		System.out.println("CALL COMING");
+		try {
+			List result = sessionRepo.getEnrolledStudentsForSession(session_id);
+			System.out.println("Result=="+result);
 			return result;
 		}
 		catch(Exception e) {

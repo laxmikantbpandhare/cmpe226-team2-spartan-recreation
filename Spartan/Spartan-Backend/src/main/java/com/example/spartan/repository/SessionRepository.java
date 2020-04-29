@@ -60,18 +60,6 @@ public class SessionRepository {
 				ps.setString(9, instructor_ssn);
 				ps.setString(10,date);
 				ps.setString(11,description);
-				
-//				ps.setString(1, s.getSession_id());
-//				ps.setString(2, s.getSession_name());
-//				ps.setInt(3 , s.getCapacity() );
-//				ps.setString(4, s.getSection());
-//				ps.setInt(5, s.getRoom_number());
-//				ps.setString(6 , s.getStart_time());
-//				ps.setString(7, s.getEnd_time());
-//				ps.setString(8, s.getActivity_id());
-//				ps.setString(9, s.getInstructor_ssn());
-//				ps.setString(10,s.getSession_date().toString());
-//				ps.setString(11,s.getSession_description().toString());
                            
                 return ps.executeUpdate() > 0;
 							
@@ -111,23 +99,62 @@ public class SessionRepository {
 		});
 	}
 
-	public List<Enrollment> getEnrolledSessionByStudents(String student_ssn) {
+	public List getEnrolledSessionByStudents(String student_ssn) {
 
-		String query = "select * from enrollment as e where e.student_id ='"+student_ssn+"'";
+		List studentsessionList = new ArrayList();
 
-		return jdbcTemplate.query(query, new ResultSetExtractor<List<Enrollment>>() {
+		String sql = "select s.session_name, s.section , s.room_number, s.start_time, s.end_time, s.session_date, s.session_description, e.list_order " +
+					 "from enrollment as e inner join session as s on e.session_id = s.session_id " +
+				     "where e.student_id = '"+student_ssn+"'";
 
+		return jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
 			@Override
-			public List<Enrollment> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			public List extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-				List<Enrollment> resultList = new ArrayList<Enrollment>();
-				while(rs.next()) {
-					Enrollment s = new Enrollment();
-					s.setStudent_id(rs.getInt(1));
-					s.setSession_id(rs.getString(2));
-					resultList.add(s);
+				while (rs.next()) {
+
+					List t = new ArrayList();
+					t.add(rs.getString(1));
+					t.add(rs.getString(2));
+					t.add(rs.getInt(3));
+					t.add(rs.getString(4));
+					t.add(rs.getString(5));
+					t.add(rs.getDate(6));
+					t.add(rs.getString(7));
+					t.add(rs.getInt(8));
+
+					studentsessionList.add(t);
 				}
-				return resultList;
+				return studentsessionList;
+			}
+		});
+	}
+
+
+	public List getEnrolledStudentsForSession(String session_id) {
+
+		List studentsessionList = new ArrayList();
+		String sql = "select s.email_id, s.fname , s.lname, s.college_year, e.status, e.list_order " +
+					 "from enrollment as e inner join student as s on e.student_id = s.ssn " +
+					 "where e.session_id = '"+session_id+"'";
+
+		return jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
+			@Override
+			public List extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				while (rs.next()) {
+
+					List t = new ArrayList();
+					t.add(rs.getString(1));
+					t.add(rs.getString(2));
+					t.add(rs.getString(3));
+					t.add(rs.getString(4));
+					t.add(rs.getString(5));
+					t.add(rs.getInt(6));
+
+					studentsessionList.add(t);
+				}
+				return studentsessionList;
 			}
 		});
 	}

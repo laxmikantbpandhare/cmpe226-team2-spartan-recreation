@@ -54,10 +54,10 @@ public class UserRepository {
         String role = payload.get(payload.keySet().toArray()[6]);
         if(role.toLowerCase().equals("student")) {
             System.out.println("Inserting to student registrations!");
-            int result = jdbcTemplate.update("insert into student_registration(student_ssn,status) values(?,?)", 
-                    payload.get(payload.keySet().toArray()[1]) , 
+                    int result = jdbcTemplate.update("insert into student_registration(student_ssn,status) values(?,?)",
+                    payload.get(payload.keySet().toArray()[1]) ,
                     false);
-            
+
             if( result == 0 ) {
                 System.out.println("No rows affected. Operation failed");
                 return false;
@@ -116,21 +116,4 @@ public class UserRepository {
 
         return ssn;
     }
-
-	public boolean verifyRegistration(String ssn) {
-
-        String query = "select student_ssn from student_registration where student_ssn = ? and status = true";
-        Object[] inputs = new Object[] {ssn};
-        String student_ssn = null;
-        try {
-            student_ssn = jdbcTemplate.queryForObject(query, inputs , String.class);
-            System.out.println("Student ssn from student_reg - "+student_ssn);
-            return true;
-        }
-        catch(DataAccessException e) {
-            return false;
-        }
-        
-    
-	}
 }
