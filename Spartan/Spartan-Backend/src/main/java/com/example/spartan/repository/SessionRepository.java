@@ -60,18 +60,6 @@ public class SessionRepository {
 				ps.setString(9, instructor_ssn);
 				ps.setString(10,date);
 				ps.setString(11,description);
-				
-//				ps.setString(1, s.getSession_id());
-//				ps.setString(2, s.getSession_name());
-//				ps.setInt(3 , s.getCapacity() );
-//				ps.setString(4, s.getSection());
-//				ps.setInt(5, s.getRoom_number());
-//				ps.setString(6 , s.getStart_time());
-//				ps.setString(7, s.getEnd_time());
-//				ps.setString(8, s.getActivity_id());
-//				ps.setString(9, s.getInstructor_ssn());
-//				ps.setString(10,s.getSession_date().toString());
-//				ps.setString(11,s.getSession_description().toString());
                            
                 return ps.executeUpdate() > 0;
 							
