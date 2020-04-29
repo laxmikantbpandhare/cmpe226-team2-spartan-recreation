@@ -58,25 +58,24 @@ public class  UserController {
         String password = (String)payload.get(payload.keySet().toArray()[1]);
         String role = (String)payload.get(payload.keySet().toArray()[2]);
 
+
         HashMap<String, String> map = new HashMap<>();
         String s= userRepository.getUserDetails(email_id,role);
         map.put("email_id", email_id);
         // SSN ius required to store so that one can idetify the Current Logged in User
         String ssn = userRepository.getUserSSN(email_id);
         map.put("ssn", ssn);
-        System.out.println("PERSON ROLE - "+role);
-        if(role.equals("Student")){
-            Boolean result = userRepository.verifyRegistration(ssn);
-            System.out.println("Student Registration = "+result);
-            if(!result) {
-                map.put("valid", "unregistered");
-                return map;
-            }
-        }
+
+        /*
+        if(role = student)
+        check if status = true in student_registration
+        else
+        return invalid
+        */
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(password);
-        boolean isPasswordMatch = encoder.matches(password, hashedPassword);
+        boolean isPasswordMatch = encoder.matches(password, s);
         if (isPasswordMatch){
             map.put("valid", "valid");
             return map;
