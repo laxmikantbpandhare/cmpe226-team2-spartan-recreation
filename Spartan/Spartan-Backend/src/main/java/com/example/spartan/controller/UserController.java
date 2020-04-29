@@ -1,24 +1,15 @@
 package com.example.spartan.controller;
 
-import com.example.spartan.entity.Student;
-import com.example.spartan.entity.User;
-import com.example.spartan.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,6 +76,8 @@ public class  UserController {
             return map;
         }
     }
+
+    
     
 
 }
