@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 //import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { API_URL } from "../../Constants";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 
@@ -14,6 +16,7 @@ class SessionDisplayInstructor extends Component {
         this.ChangeHandler = this.ChangeHandler.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.OpenProperty = this.OpenProperty.bind(this);
+        this.OpenPopUp = this.OpenPopUp.bind(this);
     }
 
     componentWillMount() {
@@ -52,6 +55,46 @@ class SessionDisplayInstructor extends Component {
         this.setState({sharingType: event.target.value});
     }
 
+    OpenPopUp = (property) => {
+        confirmAlert({
+            title: 'Drop Session',
+            message: 'Are you sure you want to delete this Created Session?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => {this.deleteSession(property);}
+              },
+              {
+                label: 'No',
+                onClick: () => {}
+              }
+            ]
+          });
+      };
+
+      deleteSession = (property) => {
+        console.log("ala ka",property)
+        let data = {
+           session_id : property.session_id,
+           ssn : sessionStorage.getItem('ssn'),
+           email: sessionStorage.getItem('userEmail')
+        }
+        console.log("data be",data)
+        axios.post(API_URL+`/sessions/removes/session`, data).then( (response) => {
+
+          if(response.status === 200) {
+            console.log("Success!", response)
+            window.location.reload();
+            
+          }
+          else{
+            console.log("Session creation failed!")
+          }
+  
+          console.log("Sent object",this.state);
+        })
+    };
+
 
     ChangeHandler(e) {
         let change = {}
@@ -75,7 +118,7 @@ class SessionDisplayInstructor extends Component {
                                 <h3>{property.propertyDescription}</h3><br></br>
                                 <p class="info"><strong>Session Name :</strong> {property.session_name} <strong> Session Capacity :</strong>  {property.capacity} </p>  
                                 <p class="info"> <strong> Session Description :</strong> {property.session_description}</p>
-                                <button class="btn btn-danger" name="BookButton"  onClick={this.OpenProperty}>
+                                <button class="btn btn-danger" name="BookButton"  onClick={() => this.OpenPopUp(property)}>
                                     <span>Drop Session</span>
                                 </button>
                             </div>
