@@ -90,6 +90,7 @@ public class SessionRepository {
 					s.setActivity_id(rs.getString(8));
 					s.setInstructor_ssn(instructor_ssn);
 					s.setSession_date(rs.getDate(10));
+					s.setSession_description(rs.getString(11));
 					resultList.add(s);
 				}
 				

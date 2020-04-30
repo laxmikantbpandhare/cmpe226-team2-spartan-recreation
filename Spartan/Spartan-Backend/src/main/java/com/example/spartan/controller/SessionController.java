@@ -111,7 +111,6 @@ public class SessionController {
 
 	@GetMapping("/enrolled/{session_id}")
 	public List getEnrolledStudentsForSession(@PathVariable String session_id) {
-		System.out.println("CALL COMING");
 		try {
 			List result = sessionRepo.getEnrolledStudentsForSession(session_id);
 			System.out.println("Result=="+result);

@@ -10,7 +10,7 @@ class SessionCreation extends Component {
     constructor(props) {
         super(props);
         this.state = {           
-            session_id : "3",
+            session_id : "10",
             session_name : "Spinning", 
             capacity: 20,
             section : "SpartanGym",
@@ -59,7 +59,7 @@ class SessionCreation extends Component {
 
         if(response.status == 200) {
           console.log("Success!")
-          
+          this.props.history.push(`/instructorDashboard`);
         }
         else{
           console.log("Session creation failed!")

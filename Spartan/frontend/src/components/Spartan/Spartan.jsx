@@ -13,6 +13,7 @@ import SearchResults from "./SearchResults";
 import SessionsComponent from "./SessionsComponent";
 import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
+import SessionDisplayInstructor from "./SessionDisplayInstructor";
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -28,11 +29,9 @@ class OpenHome extends Component {
               <Route path="/signup" exact component={SignUP} />
               <Route path="/search" exact component={SerchSessions} />
               <Route path="/search/searchResults" component={SearchResults} />
-              {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
               <Route
-                path="/sessionCreation"
-                exact
+                path="/instructorDashboard/sessionCreation"
                 component={SessionCreation}
               />
               <Route
@@ -40,18 +39,8 @@ class OpenHome extends Component {
                 exact
                 component={SessionsComponent}
               />
+              <Route path="/instructorDashboard" component={SessionDisplayInstructor} />
               <Route path="/teamTryOut" component={TeamTryOut} />
-              {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
-              <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
-              <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
-              {/* <Route path="/signup" component={SignUP} /> */}
-              {/* <Route path="/welcomeuser/:name" component={WelcomeUser} /> */}
-
-              {/* <Route path="/property/new" component={CreateProperty} />
-              <Route path="/userbilling" component={UserBilling} />
-              <Route path="/hostbilling" component={HostBilling} />
-              <Route path="/property/:propertyId" component={PropertyDetails} />
-              <Route path="/reservation/:propertyId" component={PropertyReservationDetails} /> */}
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
               <Route component={ErrorComponent} />
             </Switch>
