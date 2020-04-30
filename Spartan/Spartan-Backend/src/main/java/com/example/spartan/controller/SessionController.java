@@ -85,6 +85,32 @@ public class SessionController {
 		return CallResult;
 	}
 
+
+	@PostMapping("/removes/session")
+	public String removeSession(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+
+		System.out.println("session payload = "+payload);
+		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("SP_REMOVE_SESSION");
+
+		SqlParameterSource paramMap = new MapSqlParameterSource()
+				.addValue("sp_sessionid", payload.get(payload.keySet().toArray()[0]))
+				.addValue("sp_instructorssn", payload.get(payload.keySet().toArray()[1]));
+
+		String CallResult = call.executeFunction(String.class, paramMap);
+
+		System.out.println("Status remove of saving to stored proc: " + CallResult);
+		String receiver = (String)payload.get(payload.keySet().toArray()[2]);
+		if(!receiver.equals("")) {
+			SendMail y = new SendMail();
+			y.sendEmail("You have removed your Session from Spartan Recreation", receiver,
+					"You have removed your Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
+
+		return CallResult;
+	}
+
 	
 	@PostMapping("/new")
 	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
