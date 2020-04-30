@@ -15,7 +15,7 @@ import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
 import SessionDisplayInstructor from "./SessionDisplayInstructor";
 import StudentEnrolledSessions from "./StudentEnrolledSessions";
-import PendingRegistrations from "./PendingRegistrations"
+// import PendingRegistrations from "./PendingRegistrations"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -50,7 +50,7 @@ class OpenHome extends Component {
               <Route path="/login" component={LoginComponent} />
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/sessionDetails" exact component = {SessionsComponent} />
-              <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
+              {/* <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} /> */}
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}

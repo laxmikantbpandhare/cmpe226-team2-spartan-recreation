@@ -51,7 +51,6 @@ class StudentEnrolledSessions extends Component {
     }
 
     OpenProperty = (property) => {
-        console.log("alaka baba",property)
         confirmAlert({
             title: 'Drop Session',
             message: 'Are you sure you want to delete this Enrolled Session?',
@@ -72,7 +71,8 @@ class StudentEnrolledSessions extends Component {
 
           let data = {
              session_id : property[8],
-             ssn : sessionStorage.getItem('ssn')
+             ssn : sessionStorage.getItem('ssn'),
+             email: sessionStorage.getItem('userEmail')
           }
           
           axios.post(API_URL+`/sessions/removes/enroll`, data).then( (response) => {
