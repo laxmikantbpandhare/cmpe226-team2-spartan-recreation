@@ -26,7 +26,7 @@ class SessionDisplayInstructor extends Component {
       console.log("ssn",ssn)
       axios.get(API_URL+`/sessions/instructor/${ssn}`).then( (response) => {
 
-        if(response.status == 200) {
+        if(response.status === 200) {
           console.log("Success!", response)
           this.setState({
             information: response.data  ,
@@ -61,7 +61,6 @@ class SessionDisplayInstructor extends Component {
 
     render() {
 
-        let displayImage = null;
         let view = null;
         if(this.state.information.length>0)
         {

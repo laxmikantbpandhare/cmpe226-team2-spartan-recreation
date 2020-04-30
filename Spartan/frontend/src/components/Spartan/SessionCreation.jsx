@@ -3,7 +3,7 @@ import React, { Component } from "react";
 // import AuthenticationForApiService from './AuthenticationForApiService.js'
 import axios from "axios";
 import { API_URL } from "../../Constants";
-import { render } from "react-dom";
+//import { render } from "react-dom";
 
 class SessionCreation extends Component {
 
@@ -57,7 +57,7 @@ class SessionCreation extends Component {
     
       axios.post(API_URL+"/sessions/new" , data).then( (response) => {
 
-        if(response.status == 200) {
+        if(response.status === 200) {
           console.log("Success!")
           this.props.history.push(`/instructorDashboard`);
         }
