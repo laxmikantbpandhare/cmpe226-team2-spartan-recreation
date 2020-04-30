@@ -97,6 +97,14 @@ create table enrollment (
 	foreign key(session_id) references session(session_id) on delete cascade on update cascade
 );
 
+CREATE TABLE student_registration (
+  student_ssn varchar(10),
+  status boolean DEFAULT NULL,
+  registered_by varchar(10) DEFAULT NULL,
+  PRIMARY KEY (student_ssn),
+  FOREIGN KEY (registered_by) references front_desk_assistant(ssn)
+  );
+  
 -- alter table student add foreign key (registered_by) references front_desk_assistant(ssn) on delete set null on update cascade;
 alter table team add foreign key (activity_id) references activity(activity_id) on delete cascade on update cascade;
 alter table team add foreign key (coach_ssn) references coach(ssn) on delete set null on update cascade;

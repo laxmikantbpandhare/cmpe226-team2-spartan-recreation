@@ -15,6 +15,7 @@ import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
 import SessionDisplayInstructor from "./SessionDisplayInstructor";
 import StudentEnrolledSessions from "./StudentEnrolledSessions";
+import PendingRegistrations from "./PendingRegistrations"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -44,6 +45,23 @@ class OpenHome extends Component {
               <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />
               
               <Route path="/teamTryOut" component={TeamTryOut} />
+              <Route path="/teamTryOut" component={TeamTryOut} />
+              {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
+              <Route path="/login" component={LoginComponent} />
+              <Route path = "/sessionCreation" exact component = {SessionCreation}/>
+              <Route path = "/sessionDetails" exact component = {SessionsComponent} />
+              <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
+              {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
+              <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
+              <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
+              {/* <Route path="/signup" component={SignUP} /> */}
+              {/* <Route path="/welcomeuser/:name" component={WelcomeUser} /> */}
+
+              {/* <Route path="/property/new" component={CreateProperty} />
+              <Route path="/userbilling" component={UserBilling} />
+              <Route path="/hostbilling" component={HostBilling} /> .
+              <Route path="/property/:propertyId" component={PropertyDetails} />
+              <Route path="/reservation/:propertyId" component={PropertyReservationDetails} /> */}
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
               <Route component={ErrorComponent} />
             </Switch>
