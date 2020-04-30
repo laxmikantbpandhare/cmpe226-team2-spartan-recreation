@@ -40,7 +40,7 @@ public class SessionController {
 
 
 	@PostMapping("/enroll") 
-	public String enrollStudent(@RequestBody Map<String, String> payload) {
+	public String enrollStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 		
 		System.out.println("enrollment payload = "+payload);
 		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
@@ -53,6 +53,13 @@ public class SessionController {
 		
 				String CallResult = call.executeFunction(String.class, paramMap);
 
+		String receiver = (String)payload.get(payload.keySet().toArray()[3]);
+		if(!receiver.equals("")) {
+			SendMail y = new SendMail();
+			y.sendEmail("You have enrolled fro Session in Spartan Recreation", receiver,
+					"You have enrolled fro Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
 		System.out.println("Status of saving to stored proc: " + CallResult);
 
 		return CallResult;
@@ -90,6 +97,8 @@ public class SessionController {
 	public String removeSession(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 
 		System.out.println("session payload = "+payload);
+		List result = sessionRepo.getEnrolledStudentsForSession(payload.get(payload.keySet().toArray()[0]));
+		System.out.println("session payload result = "+result);
 		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("SP_REMOVE_SESSION");
 
@@ -107,6 +116,22 @@ public class SessionController {
 					"You have removed your Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
 							"Thanks and Regards, \n Spartan Recreation Team");
 		}
+
+
+		for(int i=0;i<result.size();i++){
+			List list = (List) result.get(i);
+			System.out.println("result = "+ result.get(i));
+			System.out.println("mail = "+ list.get(0));
+			String receiver1 = (String) list.get(0);
+			if(!receiver1.equals("")) {
+				SendMail y = new SendMail();
+				y.sendEmail("You have removed from enrolled Session", receiver1,
+						"You have removed from enrolled Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+								"Thanks and Regards, \n Spartan Recreation Team");
+			}
+		}
+
+
 
 		return CallResult;
 	}

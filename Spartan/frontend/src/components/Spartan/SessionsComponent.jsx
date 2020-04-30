@@ -76,8 +76,8 @@ class SessionDetails extends React.Component {
             session_id : 3,
             // capacity : this.state.capacity,
             capacity : 3,
-            // student_ssn : sessionStorage.getItem('ssn')
-            student_ssn : "3123456789"
+            student_ssn : sessionStorage.getItem('ssn'),
+            email: sessionStorage.getItem('userEmail')
         }
 
         axios.post(API_URL+"/sessions/enroll" , data).then( (response) => {
