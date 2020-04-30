@@ -65,7 +65,8 @@ class SessionDetails extends React.Component {
             instructorName : "",
             enrolled : false,
             waitlisted : false,
-            enrollmentMessage : ""
+            enrollmentMessage : "",
+            errorMessage : ""
         }
         this.enrollStudent = this.enrollStudent.bind(this)
     }
@@ -92,6 +93,12 @@ class SessionDetails extends React.Component {
                 this.setState({
                     waitlisted : true,
                     enrollmentMessage : response.data.split('-')[1]
+                })
+            }
+            else {
+                this.setState({
+                    errorMessage : true,
+                    enrollmentMessage : response.data
                 })
             }
 
@@ -194,6 +201,9 @@ class SessionDetails extends React.Component {
                  <br />
                 {this.state.waitlisted && (
                   <div className="alert alert-warning">You have been waitlisted! You are at number {this.state.enrollmentMessage}</div>
+                )}
+                 {this.state.errorMessage && (
+                  <div className="alert alert-warning">{this.state.enrollmentMessage}</div>
                 )}
                 </CardContent>
             </Card>   

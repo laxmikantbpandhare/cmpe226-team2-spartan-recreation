@@ -4,9 +4,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.example.spartan.database.MongoDB;
+// import com.example.spartan.database.MongoDB;
 import com.example.spartan.entity.Enrollment;
 import com.example.spartan.mail.SendMail;
+
+import org.bson.Document;
+// import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +30,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spartan.entity.Session;
 import com.example.spartan.repository.SessionRepository;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 import javax.mail.MessagingException;
 
@@ -39,6 +51,7 @@ public class SessionController {
 	JdbcTemplate jdbcTemplate;
 
 
+
 	@PostMapping("/enroll") 
 	public String enrollStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 		
@@ -51,15 +64,26 @@ public class SessionController {
 				.addValue("sp_capacity", payload.get(payload.keySet().toArray()[1]))
 				.addValue("sp_studentssn", payload.get(payload.keySet().toArray()[2]));
 		
-				String CallResult = call.executeFunction(String.class, paramMap);
 
-		String receiver = (String)payload.get(payload.keySet().toArray()[3]);
-		if(!receiver.equals("")) {
-			SendMail y = new SendMail();
-			y.sendEmail("You have enrolled fro Session in Spartan Recreation", receiver,
-					"You have enrolled fro Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
-							"Thanks and Regards, \n Spartan Recreation Team");
-		}
+		
+				String CallResult = "";
+				try {
+					CallResult = call.executeFunction(String.class, paramMap);
+					String receiver = (String)payload.get(payload.keySet().toArray()[3]);
+					if(!receiver.equals("")) {
+						SendMail y = new SendMail();
+						y.sendEmail("You have enrolled fro Session in Spartan Recreation", receiver,
+								"You have enrolled fro Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+										"Thanks and Regards, \n Spartan Recreation Team");
+					}
+				}
+				catch(Exception e){
+					if(e.getLocalizedMessage().toLowerCase().contains("duplicate")) {
+						CallResult = "You have already signed up for this session";
+					}
+					
+				}  
+				
 		System.out.println("Status of saving to stored proc: " + CallResult);
 
 		return CallResult;
