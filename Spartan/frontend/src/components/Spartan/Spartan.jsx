@@ -14,6 +14,7 @@ import SessionsComponent from "./SessionsComponent";
 import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
 import SessionDisplayInstructor from "./SessionDisplayInstructor";
+import StudentEnrolledSessions from "./StudentEnrolledSessions";
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -40,6 +41,8 @@ class OpenHome extends Component {
                 component={SessionsComponent}
               />
               <Route path="/instructorDashboard" component={SessionDisplayInstructor} />
+              <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />
+              
               <Route path="/teamTryOut" component={TeamTryOut} />
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
               <Route component={ErrorComponent} />

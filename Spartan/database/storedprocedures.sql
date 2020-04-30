@@ -1,6 +1,7 @@
 drop PROCEDURE if exists sp_create_user;
 drop PROCEDURE if exists sp_login_user;
 drop PROCEDURE if exists sp_enroll_student;
+drop PROCEDURE if exists sp_remove_enrolled_student;
 drop trigger if exists InsertStudentTrigger;
 drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;
@@ -176,5 +177,21 @@ begin
 		insert into enrollment(student_id,session_id,status,list_order) values (sp_studentssn , sp_sessionid , 'waitlist',waitlisted);
 		set status_out = concat('Waitlisted-',waitlisted);
 	end if;
+end$$
+delimiter ;
+
+delimiter $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_remove_enrolled_student`(
+in sp_sessionid varchar(10),
+in sp_studentssn varchar(10),
+OUT status_out varchar(20)
+)
+begin
+
+	SET status_out = false;
+	if sp_sessionid != "" and sp_studentssn != "" then 
+		delete from enrollment as e where e.session_id = sp_sessionid and e.student_id = sp_studentssn;
+		SET status_out = true;
+    end if;
 end$$
 delimiter ;

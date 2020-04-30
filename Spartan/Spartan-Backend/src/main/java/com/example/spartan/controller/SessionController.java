@@ -55,6 +55,24 @@ public class SessionController {
 		return CallResult;
 	}
 
+	@PostMapping("/removes/enroll")
+	public String removeEnrolledStudent(@RequestBody Map<String, String> payload) {
+
+		System.out.println("enrollment payload = "+payload);
+		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+					.withProcedureName("SP_REMOVE_ENROLLED_STUDENT");
+
+		SqlParameterSource paramMap = new MapSqlParameterSource()
+				.addValue("sp_sessionid", payload.get(payload.keySet().toArray()[0]))
+				.addValue("sp_studentssn", payload.get(payload.keySet().toArray()[1]));
+
+		String CallResult = call.executeFunction(String.class, paramMap);
+
+		System.out.println("Status of saving to stored proc: " + CallResult);
+
+		return CallResult;
+	}
+
 	
 	@PostMapping("/new")
 	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
@@ -120,6 +138,7 @@ public class SessionController {
 			return null;
 		}
 	}
+
 
 	@PostMapping("/search")
 	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {
