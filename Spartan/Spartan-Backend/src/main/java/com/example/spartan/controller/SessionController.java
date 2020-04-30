@@ -1,5 +1,6 @@
 package com.example.spartan.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.spartan.entity.Session;
 import com.example.spartan.repository.SessionRepository;
 
+import javax.mail.MessagingException;
+
 
 @CrossOrigin(origins="*")
 @RestController
@@ -37,7 +40,7 @@ public class SessionController {
 
 
 	@PostMapping("/enroll") 
-	public String enrollStudent(@RequestBody Map<String, String> payload) {
+	public String enrollStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 		
 		System.out.println("enrollment payload = "+payload);
 		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
@@ -50,7 +53,85 @@ public class SessionController {
 		
 				String CallResult = call.executeFunction(String.class, paramMap);
 
+		String receiver = (String)payload.get(payload.keySet().toArray()[3]);
+		if(!receiver.equals("")) {
+			SendMail y = new SendMail();
+			y.sendEmail("You have enrolled fro Session in Spartan Recreation", receiver,
+					"You have enrolled fro Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
 		System.out.println("Status of saving to stored proc: " + CallResult);
+
+		return CallResult;
+	}
+
+	@PostMapping("/removes/enroll")
+	public String removeEnrolledStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+
+		System.out.println("enrollment payload = "+payload);
+		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+					.withProcedureName("SP_REMOVE_ENROLLED_STUDENT");
+
+		SqlParameterSource paramMap = new MapSqlParameterSource()
+				.addValue("sp_sessionid", payload.get(payload.keySet().toArray()[0]))
+				.addValue("sp_studentssn", payload.get(payload.keySet().toArray()[1]));
+
+		String CallResult = call.executeFunction(String.class, paramMap);
+
+		System.out.println("Status remove of saving to stored proc: " + CallResult);
+		String receiver = (String)payload.get(payload.keySet().toArray()[2]);
+		if(!receiver.equals("")) {
+			SendMail y = new SendMail();
+			y.sendEmail("You have cancelled your Enrollment for the Session in Spartan Recreation", receiver,
+					"You have cancelled your Enrollment in Spartan Recreation for the session." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
+
+
+
+		return CallResult;
+	}
+
+
+	@PostMapping("/removes/session")
+	public String removeSession(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+
+		System.out.println("session payload = "+payload);
+		List result = sessionRepo.getEnrolledStudentsForSession(payload.get(payload.keySet().toArray()[0]));
+		System.out.println("session payload result = "+result);
+		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("SP_REMOVE_SESSION");
+
+		SqlParameterSource paramMap = new MapSqlParameterSource()
+				.addValue("sp_sessionid", payload.get(payload.keySet().toArray()[0]))
+				.addValue("sp_instructorssn", payload.get(payload.keySet().toArray()[1]));
+
+		String CallResult = call.executeFunction(String.class, paramMap);
+
+		System.out.println("Status remove of saving to stored proc: " + CallResult);
+		String receiver = (String)payload.get(payload.keySet().toArray()[2]);
+		if(!receiver.equals("")) {
+			SendMail y = new SendMail();
+			y.sendEmail("You have removed your Session from Spartan Recreation", receiver,
+					"You have removed your Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
+
+
+		for(int i=0;i<result.size();i++){
+			List list = (List) result.get(i);
+			System.out.println("result = "+ result.get(i));
+			System.out.println("mail = "+ list.get(0));
+			String receiver1 = (String) list.get(0);
+			if(!receiver1.equals("")) {
+				SendMail y = new SendMail();
+				y.sendEmail("You have removed from enrolled Session", receiver1,
+						"You have removed from enrolled Session in Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+								"Thanks and Regards, \n Spartan Recreation Team");
+			}
+		}
+
+
 
 		return CallResult;
 	}
@@ -111,7 +192,6 @@ public class SessionController {
 
 	@GetMapping("/enrolled/{session_id}")
 	public List getEnrolledStudentsForSession(@PathVariable String session_id) {
-		System.out.println("CALL COMING");
 		try {
 			List result = sessionRepo.getEnrolledStudentsForSession(session_id);
 			System.out.println("Result=="+result);
@@ -121,6 +201,7 @@ public class SessionController {
 			return null;
 		}
 	}
+
 
 	@PostMapping("/search")
 	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {

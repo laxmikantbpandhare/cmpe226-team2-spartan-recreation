@@ -1,11 +1,14 @@
 drop PROCEDURE if exists sp_create_user;
 drop PROCEDURE if exists sp_login_user;
 drop PROCEDURE if exists sp_enroll_student;
+drop PROCEDURE if exists sp_remove_enrolled_student;
+drop PROCEDURE if exists sp_remove_session;
 drop PROCEDURE if exists sp_approve_student;
 drop trigger if exists InsertStudentTrigger;
 drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;
 drop trigger if exists InsertFDATrigger;
+drop trigger if exists removeEnrolledStudents;
 
 
 delimiter $$
@@ -180,6 +183,45 @@ begin
 end$$
 delimiter ;
 
+delimiter $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_remove_enrolled_student`(
+in sp_sessionid varchar(10),
+in sp_studentssn varchar(10),
+OUT status_out varchar(20)
+)
+begin
+
+	SET status_out = false;
+	if sp_sessionid != "" and sp_studentssn != "" then 
+		delete from enrollment as e where e.session_id = sp_sessionid and e.student_id = sp_studentssn;
+		SET status_out = true;
+    end if;
+end$$
+delimiter ;
+
+delimiter $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_remove_session`(
+in sp_sessionid varchar(10),
+in sp_instructorssn varchar(10),
+OUT status_out varchar(20)
+)
+begin
+
+	SET status_out = false;
+	if sp_sessionid != "" and sp_instructorssn != "" then 
+		delete from session as s where s.session_id = sp_sessionid and s.instructor_ssn = sp_instructorssn;
+		SET status_out = true;
+    end if;
+end$$
+delimiter ;
+
+delimiter $$
+create trigger removeEnrolledStudents after delete on session
+for each row
+	begin
+		delete from enrollment as e where e.session_id = old.session_id;
+	end$$
+delimiter ;
 
 delimiter $$ 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_approve_student`(

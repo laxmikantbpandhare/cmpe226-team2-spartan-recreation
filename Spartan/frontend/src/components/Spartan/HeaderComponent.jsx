@@ -71,11 +71,10 @@ class HeaderComponent extends Component {
     render() {
         const isUserLoggedIn = AuthenticationForApiService.isUserLoggedIn();
         const isUserVerified = AuthenticationForApiService.isUserVerified();
-        console.log("isUserVerified",isUserVerified)
+        // console.log("isUserVerified",isUserVerified)
 
         return (
             <header>
-                {/* <nav className="navbar navbar-expand-md"> */}
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
                     <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/" className="navbar-brand">Spartan Recreation</a></div>
                     <ul className="navbar-nav">

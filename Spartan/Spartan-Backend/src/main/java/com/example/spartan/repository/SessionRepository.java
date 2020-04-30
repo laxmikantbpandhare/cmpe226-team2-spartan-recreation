@@ -90,6 +90,7 @@ public class SessionRepository {
 					s.setActivity_id(rs.getString(8));
 					s.setInstructor_ssn(instructor_ssn);
 					s.setSession_date(rs.getDate(10));
+					s.setSession_description(rs.getString(11));
 					resultList.add(s);
 				}
 				
@@ -103,7 +104,7 @@ public class SessionRepository {
 
 		List studentsessionList = new ArrayList();
 
-		String sql = "select s.session_name, s.section , s.room_number, s.start_time, s.end_time, s.session_date, s.session_description, e.list_order " +
+		String sql = "select s.session_name, s.section , s.room_number, s.start_time, s.end_time, s.session_date, s.session_description, e.list_order, s.session_id 	" +
 					 "from enrollment as e inner join session as s on e.session_id = s.session_id " +
 				     "where e.student_id = '"+student_ssn+"'";
 
@@ -122,6 +123,7 @@ public class SessionRepository {
 					t.add(rs.getDate(6));
 					t.add(rs.getString(7));
 					t.add(rs.getInt(8));
+					t.add(rs.getString(9));
 
 					studentsessionList.add(t);
 				}
