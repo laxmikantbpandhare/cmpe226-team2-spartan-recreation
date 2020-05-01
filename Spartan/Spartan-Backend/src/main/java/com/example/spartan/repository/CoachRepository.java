@@ -68,10 +68,7 @@ public class CoachRepository {
 
     public List getAllPendingRequests() {
 
-        String query = "select s.ssn, s.fname, s.lname, s.college_year, t.team_tryOutSession "+
-                "from student s ,team_tryouts tt, team t "+
-                "where s.ssn = tt.student_id and tt.status = 'pending'"+
-                "and  tt.session_id=t.session_id";
+        String query = "select ssn, fname, lname, college_year, team_tryOutSession from gettingRequests;";
 
         return jdbcTemplate.query(query, new ResultSetExtractor<List>() {
 

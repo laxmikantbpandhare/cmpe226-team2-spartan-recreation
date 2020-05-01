@@ -327,3 +327,10 @@ for each row
 		delete from team_tryouts as t where t.session_id = old.session_id;
 	end$$
 delimiter ;
+
+
+CREATE VIEW tryOutSessionDetails AS
+SELECT t.team_tryOutSession, CONCAT (c.fname, c.lname),t.year 
+FROM team t,coach c
+WHERE t.coach_ssn = c.ssn;
+
