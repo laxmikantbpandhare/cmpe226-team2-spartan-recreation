@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 //import axios from 'axios';
 
 
@@ -36,12 +36,15 @@ class SearchResults extends Component {
         }
     }
 
-
     OpenProperty = property => {
+        console.log("PROPERTY",property)
         this.setState({
             datatest: true,
         })
-        this.props.history.push(`/search/searchResult/${property.propertyId}`);
+        this.props.history.push({
+            pathname : "/sessionDetails",
+            search : "?session_id="+property.session_id
+        });
       };
 
     handleChange(event) {
