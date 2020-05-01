@@ -62,7 +62,7 @@ public class TeamRepository {
         List teamList = new ArrayList();
 
         //String sql = "select * from Team";
-        String sql = "select t.team_name, c.fname ,t.year from team t inner join coach c on t.coach_ssn = c.ssn";
+        String sql = "select team_tryOutSession,coach_name,year from tryOutSessionDetails;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
             @Override
             public List extractData(ResultSet rs) throws SQLException, DataAccessException {

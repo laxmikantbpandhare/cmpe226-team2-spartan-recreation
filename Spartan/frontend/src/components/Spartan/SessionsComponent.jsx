@@ -128,8 +128,7 @@ class SessionDetails extends React.Component {
         axios.get(API_URL +"/sessions/"+session_id_props)
           .then( (response) => {
 
-            
-            
+            console.log("RESPONSE" , response.data);
             this.setState({
                 session_id : session_id_props,
                 sessionName : response.data.session_name,
@@ -141,10 +140,19 @@ class SessionDetails extends React.Component {
                 sessionDate : response.data.session_date
             })
 
+            axios.get(API_URL+"/getInstructorName/"+response.data.instructor_ssn).then( (out) =>{
+                console.log("INST NAME" , out)
+                this.setState({
+                    instructorName : out.data
+                })
+            })
+
           })
           .catch( (error) => {
             console.log(error);
-          })       
+          })  
+          
+          
     }
     
  

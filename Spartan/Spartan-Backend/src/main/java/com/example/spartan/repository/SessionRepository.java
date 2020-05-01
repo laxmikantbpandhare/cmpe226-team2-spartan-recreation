@@ -250,7 +250,9 @@ public class SessionRepository {
 					s.setStart_time(rs.getString(6));
 					s.setEnd_time(rs.getString(7));
 					s.setActivity_id(rs.getString(8));
+					s.setInstructor_ssn(rs.getString(9));
 					s.setSession_date(rs.getDate(10));
+					
 				}
 				return s;
 			}
