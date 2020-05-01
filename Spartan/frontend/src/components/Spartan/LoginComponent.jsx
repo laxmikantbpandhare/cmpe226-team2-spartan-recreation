@@ -20,7 +20,6 @@ class LoginComponent extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.loginClicked = this.loginClicked.bind(this);
-    // this.responseGoogle = this.responseGoogle.bind(this);
   }
 
   handleChange(event) {
@@ -58,29 +57,16 @@ class LoginComponent extends Component {
         );
         sessionStorage.setItem("userEmail", response.data.email_id);
         sessionStorage.setItem("ssn", response.data.ssn);
-        // sessionStorage.setItem("userRole", response.data.role);
-        // sessionStorage.setItem("userName", response.data.name);
-        // sessionStorage.setItem("JWT", response.data.token);
-        // sessionStorage.setItem("verified", response.data.verified);
-        /*if(response.data.role === "user"){
-                    this.props.history.push(`/welcomeuser/${response.data.name}`)
-                }
-                if(response.data.role === "host"){
-                    this.props.history.push(`/hostdashboard/${response.data.name}`)
-                }
-                else{
-                    //this.props.history.push(`/welcome/${response.data.name}`)
-                    console.log("submit login called")
-                }*/   
-        console.log("lucky",response.data)
-        if(response.data.valid === "valid"){
-          this.props.history.push(`/search`)
+        sessionStorage.setItem("role", response.data.role);
+        if(response.data.role === "Student" && response.data.valid === "valid"){
+            this.props.history.push(`/search`)
         }
-        else if(response.data.valid === "unregistered") {
+        else if(response.data.role === "Instructor" && response.data.valid === "valid"){
+            this.props.history.push(`/instructorDashboard`)
+        } 
+        else if(response.data.valid === "invalid") {
           console.log("User has not been registered yet");
-          this.setState({
-            unregisteredUser : true
-          })
+          this.setState({ hasLoginFailed: true });
         }
         else {
           this.setState({ hasLoginFailed: true });

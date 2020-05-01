@@ -219,7 +219,7 @@ class WelcomeUser extends Component {
       <div style={{ backgroundColor: "white", opacity: 1, filter: "Alpha(opacity=100)", borderRadius: '10px' }}>
 
         <br />
-        <h2>Openhome User Dashboard</h2>
+        <h2>Spartan Student Dashboard</h2>
         <br />
         <h4>Welcome {this.props.match.params.name}</h4>
 

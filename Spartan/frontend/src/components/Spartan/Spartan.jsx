@@ -19,30 +19,31 @@ import PendingRegistrations from "./PendingRegistrations"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
-class OpenHome extends Component {
+class Spartan extends Component {
   render() {
     return (
-      <div className="OpenHomeApp">
+      <div className="SpartanRecreationApp">
         <Router>
           <>
             <HeaderComponent />
             <Switch>
               <Route path="/" exact component={DashBoard} />
-              <Route path="/signup" exact component={SignUP} />
+              <Route path="/signup"  component={SignUP} />
               <Route path="/search" exact component={SerchSessions} />
               <Route path="/search/searchResults" component={SearchResults} />
               <Route path="/login" component={LoginComponent} />
+              <Route path="/instructorDashboard/sessionCreation" component={SessionCreation}/>
+              <Route path="/sessionDetails"  component={SessionsComponent}/>
               <Route
                 path="/instructorDashboard/sessionCreation"
                 component={SessionCreation}
               />
               <Route path="/instructorDashboard" component={SessionDisplayInstructor} />
-              <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />
-              
-              <Route path="/teamTryOut" component={TeamTryOut} />
-              <Route path="/teamTryOut" component={TeamTryOut} />
-              {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
+              <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />   
+              <Route path="/  " component={TeamTryOut} />
               <Route path="/login" component={LoginComponent} />
+              <Route path = "/sessionCreation"  component = {SessionCreation}/>
+              <Route path = "/sessionDetails"  component = {SessionsComponent} />
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/sessionDetails" exact component = {SessionsComponent} />
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
@@ -67,4 +68,4 @@ class OpenHome extends Component {
   }
 }
 
-export default OpenHome;
+export default Spartan;
