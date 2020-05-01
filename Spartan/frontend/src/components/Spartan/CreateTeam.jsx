@@ -52,33 +52,96 @@ class CreateTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      teamName: "",
-      coachName: "",
-      year: "",
-      pending: false,
-      alreadyregistered: false,
-      registrationMessage: "",
       teamDetails: [],
-      teamname: ""
+      activity: "",
+      teamname: "",
+      teamname1: "",
+      teamname2: "",
+      teamname3: "",
+      teamname4: ""
     };
+    this.handleChange = this.handleChange.bind(this);
     this.registerStudent = this.registerStudent.bind(this);
   }
 
-  registerStudent(e) {
-    console.log("entered");
-    console.log(e.target.id);
-    //console.log(this.event.target.id);
-    console.log(sessionStorage);
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
 
+  registerStudent = property => {
+
+    console.log("DSFVGBS",property)
+
+
+    if(property === "Basketball"){
+
+      if(this.state.teamname1 === "")
+      {
+        alert(
+          "Please enter Teamname."
+        );
+      }
+      
+      // this.state.teamname =  this.state.teamname1;
+      this.setState({
+        teamname: this.state.teamname1 //,
+        // activity: 4
+      });
+    }
+    else if(property === "Football"){
+      if(this.state.teamname2 === "")
+      {
+        alert(
+          "Please enter Teamname."
+        );
+      }
+      this.setState({
+        teamname: this.state.teamname2,
+        activity: 5
+      });
+    }
+    else if(property === "Volleyball"){
+      if(this.state.teamname3 === "")
+      {
+        alert(
+          "Please enter Teamname."
+        );
+      }
+      this.setState({
+        teamname: this.state.teamname3,
+        activity: 6
+      });
+    }
+    else if(property === "Badminton"){
+      if(this.state.teamname4 === "")
+      {
+        alert(
+          "Please enter Teamname."
+        );
+      }
+      this.setState({
+        teamname: this.state.teamname4,
+        activity: 7
+      });
+    }
     const data = {
+      session_id : "10",
+      team_name: this.state.teamname,
+      activity_id: this.state.activity,
       student_ssn: sessionStorage.getItem("ssn"),
       student_email: sessionStorage.getItem("userEmail"),
-      team_name: e.target.id,
     };
 
+    console.log("data", this.state.teamname);
+    console.log("data", this.state.teamname1);
+    console.log("data", this.state.teamname2);
+    console.log("data", this.state.teamname3);
+    console.log("data", this.state.teamname4);
     console.log("data", data);
 
-    axios.post(API_URL + "/teamTryOut/isregister", data).then((response) => {
+    axios.post(API_URL + "/coaches/newTryOutSession", data).then((response) => {
       console.log("Registration status", response);
       if (response.data) {
         this.setState({
@@ -86,6 +149,7 @@ class CreateTeam extends Component {
         });
       }
     });
+
   }
 
   componentDidMount() {
@@ -102,46 +166,42 @@ class CreateTeam extends Component {
       });
   }
 
-  OpenProperty = (property) => {
-    this.props.history.push(`/teamTryOut/isregister/${property.propertyId}`);
-  };
 
   render() {
     const { classes } = this.props;
-    console.log("I am here in block", this.state.teamDetails);
-    let eachTeam = this.state.teamDetails.map((team) => {
-        if(team[0] !== "Yoga" && team[0] !== "Zumba" && team[0] !== "Fitness"){
-      return (
-        <tr>
-                <td>
-                  <div class="col-sm-12 col-md-12">
-                    <label for="where">
-                    </label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="where"
-                      placeholder="Team Name"
-                      name="email"
-                      value={this.state.teamname}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                  </td>
-                {/* </div> */}
+    // console.log("I am here in block", this.state.teamDetails);
+    // let eachTeam = this.state.teamDetails.map((team) => {
+    //     if(team[0] !== "Yoga" && team[0] !== "Zumba" && team[0] !== "Fitness"){
+    //   return (
+    //     <tr>
+    //             <td>
+    //               <div class="col-sm-12 col-md-12">
+    //                 <label for="where">
+    //                 </label>
+    //                 <input
+    //                   type="teamname"
+    //                   class="form-control"
+    //                   id={team[0]} 
+    //                   placeholder="Team Name"
+    //                   name="teamname"
+    //                   value={this.state.teamname}
+    //                   onChange={this.handleChange}
+    //                 />
+    //               </div>
+    //             </td>
 
-          <td id="header"> {team[0]} </td>
-          <td>
-          <CardActions>
-            <button id={team[0]} onClick={this.registerStudent.bind(this)}>
-              Registers
-            </button>
-          </CardActions>
-          </td>
-        </tr>
-      );
-    }
-    });
+    //       <td id="header"> {team[0]} </td>
+    //       <td>
+    //       <CardActions>
+    //         <button id={team[0]} onClick={() => this.registerStudent(team)}>
+    //           Registers
+    //         </button>
+    //       </CardActions>
+    //       </td>
+    //     </tr>
+    //   );
+    // }
+    // });
 
 
     return (
@@ -160,7 +220,121 @@ class CreateTeam extends Component {
                     <TableCell>ACTIVITY NAME</TableCell>
                     <TableCell>TEAM TRYOUT REGISTRATION</TableCell>
                   </TableRow>
-                      {eachTeam}
+                      {/* {eachTeam} */}
+                        
+                      <tr>
+                          <td>
+                            <div class="col-sm-12 col-md-12">
+                              <label for="where">
+                              </label>
+                              <input
+                                type="teamname1"
+                                class="form-control"
+                                id="teamname1"
+                                placeholder="Team Name"
+                                name="teamname1"
+                                value={this.state.teamname1}
+                                onChange={this.handleChange}
+                              />
+                            </div>
+                          </td>
+
+                          <td id="header"> Basketball </td>
+                          <td>
+                          <CardActions>
+                            <button id="Basketball" onClick={() => this.registerStudent("Basketball")}>
+                              Registers
+                            </button>
+                          </CardActions>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <div class="col-sm-12 col-md-12">
+                              <label for="where">
+                              </label>
+                              <input
+                                type="teamname2"
+                                class="form-control"
+                                id="teamname2"
+                                placeholder="Team Name"
+                                name="teamname2"
+                                value={this.state.teamname2}
+                                onChange={this.handleChange}
+                              />
+                            </div>
+                          </td>
+
+                          <td id="header"> Football </td>
+                          <td>
+                          <CardActions>
+                            <button id="Football" onClick={() => this.registerStudent("Football")}>
+                              Registers
+                            </button>
+                          </CardActions>
+                          </td>
+                        </tr>
+
+
+
+                        <tr>
+                          <td>
+                            <div class="col-sm-12 col-md-12">
+                              <label for="where">
+                              </label>
+                              <input
+                                type="teamname3"
+                                class="form-control"
+                                id="teamname3"
+                                placeholder="Team Name"
+                                name="teamname3"
+                                value={this.state.teamname3}
+                                onChange={this.handleChange}
+                              />
+                            </div>
+                          </td>
+
+                          <td id="header"> Volleyball </td>
+                          <td>
+                          <CardActions>
+                            <button id="Volleyball" onClick={() => this.registerStudent("Volleyball")}>
+                              Registers
+                            </button>
+                          </CardActions>
+                          </td>
+                        </tr>
+
+
+                        <tr>
+                          <td>
+                            <div class="col-sm-12 col-md-12">
+                              <label for="where">
+                              </label>
+                              <input
+                                type="teamname4"
+                                class="form-control"
+                                id="teamname4"
+                                placeholder="Team Name"
+                                name="teamname4"
+                                value={this.state.teamname4}
+                                onChange={this.handleChange}
+                              />
+                            </div>
+                          </td>
+
+                          <td id="header"> Badminton </td>
+                          <td>
+                          <CardActions>
+                            <button id="Badminton" onClick={() => this.registerStudent("Badminton")}>
+                              Registers
+                            </button>
+                          </CardActions>
+                          </td>
+                        </tr>
+
+
+
                 </TableBody>
               </Table>
             </TableContainer>

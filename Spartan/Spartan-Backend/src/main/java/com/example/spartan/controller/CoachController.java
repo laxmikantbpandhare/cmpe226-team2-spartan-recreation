@@ -1,6 +1,8 @@
 package com.example.spartan.controller;
 
 import com.example.spartan.entity.Coach;
+import com.example.spartan.entity.Session;
+import com.example.spartan.entity.Team;
 import com.example.spartan.mail.SendMail;
 import com.example.spartan.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,20 @@ public class CoachController {
 
 		}
 		
+	}
+
+
+	@GetMapping("/coach/{instructor_ssn}")
+	public List<Team> getSessionsForInstructor(@PathVariable String instructor_ssn) {
+
+		try {
+			List<Team> result = coachRepo.getSessionByInstructor(instructor_ssn);
+			System.out.println("results here"+result);
+			return result;
+		}
+		catch(Exception e) {
+			return null;
+		}
 	}
 	
 	/*@GetMapping("/test")

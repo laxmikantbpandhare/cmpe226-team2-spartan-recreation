@@ -56,11 +56,12 @@ create table team (
 	year int default 2020
 );
 
+-- ALTER TABLE team MODIFY COLUMN session_id INT auto_increment;
 
 create table team_tryouts (
 	student_id varchar(10),
 	coach_ssn varchar(10),
-	session_id varchar(10) unique,
+	session_id varchar(10),
 	status char(8) not null check (status = 'approved' or status = 'rejected' or status = 'pending'),
     PRIMARY KEY (student_id,session_id),
     foreign key (student_id) references student(ssn) on delete cascade on update cascade,
