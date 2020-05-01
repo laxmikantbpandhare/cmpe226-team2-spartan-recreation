@@ -122,4 +122,32 @@ public class CoachRepository {
         });
     }
 
+    public List getRegisteredStudentsForTryOut(String session_id) {
+
+        List studentsessionList = new ArrayList();
+
+        String sql = "select s.email_id, s.fname , s.lname, s.college_year, tt.status " +
+                "from team_tryouts as tt inner join student as s on tt.student_id = s.ssn " +
+                "where tt.session_id = '"+session_id+"'";
+
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
+            @Override
+            public List extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+                while (rs.next()) {
+
+                    List t = new ArrayList();
+                    t.add(rs.getString(1));
+                    t.add(rs.getString(2));
+                    t.add(rs.getString(3));
+                    t.add(rs.getString(4));
+                    t.add(rs.getString(5));
+
+                    studentsessionList.add(t);
+                }
+                return studentsessionList;
+            }
+        });
+    }
+
 }
