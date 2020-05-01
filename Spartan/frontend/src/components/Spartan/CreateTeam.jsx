@@ -52,32 +52,44 @@ class CreateTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      teamName: "",
-      coachName: "",
-      year: "",
-      pending: false,
-      alreadyregistered: false,
-      registrationMessage: "",
+      // coachName: "",
+      // year: "",
+      // pending: false,
+      // alreadyregistered: false,
+      // registrationMessage: "",
       teamDetails: [],
       teamname: ""
     };
+    this.handleChange = this.handleChange.bind(this);
     this.registerStudent = this.registerStudent.bind(this);
   }
 
-  registerStudent(e) {
-    console.log("entered");
-    console.log(e.target.id);
-    console.log(sessionStorage);
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
 
+  registerStudent = property => {
+
+    console.log(property)
+    if(this.state.teamname === "")
+    {
+      alert(
+        "Please enter Teamname."
+      );
+    }
     const data = {
+      session_id : "10",
+      team_name: this.state.teamname,
+      activity_id: property[1],
       student_ssn: sessionStorage.getItem("ssn"),
       student_email: sessionStorage.getItem("userEmail"),
-      team_name: e.target.id,
     };
 
     console.log("data", data);
 
-    axios.post(API_URL + "/teamTryOut/isregister", data).then((response) => {
+    axios.post(API_URL + "/coaches/newTryOutSession", data).then((response) => {
       console.log("Registration status", response);
       if (response.data) {
         this.setState({
@@ -85,6 +97,7 @@ class CreateTeam extends Component {
         });
       }
     });
+
   }
 
   componentDidMount() {
@@ -114,22 +127,21 @@ class CreateTeam extends Component {
                     <label for="where">
                     </label>
                     <input
-                      type="email"
+                      type="teamname"
                       class="form-control"
-                      id="where"
+                      id={team[0]} 
                       placeholder="Team Name"
-                      name="email"
+                      name="teamname"
                       value={this.state.teamname}
                       onChange={this.handleChange}
                     />
                   </div>
-                  </td>
-                {/* </div> */}
+                </td>
 
           <td id="header"> {team[0]} </td>
           <td>
           <CardActions>
-            <button id={team[0]} onClick={this.registerStudent.bind(this)}>
+            <button id={team[0]} onClick={() => this.registerStudent(team)}>
               Registers
             </button>
           </CardActions>

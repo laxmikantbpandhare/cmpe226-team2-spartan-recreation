@@ -17,6 +17,9 @@ import SessionDisplayInstructor from "./SessionDisplayInstructor";
 import StudentEnrolledSessions from "./StudentEnrolledSessions";
 import PendingRegistrations from "./PendingRegistrations"
 import CreateTeam from "./CreateTeam"
+import TeamDisplayCoach from "./TeamDisplayCoach"
+
+
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -43,11 +46,11 @@ class Spartan extends Component {
               <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />   
               <Route path="/teamTryOut" component={TeamTryOut} />  
               <Route path="/createteam" component={CreateTeam} />
+              <Route path="/teamdisplaycoach" component={TeamDisplayCoach} />
               <Route path="/login" component={LoginComponent} />
               <Route path = "/sessionCreation"  component = {SessionCreation}/>
               <Route path = "/sessionDetails"  component = {SessionsComponent} />
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
-              <Route path = "/sessionDetails" exact component = {SessionsComponent} />
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
