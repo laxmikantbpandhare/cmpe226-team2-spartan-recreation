@@ -193,7 +193,7 @@ public class SessionRepository {
 		String query;
 
 		if(!description.equals("")){
-			query = "select * from session as s where (s.session_name like '%"+city1+"%' AND s.session_date > '"+start_date1+"' AND s.session_date < '"+end_date1+"') OR s.session_description like '%"+description+"%'";
+			query = "select * from session as s where (s.session_name like '%"+city1+"%' AND s.session_date > '"+start_date1+"' AND s.session_date < '"+end_date1+"') AND s.session_description like '%"+description+"%'";
 		}else {
 			query = "select * from session as s where s.session_name like '%" + city1 + "%' AND s.session_date > '"+start_date1+"' AND s.session_date < '"+end_date1+"'";
 		}

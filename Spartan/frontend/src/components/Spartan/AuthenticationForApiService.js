@@ -20,12 +20,9 @@ class AuthenticationForApiService {
 
   logout() {
     sessionStorage.removeItem(AUTHENTICATED_USER_SESSION);
-    sessionStorage.removeItem("googleEmail");
-    sessionStorage.removeItem("googleName");
-    //sessionStorage.removeItem("userRole");
     sessionStorage.removeItem("userEmail");
-    sessionStorage.removeItem("userName");
-    //sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("ssn");
+    sessionStorage.removeItem("role");
   }
 
   isUserLoggedIn() {
@@ -35,11 +32,11 @@ class AuthenticationForApiService {
     return true;
   }
 
-  isUserVerified() {
-    let verified = sessionStorage.getItem("verified");
-    if (verified === "no") return false;
-    return true;
-  }
+  // isUserVerified() {
+  //   let verified = sessionStorage.getItem("verified");
+  //   if (verified === "no") return false;
+  //   return true;
+  // }
 
   getLoggedInUserName() {
     let user = sessionStorage.getItem(AUTHENTICATED_USER_SESSION);
