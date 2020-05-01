@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import AddBox from "@material-ui/icons/AddBox";
 import ThumbUp from "@material-ui/icons/ThumbUp"
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import Check from "@material-ui/ico npns/Check";
+import Check from "@material-ui/icons/Check";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import Clear from "@material-ui/icons/Clear";

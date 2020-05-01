@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+
 import com.example.spartan.database.MongoDB;
-// import com.example.spartan.database.MongoDB;
-import com.example.spartan.entity.Enrollment;
+import com.example.spartan.entity.Session;
 import com.example.spartan.mail.SendMail;
+import com.example.spartan.repository.SessionRepository;
+import com.mongodb.client.MongoCollection;
 
 import org.bson.Document;
-// import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,16 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.spartan.entity.Session;
-import com.example.spartan.repository.SessionRepository;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import javax.mail.MessagingException;
 
 
 @CrossOrigin(origins="*")
@@ -55,6 +45,16 @@ public class SessionController {
 	@PostMapping("/enroll") 
 	public String enrollStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 		
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		Session s = getSessionByID(payload.get(payload.keySet().toArray()[0]));
+		doc.append("api", "enroll")
+		.append("session", s.getSession_name())
+		.append("activity",s.getActivity_id())
+		.append("owner", s.getInstructor_ssn());
+		coll.insertOne(doc);
+
+		System.out.println("Session_id = "+payload.get(payload.keySet().toArray()[0]));
 		System.out.println("enrollment payload = "+payload);
 		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("SP_ENROLL_STUDENT");
@@ -63,12 +63,11 @@ public class SessionController {
 				.addValue("sp_sessionid", payload.get(payload.keySet().toArray()[0]))
 				.addValue("sp_capacity", payload.get(payload.keySet().toArray()[1]))
 				.addValue("sp_studentssn", payload.get(payload.keySet().toArray()[2]));
-		
-
-		
+	
 				String CallResult = "";
 				try {
 					CallResult = call.executeFunction(String.class, paramMap);
+					System.out.println("RESULT - "+CallResult);
 					String receiver = (String)payload.get(payload.keySet().toArray()[3]);
 					if(!receiver.equals("")) {
 						SendMail y = new SendMail();
@@ -141,7 +140,6 @@ public class SessionController {
 							"Thanks and Regards, \n Spartan Recreation Team");
 		}
 
-
 		for(int i=0;i<result.size();i++){
 			List list = (List) result.get(i);
 			System.out.println("result = "+ result.get(i));
@@ -163,6 +161,16 @@ public class SessionController {
 	
 	@PostMapping("/new")
 	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("api", "newSession")
+		.append("session", payload.get(payload.keySet().toArray()[1]))
+		.append("activity",payload.get(payload.keySet().toArray()[7]))
+		.append("location",payload.get(payload.keySet().toArray()[4]))
+		.append("owner", payload.get(payload.keySet().toArray()[8]));
+		coll.insertOne(doc);
+
 		System.out.println("New session to be created - \n"+ 
 							"name = "+(String)payload.get(payload.keySet().toArray()[1])+
 							" date ="+(String)payload.get(payload.keySet().toArray()[10])+
@@ -230,6 +238,12 @@ public class SessionController {
 	@PostMapping("/search")
 	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {
 
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("api", "search")
+		.append("query", payload.get(payload.keySet().toArray()[3]));
+		coll.insertOne(doc);
+		
 		try {
 			System.out.println("payload"+payload);
 			List<Session> result = sessionRepo.getSessionList(payload);
