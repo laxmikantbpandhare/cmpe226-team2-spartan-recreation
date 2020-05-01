@@ -2,11 +2,6 @@ drop database if exists cmpe226_Spartan;
 create database cmpe226_Spartan;
 use cmpe226_Spartan;
 
-create table user (
-	ssn	varchar(10) primary key, 
-	email_id	varchar(50) not null
-);
-
 create table student (
 	ssn	varchar(10) primary key, 
 	email_id	varchar(50) not null, 
@@ -48,9 +43,14 @@ create table instructor (
     user_role varchar(25)
 );
 
+create table user (
+	ssn	varchar(10) primary key, 
+	email_id	varchar(50) not null
+);
+
 create table team (
-	team_id  varchar(10) primary key, 
-	team_name varchar(50) not null,
+	session_id  varchar(10) primary key, 
+	team_tryOutSession varchar(50) not null,
     activity_id varchar(10),
     coach_ssn varchar(10),
 	year int default 2020
@@ -60,13 +60,13 @@ create table team (
 create table team_tryouts (
 	student_id varchar(10),
 	coach_ssn varchar(10),
-	team_id varchar(10) unique,
+	session_id varchar(10) unique,
 	status char(8) not null check (status = 'approved' or status = 'rejected' or status = 'pending'),
+    PRIMARY KEY (student_id,session_id),
     foreign key (student_id) references student(ssn) on delete cascade on update cascade,
 	foreign key (coach_ssn) references coach(ssn) on delete set null on update cascade,
-    foreign key (team_id) references team(team_id) on delete cascade on update cascade
+    foreign key (session_id) references team(session_id) on delete cascade on update cascade
 );
-
 
 
 create table activity (

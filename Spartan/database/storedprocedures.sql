@@ -103,6 +103,41 @@ for each row
 	end$$
 delimiter ;
 
+
+delimiter $$
+create trigger deletStudentTrigger before delete on Student
+for each row
+	begin
+		delete from user where ssn = old.ssn;
+	end$$
+delimiter ;
+
+delimiter $$
+create trigger deleteInstructorTrigger before delete on Instructor
+for each row
+	begin
+		delete from user where ssn = old.ssn;
+	end$$
+delimiter ;
+
+
+delimiter $$
+create trigger deleteCoachTrigger before delete on Coach
+for each row
+	begin
+		delete from user where ssn = old.ssn;
+	end$$
+delimiter ;
+
+
+delimiter $$
+create trigger deleteFDATrigger before delete on Front_desk_assistant
+for each row
+	begin
+		delete from user where ssn = old.ssn;
+	end$$
+delimiter ;
+
 delimiter $$
 create 
 #definer=`root`@`localhost` 
@@ -239,6 +274,29 @@ END;
 
 UPDATE student_registration SET `status` = '1' WHERE student_ssn = sp_studentssn;
 UPDATE student_registration SET `registered_by` = sp_fdassn WHERE student_ssn = sp_studentssn;
+set status_out = TRUE;
+
+END$$
+delimiter ;
+
+
+delimiter $$ 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_approve_tryOutRequest`(
+in sp_studentssn varchar(10),
+in sp_session_id varchar(10),
+in sp_decision varchar(10),
+out status_out boolean)
+BEGIN
+
+DECLARE exit handler for sqlexception
+  BEGIN
+  SELECT 'Error occured';
+  ROLLBACK;
+  RESIGNAL;
+END;
+
+UPDATE team_tryouts SET `status` = sp_decision WHERE student_ssn = sp_studentssn and session_id = sp_session_id;
+
 set status_out = TRUE;
 
 END$$
