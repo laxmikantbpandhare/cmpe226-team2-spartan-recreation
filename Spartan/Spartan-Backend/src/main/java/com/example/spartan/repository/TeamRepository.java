@@ -91,6 +91,30 @@ public class TeamRepository {
 
     }
 
+    public List getActivity() {
+
+        List teamList = new ArrayList();
+
+        String sql = "select activity_name,activity_id from activity";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
+            @Override
+            public List extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+                while (rs.next()) {
+
+                    List t = new ArrayList();
+                    t.add(rs.getString(1));
+                    t.add(rs.getString(2));
+
+                    teamList.add(t);
+                }
+
+                return teamList;
+            }
+        });
+
+    }
+
     public void teamTryOutRegister(@RequestBody Map<String, String> payload) {
 
         //insert into team_tryouts table {student_id , coach_ssn, team_id, status (pending)}

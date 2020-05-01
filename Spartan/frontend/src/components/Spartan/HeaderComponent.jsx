@@ -53,44 +53,22 @@ class HeaderComponent extends Component {
         }
   }
 
-  changeTime = (e) => {
-   
-    console.log("changeTime login called")
-  //  var headers = new Headers();
-    //prevent page from refresh
-    e.preventDefault();
- 
-    axios.post(API_URL + `/admin/time/addoffset/${this.state.hours}/${this.state.mins}`)
-        .then((response) => {
-            console.log("Status Code : ", response.status);
-            console.log("response : ", response);
-        });
-}
 
 
     render() {
         const isUserLoggedIn = AuthenticationForApiService.isUserLoggedIn();
-        const isUserVerified = AuthenticationForApiService.isUserVerified();
-        // console.log("isUserVerified",isUserVerified)
-
-        return (
-            <header>
-                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                    <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/" className="navbar-brand">Spartan Recreation</a></div>
+        var role = sessionStorage.getItem('role');
+        console.log(role);
+        let display = null;
+        if(role === "Student"){
+                display = (
+                    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/search" className="navbar-brand">Spartan Recreation</a></div>
                     <ul className="navbar-nav">
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/welcome">Home</Link></li>}
-                       
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/search">Home</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/StudentEnrolledSessions">Enrolled Sessions</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/teamTryOut">Team Tryouts</Link></li>}
                         <li><Link className="nav-link" to=""><font color="red">Current Time: {this.state.date}</font></Link></li>
-                        <li>
-                            <form onSubmit={this.changeTime}>
-                            {/* <h7 style={{ backgroundColor: "powderblue" }}>Hours:</h7>
-                            <input type="number" name="hours" value={this.state.hours} onChange={this.handleChange} required />    
-                            <h7 style={{ backgroundColor: "powderblue" }}>Mins:</h7> */}
-                            {/* <input type="number" name="mins" value={this.state.mins} onChange={this.handleChange} required />   */}
-                            {/* &nbsp;<input type="submit" className="btn btn-danger" /> */}
-                            </form>
-                        </li>
-                       {!isUserVerified && <li><h7 style={{ backgroundColor: "powderblue" }}>Email Not Verified</h7></li>}
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                     {!isUserLoggedIn && <li><Link className="nav-link" to="/signup"  onClick={AuthenticationForApiService.logout}>Sign Up</Link></li>}
@@ -98,6 +76,85 @@ class HeaderComponent extends Component {
                         {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationForApiService.logout}>Logout</Link></li>}
                     </ul>
                 </nav>
+                )
+        }
+        else if(role === "Front Desk Assistant"){
+
+            display = (
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/pendingRegistrations" className="navbar-brand">Spartan Recreation</a></div>
+                    <ul className="navbar-nav">
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/pendingRegistrations">Home</Link></li>}
+                        <li><Link className="nav-link" to=""><font color="red">Current Time: {this.state.date}</font></Link></li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                    {!isUserLoggedIn && <li><Link className="nav-link" to="/signup"  onClick={AuthenticationForApiService.logout}>Sign Up</Link></li>}
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login" >Login</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationForApiService.logout}>Logout</Link></li>}
+                    </ul>
+                </nav>
+            )
+
+        }
+        else if(role === "Instructor"){
+
+            display = (
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/instructorDashboard" className="navbar-brand">Spartan Recreation</a></div>
+                    <ul className="navbar-nav">
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/instructorDashboard">Home</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/instructorDashboard">Sessions</Link></li>}
+                        <li><Link className="nav-link" to=""><font color="red">Current Time: {this.state.date}</font></Link></li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                    {!isUserLoggedIn && <li><Link className="nav-link" to="/signup"  onClick={AuthenticationForApiService.logout}>Sign Up</Link></li>}
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login" >Login</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationForApiService.logout}>Logout</Link></li>}
+                    </ul>
+                </nav>
+            )
+
+        }
+        else if(role === "Coach"){
+
+            display = (
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/createteam" className="navbar-brand">Spartan Recreation</a></div>
+                    <ul className="navbar-nav">
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/createteam">Home</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/teamdisplaycoach">TryOut Teams</Link></li>}
+                        <li><Link className="nav-link" to=""><font color="red">Current Time: {this.state.date}</font></Link></li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                    {!isUserLoggedIn && <li><Link className="nav-link" to="/signup"  onClick={AuthenticationForApiService.logout}>Sign Up</Link></li>}
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login" >Login</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationForApiService.logout}>Logout</Link></li>}
+                    </ul>
+                </nav>
+            )
+
+        }
+        else{
+
+            display = (
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <div><img src="logo.png" height="40" width="55" alt="Logo"></img> <a href="/" className="navbar-brand">Spartan Recreation</a></div>
+                    <ul className="navbar-nav">
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/">Home</Link></li>}
+                        <li><Link className="nav-link" to=""><font color="red">Current Time: {this.state.date}</font></Link></li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                    {!isUserLoggedIn && <li><Link className="nav-link" to="/signup"  onClick={AuthenticationForApiService.logout}>Sign Up</Link></li>}
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login" >Login</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationForApiService.logout}>Logout</Link></li>}
+                    </ul>
+                </nav>
+            )
+
+        }
+        return (
+            <header>
+                {display}
             </header>
         )
     }

@@ -1,5 +1,6 @@
 package com.example.spartan.repository;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,9 +41,12 @@ public class SessionRepository {
 		String end_time = (String)payload.get(payload.keySet().toArray()[6]);
 		String activity_id = (String)payload.get(payload.keySet().toArray()[7]);
 		String instructor_ssn = (String)payload.get(payload.keySet().toArray()[8]);
-		String date = (String)payload.get(payload.keySet().toArray()[10]);
+//		String date = (String)payload.get(payload.keySet().toArray()[10]);
 		String description = (String)payload.get(payload.keySet().toArray()[11]);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse((String)payload.get(payload.keySet().toArray()[10]));
 
+		java.sql.Date date1 = convertJavaDateToSqlDate(date);
     	return jdbcTemplate.execute(query , new PreparedStatementCallback<Boolean>() {
 
 			@Override
@@ -58,7 +62,7 @@ public class SessionRepository {
 				ps.setString(7, end_time);
 				ps.setString(8, activity_id);
 				ps.setString(9, instructor_ssn);
-				ps.setString(10,date);
+				ps.setDate(10, (Date) date1);
 				ps.setString(11,description);
                            
                 return ps.executeUpdate() > 0;
@@ -66,7 +70,11 @@ public class SessionRepository {
 			}
 		});
     }
-    
+
+
+	public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
+		return new java.sql.Date(date.getTime());
+	}
 
 	public List<Session> getSessionByInstructor(String instructor_ssn) {
 		
@@ -176,15 +184,21 @@ public class SessionRepository {
 				java.util.Date start_date = sdf1.parse(sdate);
 				java.util.Date end_date = sdf1.parse(edate);
 
+		java.sql.Date start_date1 = convertJavaDateToSqlDate(start_date);
+		java.sql.Date end_date1 = convertJavaDateToSqlDate(end_date);
+
+		System.out.println("start_date1="+start_date1);
+		System.out.println("end_date1="+end_date1);
+		System.out.println("description="+description);
 		String query;
 
 		if(!description.equals("")){
-			query = "select * from session as s where s.session_name like '%"+city1+"%' OR section like '%"+description+"%'";
+			query = "select * from session as s where (s.session_name like '%"+city1+"%' AND s.session_date > '"+start_date1+"' AND s.session_date < '"+end_date1+"') AND s.session_description like '%"+description+"%'";
 		}else {
-			query = "select * from session as s where s.session_name like '%" + city1 + "%'";
+			query = "select * from session as s where s.session_name like '%" + city1 + "%' AND s.session_date > '"+start_date1+"' AND s.session_date < '"+end_date1+"'";
 		}
 
-
+		System.out.println("query="+query);
 		return jdbcTemplate.query(query, new ResultSetExtractor<List<Session>>() {
 
 			@Override
@@ -236,7 +250,9 @@ public class SessionRepository {
 					s.setStart_time(rs.getString(6));
 					s.setEnd_time(rs.getString(7));
 					s.setActivity_id(rs.getString(8));
+					s.setInstructor_ssn(rs.getString(9));
 					s.setSession_date(rs.getDate(10));
+					
 				}
 				return s;
 			}

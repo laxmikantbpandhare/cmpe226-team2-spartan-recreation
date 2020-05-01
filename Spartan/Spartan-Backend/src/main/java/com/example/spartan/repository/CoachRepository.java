@@ -1,6 +1,7 @@
 package com.example.spartan.repository;
 
 import com.example.spartan.entity.Coach;
+import com.example.spartan.entity.Team;
 import com.example.spartan.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -144,6 +145,33 @@ public class CoachRepository {
                 }
                 return studentsessionList;
             }
+        });
+    }
+
+
+    public List<Team> getSessionByInstructor(String instructor_ssn) {
+
+        String query = "select * from team where coach_ssn ='"+instructor_ssn+"'";
+
+        return jdbcTemplate.query(query, new ResultSetExtractor<List<Team>>() {
+
+            @Override
+            public List<Team> extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+                List<Team> resultList = new ArrayList<>();
+                while(rs.next()) {
+                    Team s = new Team();
+                    s.setSessionId(rs.getString(1));
+                    s.setTeam_tryOutSession(rs.getString(2));
+                    s.setActivity_id(rs.getString(3));
+                    s.setCoach_ssn(rs.getString(4));
+                    s.setYear(rs.getInt(5));
+                    resultList.add(s);
+                }
+
+                return resultList;
+            }
+
         });
     }
 
