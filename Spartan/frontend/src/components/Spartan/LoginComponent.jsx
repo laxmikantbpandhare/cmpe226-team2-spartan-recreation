@@ -64,6 +64,9 @@ class LoginComponent extends Component {
         else if(response.data.role === "Instructor" && response.data.valid === "valid"){
             this.props.history.push(`/instructorDashboard`)
         } 
+        else if(response.data.role === "Front Desk Assistant" && response.data.valid === "valid"){
+          this.props.history.push(`/pendingRegistrations`)
+      } 
         else if(response.data.valid === "invalid") {
           console.log("User has not been registered yet");
           this.setState({ hasLoginFailed: true });
