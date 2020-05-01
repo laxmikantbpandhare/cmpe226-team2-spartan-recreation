@@ -49,7 +49,6 @@ public class  UserController {
         String password = (String)payload.get(payload.keySet().toArray()[1]);
         String role = (String)payload.get(payload.keySet().toArray()[2]);
 
-
         HashMap<String, String> map = new HashMap<>();
         String s= userRepository.getUserDetails(email_id,role);
         map.put("email_id", email_id);
@@ -58,16 +57,9 @@ public class  UserController {
         map.put("ssn", ssn);
         map.put("role", role);
 
-        /*
-        if(role = student)
-        check if status = true in student_registration
-        else
-        return invalid
-        */
-
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(password);
-        boolean isPasswordMatch = encoder.matches(password, s);
+        boolean isPasswordMatch = encoder.matches(password, hashedPassword);
         if (isPasswordMatch){
             map.put("valid", "valid");
             return map;

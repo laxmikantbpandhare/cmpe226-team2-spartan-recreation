@@ -55,6 +55,7 @@ class SessionDetails extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            session_id : "",
             sessionName : "",
             capacity : "",
             section : "",
@@ -65,7 +66,8 @@ class SessionDetails extends React.Component {
             instructorName : "",
             enrolled : false,
             waitlisted : false,
-            enrollmentMessage : ""
+            enrollmentMessage : "",
+            errorMessage : ""
         }
         this.enrollStudent = this.enrollStudent.bind(this)
     }
@@ -73,9 +75,8 @@ class SessionDetails extends React.Component {
     enrollStudent() {
 
         const data = {
-            session_id : 3,
-            // capacity : this.state.capacity,
-            capacity : 3,
+            session_id : this.state.session_id,
+            capacity : this.state.capacity,
             student_ssn : sessionStorage.getItem('ssn'),
             email: sessionStorage.getItem('userEmail')
         }
@@ -94,31 +95,43 @@ class SessionDetails extends React.Component {
                     enrollmentMessage : response.data.split('-')[1]
                 })
             }
+            else {
+                this.setState({
+                    errorMessage : true,
+                    enrollmentMessage : response.data
+                })
+            }
 
         })
     }
 
 
-    componentWillMount() {
-        this.setState(
-            {
-                sessionName : "Yoga Session Day 3",
-                capacity : "20",
-                section : "Spartan Fitness Center, Building A",
-                roomNumber : "20",
-                startTime : "10:00 A.M",
-                endTime : "11:30 A.M",
-                sessionDate : "May 20th, 2020",
-                instructorName : "John Doe"
-         })
-    }
+    // componentWillMount() {
+    //     this.setState(
+    //         {
+    //             sessionName : "Yoga Session Day 3",
+    //             capacity : "20",
+    //             section : "Spartan Fitness Center, Building A",
+    //             roomNumber : "20",
+    //             startTime : "10:00 A.M",
+    //             endTime : "11:30 A.M",
+    //             sessionDate : "May 20th, 2020",
+    //             instructorName : "John Doe"
+    //      })
+    // }
 
     componentDidMount() {
-        axios.get(API_URL +"/sessions/3")
+        console.log("WINDOW",window);
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let session_id_props = params.get('session_id');
+        axios.get(API_URL +"/sessions/"+session_id_props)
           .then( (response) => {
 
             
+            
             this.setState({
+                session_id : session_id_props,
                 sessionName : response.data.session_name,
                 capacity : response.data.capacity,
                 section : response.data.section,
@@ -136,6 +149,7 @@ class SessionDetails extends React.Component {
     
  
   render(){
+    console.log("PROPS",this.props)
     const {classes} = this.props;
     // const bull = <span className={classes.bullet}>•</span>;
     return (
@@ -194,6 +208,9 @@ class SessionDetails extends React.Component {
                  <br />
                 {this.state.waitlisted && (
                   <div className="alert alert-warning">You have been waitlisted! You are at number {this.state.enrollmentMessage}</div>
+                )}
+                 {this.state.errorMessage && (
+                  <div className="alert alert-warning">{this.state.enrollmentMessage}</div>
                 )}
                 </CardContent>
             </Card>   

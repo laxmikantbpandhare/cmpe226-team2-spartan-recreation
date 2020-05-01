@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import AddBox from "@material-ui/icons/AddBox";
 import ThumbUp from "@material-ui/icons/ThumbUp"
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import Check from "@material-ui/ico npns/Check";
+import Check from "@material-ui/icons/Check";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import Clear from "@material-ui/icons/Clear";
@@ -119,74 +119,6 @@ class PendingRegistrations extends Component {
    
             }
           ]}
-          // editable={{
-          //   onRowAdd: (newData) =>
-          //     new Promise((resolve) => {
-          //       setTimeout(() => {
-          //         resolve();
-                  
-          //         const studentdata = newData.ssn;
-          //         // const studentdata = {
-          //         //   email: this.props.email.email, //done
-          //         //   description: newData.Description, // done
-          //         //   category: newData.Category, //done
-          //         //   amount: newData.Amount, //done
-          //         //   timestamp: newData.Date, //done
-          //         //   expenseType: newData.ExpenseType, //done
-          //         // };
-                  
-          //       }, 600);
-          //     }),
-          //   onRowUpdate: (newData, oldData) =>
-          //     new Promise((resolve) => {
-          //       setTimeout(() => {
-          //         resolve();
-          //         // let id = oldData.id;
-          //         // let dataCopy = this.state.data;
-          //         // let temp = dataCopy.map((obj) =>
-          //         //   obj.id == id ? newData : obj
-          //         // );
-          //         // this.setState({
-          //         //   data: temp,
-          //         // });
-
-          //         // const expenseData = {
-          //         //   description: newData.Description, // done
-          //         //   category: newData.Category, //done
-          //         //   amount: newData.Amount, //done
-
-          //         //   expenseType: newData.ExpenseType, //done
-          //         // };
-          //         // axios
-          //         //   .patch(
-          //         //     `http://localhost:3001/expenses/${oldData.id}`,
-          //         //     expenseData
-          //         //   )
-          //         //   .then((res) => {
-          //         //     console.log("after axios call  update", res.data);
-          //         //   });
-          //       }, 600);
-          //     }),
-          //   onRowDelete: (oldData) =>
-          //     new Promise((resolve) => {
-          //       setTimeout(() => {
-          //         resolve();
-
-          //         // let temp = this.state.data;
-          //         // temp = temp.filter((d) => d.id !== oldData.id);
-
-          //         // this.setState({
-          //         //   data: temp,
-          //         // });
-          //         // //call to the backend
-          //         // axios
-          //         //   .delete(`http://localhost:3001/expenses/${oldData.id}`)
-          //         //   .then((res) => {
-          //         //     //console.log("after axios call ", res.data);
-          //         //   });
-          //       }, 600);
-          //     }),
-          // }}
         />
     );
   }
