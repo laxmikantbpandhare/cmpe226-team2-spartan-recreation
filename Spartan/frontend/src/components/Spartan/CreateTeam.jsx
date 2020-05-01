@@ -74,21 +74,24 @@ class CreateTeam extends Component {
 
     console.log("DSFVGBS",property)
 
-
+      var data = "";
     if(property === "Basketball"){
-
+      console.log("in  basketball")
       if(this.state.teamname1 === "")
       {
         alert(
           "Please enter Teamname."
         );
       }
-      
-      // this.state.teamname =  this.state.teamname1;
-      this.setState({
-        teamname: this.state.teamname1 //,
-        // activity: 4
-      });
+
+      data = {
+        session_id : "11",
+        team_name: this.state.teamname1,
+        activity_id: 4,
+        student_ssn: sessionStorage.getItem("ssn"),
+        student_email: sessionStorage.getItem("userEmail"),
+      };
+
     }
     else if(property === "Football"){
       if(this.state.teamname2 === "")
@@ -97,10 +100,13 @@ class CreateTeam extends Component {
           "Please enter Teamname."
         );
       }
-      this.setState({
-        teamname: this.state.teamname2,
-        activity: 5
-      });
+      data = {
+        session_id : "11",
+        team_name: this.state.teamname2,
+        activity_id: 5,
+        student_ssn: sessionStorage.getItem("ssn"),
+        student_email: sessionStorage.getItem("userEmail"),
+      };
     }
     else if(property === "Volleyball"){
       if(this.state.teamname3 === "")
@@ -109,10 +115,13 @@ class CreateTeam extends Component {
           "Please enter Teamname."
         );
       }
-      this.setState({
-        teamname: this.state.teamname3,
-        activity: 6
-      });
+      data = {
+        session_id : "11",
+        team_name: this.state.teamname3,
+        activity_id: 6,
+        student_ssn: sessionStorage.getItem("ssn"),
+        student_email: sessionStorage.getItem("userEmail"),
+      };
     }
     else if(property === "Badminton"){
       if(this.state.teamname4 === "")
@@ -121,25 +130,28 @@ class CreateTeam extends Component {
           "Please enter Teamname."
         );
       }
-      this.setState({
-        teamname: this.state.teamname4,
-        activity: 7
-      });
+      data = {
+        session_id : "11",
+        team_name: this.state.teamname4,
+        activity_id: 7,
+        student_ssn: sessionStorage.getItem("ssn"),
+        student_email: sessionStorage.getItem("userEmail"),
+      };
     }
-    const data = {
-      session_id : "10",
-      team_name: this.state.teamname,
-      activity_id: this.state.activity,
-      student_ssn: sessionStorage.getItem("ssn"),
-      student_email: sessionStorage.getItem("userEmail"),
-    };
+    // const data = {
+    //   session_id : "10",
+    //   team_name: this.state.teamname,
+    //   activity_id: this.state.activity,
+    //   student_ssn: sessionStorage.getItem("ssn"),
+    //   student_email: sessionStorage.getItem("userEmail"),
+    // };
 
     console.log("data", this.state.teamname);
     console.log("data", this.state.teamname1);
     console.log("data", this.state.teamname2);
     console.log("data", this.state.teamname3);
     console.log("data", this.state.teamname4);
-    console.log("data", data);
+    console.log("data pathavatana", data);
 
     axios.post(API_URL + "/coaches/newTryOutSession", data).then((response) => {
       console.log("Registration status", response);

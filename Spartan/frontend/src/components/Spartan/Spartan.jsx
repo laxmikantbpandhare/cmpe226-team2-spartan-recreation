@@ -44,19 +44,16 @@ class Spartan extends Component {
                 component={SessionCreation}
               />
               <Route path="/instructorDashboard" component={SessionDisplayInstructor} />
-<<<<<<< HEAD
               <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />   
               <Route path="/teamTryOut" component={TeamTryOut} />  
               <Route path="/createteam" component={CreateTeam} />
               <Route path="/teamdisplaycoach" component={TeamDisplayCoach} />
-=======
               <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />
               
               <Route path="/teamTryOut" component={TeamTryOut} />
               <Route path="/websitetraffic" component={WebsiteTraffic} />
               <Route path="/teamTryOut" component={TeamTryOut} />
               {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
->>>>>>> ed435d4... Instructor name in Session Details + Mongo Extra Credit
               <Route path="/login" component={LoginComponent} />
               <Route path = "/sessionCreation"  component = {SessionCreation}/>
               <Route path = "/sessionDetails"  component = {SessionsComponent} />
