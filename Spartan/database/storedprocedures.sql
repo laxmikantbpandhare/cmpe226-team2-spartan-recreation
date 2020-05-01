@@ -9,7 +9,8 @@ drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;
 drop trigger if exists InsertFDATrigger;
 drop trigger if exists removeEnrolledStudents;
-
+drop view if exists tryOutSessionDetails;
+drop view if exists gettingRequests;
 
 delimiter $$
 create 
@@ -330,7 +331,15 @@ delimiter ;
 
 
 CREATE VIEW tryOutSessionDetails AS
-SELECT t.team_tryOutSession, CONCAT (c.fname, c.lname),t.year 
+SELECT t.team_tryOutSession, CONCAT (c.fname, c.lname) as coach_name,t.year 
 FROM team t,coach c
 WHERE t.coach_ssn = c.ssn;
+
+
+CREATE VIEW gettingRequests AS
+SELECT s.ssn, s.fname, s.lname, s.college_year, t.team_tryOutSession
+FROM student s,team_tryouts tt, team t
+WHERE s.ssn = tt.student_id  
+and tt.session_id=t.session_id
+and tt.status = 'pending';
 
