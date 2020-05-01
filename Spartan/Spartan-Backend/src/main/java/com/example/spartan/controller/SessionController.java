@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import com.example.spartan.database.MongoDB;
 import com.example.spartan.entity.Session;
 import com.example.spartan.mail.SendMail;
+import com.example.spartan.repository.InstructorRepository;
 import com.example.spartan.repository.SessionRepository;
 import com.mongodb.client.MongoCollection;
 
@@ -36,6 +37,9 @@ public class SessionController {
 
 	@Autowired
 	SessionRepository sessionRepo;
+
+	@Autowired
+	InstructorRepository instrRepo;
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -237,11 +241,11 @@ public class SessionController {
 
 	@PostMapping("/search")
 	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {
-
+		System.out.println("Search payload - "+payload);
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();
 		doc.append("api", "search")
-		.append("query", payload.get(payload.keySet().toArray()[3]));
+		.append("query", (String)payload.get(payload.keySet().toArray()[3]));
 		coll.insertOne(doc);
 		
 		try {
