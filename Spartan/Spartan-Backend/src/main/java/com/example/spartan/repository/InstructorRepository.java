@@ -53,6 +53,25 @@ public class InstructorRepository {
         });
     }
 
+
+	public String getInstructorName(String ssn) {
+		String query = "SELECT fname , lname FROM Instructor WHERE ssn = "+ssn;
+        return jdbcTemplate.query(query, new ResultSetExtractor<String>() {
+
+            @Override
+            public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+               StringBuilder name = new StringBuilder();
+                while(rs.next()) {
+                    name.append(rs.getString(1)+" ");
+                    name.append(rs.getString(2));
+                }
+                return name.toString();
+            }
+
+        });
+	}
+
      
 }
     
