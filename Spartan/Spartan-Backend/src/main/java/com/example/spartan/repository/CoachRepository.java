@@ -11,12 +11,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CoachRepository {
@@ -90,6 +92,33 @@ public class CoachRepository {
                 return resultList;
             }
 
+        });
+    }
+
+
+    public Boolean createTryOutSession(@RequestBody Map<String, String> payload) throws Exception {
+
+        String query="insert into team (session_id,team_tryOutSession,activity_id,coach_ssn) values(?,?,?,?)";
+
+        String session_id = (String)payload.get(payload.keySet().toArray()[0]);
+        String team_tryOutSession = (String)payload.get(payload.keySet().toArray()[1]);
+        String activity_id = (String)payload.get(payload.keySet().toArray()[2]);
+        String coach_ssn = (String)payload.get(payload.keySet().toArray()[3]);
+
+        return jdbcTemplate.execute(query , new PreparedStatementCallback<Boolean>() {
+
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps)
+                    throws SQLException, DataAccessException {
+
+                ps.setString(1, session_id);
+                ps.setString(2, team_tryOutSession);
+                ps.setString(3, activity_id);
+                ps.setString(4, coach_ssn);
+
+                return ps.executeUpdate() > 0;
+
+            }
         });
     }
 
