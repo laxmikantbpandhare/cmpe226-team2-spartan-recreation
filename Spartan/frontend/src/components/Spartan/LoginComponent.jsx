@@ -172,19 +172,6 @@ class LoginComponent extends Component {
                 </div>
                 <hr />
 
-                {/* <div class="col-sm-12 col-md-12">
-                  <div class="form-group">
-                    <GoogleLogin
-                      clientId="624602059574-qsv45kcgn89v376114ql2ps2t5rljfd7.apps.googleusercontent.com"
-                      buttonText="Login"
-                      onSuccess={this.responseGoogle}
-                      onFailure={this.responseGoogle}
-                      cookiePolicy={"single_host_origin"}
-                    >
-                      <span> Login with Google</span>
-                    </GoogleLogin>
-                  </div>
-                </div> */}
                 <br />
                 {this.state.hasLoginFailed && (
                   <div className="alert alert-warning">Invalid Credentials</div>

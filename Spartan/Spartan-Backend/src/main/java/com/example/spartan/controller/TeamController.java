@@ -65,8 +65,22 @@ public class TeamController {
         //System.out.println("entered here");
         try {
             List result = teamRepo.getTeamDetails();
+            //System.out.println("result"+result);
+            return result;
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
 
-            //System.out.println(team.teamName)
+
+    @GetMapping("/getactivity")
+    public List getActivity() {
+        System.out.println("entered here");
+        try {
+            List result = teamRepo.getActivity();
+
+            System.out.println("result"+result);
             //System.out.println("result"+result);
             return result;
         }
