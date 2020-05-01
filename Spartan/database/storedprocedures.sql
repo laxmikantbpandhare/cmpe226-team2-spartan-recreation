@@ -301,3 +301,29 @@ set status_out = TRUE;
 
 END$$
 delimiter ;
+
+delimiter $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_remove_tryoutsession`(
+in sp_sessionid varchar(10),
+in sp_coachssn varchar(10),
+OUT status_out varchar(20)
+)
+begin
+
+	SET status_out = false;
+    
+	if sp_sessionid != "" and sp_coachssn != "" then 
+		delete from team as t where t.session_id = sp_sessionid and t.coach_ssn = sp_coachssn;
+		SET status_out = true;
+    end if;
+end$$
+delimiter ;
+
+
+delimiter $$
+create trigger removeRegistredStudents after delete on team
+for each row
+	begin
+		delete from team_tryouts as t where t.session_id = old.session_id;
+	end$$
+delimiter ;
