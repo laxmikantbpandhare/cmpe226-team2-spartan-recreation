@@ -18,7 +18,7 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import MaterialTable from "material-table";
 import { API_URL } from "../../Constants";
 
@@ -102,7 +102,7 @@ class PendingRegistrations extends Component {
                     .post(API_URL+`/approveStudent/`+rowData.ssn+`/`+fda)
                     .then((res) => {
                       console.log("after approval call ", res.data);
-                      const admin = sessionStorage.getItem('ssn');
+                      // const admin = sessionStorage.getItem('ssn');
                       axios.get(API_URL+`/allPendingStudents`).then((res) => {
                         let studentarr = new Array();
                         res.data.map((row) => {

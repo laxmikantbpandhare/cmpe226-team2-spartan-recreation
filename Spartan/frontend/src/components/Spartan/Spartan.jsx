@@ -16,6 +16,7 @@ import TeamTryOut from "./TeamTryOut";
 import SessionDisplayInstructor from "./SessionDisplayInstructor";
 import StudentEnrolledSessions from "./StudentEnrolledSessions";
 import PendingRegistrations from "./PendingRegistrations"
+import CreateTeam from "./CreateTeam"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -40,13 +41,25 @@ class Spartan extends Component {
               />
               <Route path="/instructorDashboard" component={SessionDisplayInstructor} />
               <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />   
-              <Route path="/  " component={TeamTryOut} />
+              <Route path="/teamTryOut" component={TeamTryOut} />  
+              <Route path="/createteam" component={CreateTeam} />
               <Route path="/login" component={LoginComponent} />
               <Route path = "/sessionCreation"  component = {SessionCreation}/>
               <Route path = "/sessionDetails"  component = {SessionsComponent} />
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/sessionDetails" exact component = {SessionsComponent} />
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
+              {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
+              <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
+              <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
+              {/* <Route path="/signup" component={SignUP} /> */}
+              {/* <Route path="/welcomeuser/:name" component={WelcomeUser} /> */}
+
+              {/* <Route path="/property/new" component={CreateProperty} />
+              <Route path="/userbilling" component={UserBilling} />
+              <Route path="/hostbilling" component={HostBilling} /> .
+              <Route path="/property/:propertyId" component={PropertyDetails} />
+              <Route path="/reservation/:propertyId" component={PropertyReservationDetails} /> */}
               <AuthenticatedRoute path="/logout" component={LogoutComponent} />
               <Route component={ErrorComponent} />
             </Switch>
