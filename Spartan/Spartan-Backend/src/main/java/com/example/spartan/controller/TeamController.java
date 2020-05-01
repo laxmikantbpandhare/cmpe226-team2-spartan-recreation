@@ -26,12 +26,12 @@ public class TeamController {
 
             System.out.println("entered here");
 
-            boolean status = teamRepo.getStudentStatus(payload.get(payload.keySet().toArray()[0]));
-
             Team t = teamRepo.getTeamByName(payload.get(payload.keySet().toArray()[2]));
 
-            payload.put("team_id",t.team_id);
+            payload.put("team_id",t.sessionId);
             payload.put("coach_ssn",t.coach_ssn);
+
+            boolean status = teamRepo.getStudentStatus(payload.get(payload.keySet().toArray()[0]),payload.get(payload.keySet().toArray()[4]));
 
             String receiver = (String)payload.get(payload.keySet().toArray()[1]);
 
@@ -39,7 +39,7 @@ public class TeamController {
                 if (!receiver.equals("")) {
                     SendMail y = new SendMail();
                     y.sendEmail("Team try out session registration", receiver,
-                            "You have already registered for the try out session of team " + (String) payload.get(payload.keySet().toArray()[1]) + "." + "\n\n For more details check your dashboard\n\n " +
+                            "You have already registered for the try out session of team " + (String) payload.get(payload.keySet().toArray()[2]) + "." + "\n\n For more details check your dashboard\n\n " +
                                     "Thanks and Regards, \n Spartan Recreation Team");
                 }
             }
@@ -50,7 +50,7 @@ public class TeamController {
                 if (!receiver.equals("")) {
                     SendMail y = new SendMail();
                     y.sendEmail("Team try out session registration", receiver,
-                            "You have registered for the try out session of team " + (String) payload.get(payload.keySet().toArray()[1]) + "." + "\n\n For more details check your dashboard\n\n " +
+                            "You have registered for the try out session of team " + (String) payload.get(payload.keySet().toArray()[2]) + "." + "\n\n For more details check your dashboard\n\n " +
                                     "Thanks and Regards, \n Spartan Recreation Team");
                 }
 

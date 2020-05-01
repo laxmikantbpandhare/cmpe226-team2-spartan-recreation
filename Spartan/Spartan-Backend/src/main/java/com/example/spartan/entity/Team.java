@@ -3,8 +3,8 @@ package com.example.spartan.entity;
 public class Team {
 
 	
-	public String team_id;
-	public String team_name;
+	public String sessionId;
+	public String team_tryOutSession;
 	public String activity_id;
 	public String coach_ssn;
 	public int year;
@@ -12,27 +12,27 @@ public class Team {
 	
 	public Team() {}
 	
-	public Team(String team_id, String team_name, String activity_id, String coach_ssn, int year) {
+	public Team(String sessionId, String team_tryOutSession, String activity_id, String coach_ssn, int year) {
 		super();
-		this.team_id = team_id;
-		this.team_name = team_name;
+		this.sessionId = sessionId;
+		this.team_tryOutSession = team_tryOutSession;
 		this.activity_id = activity_id;
 		this.coach_ssn = coach_ssn;
 		this.year = year;
 	}
 	
 	
-	public String getTeam_id() {
-		return team_id;
+	public String getSessionId() {
+		return sessionId;
 	}
-	public void setTeam_id(String team_id) {
-		this.team_id = team_id;
+	public void setSessionId(String team_id) {
+		this.sessionId = team_id;
 	}
-	public String getTeam_name() {
-		return team_name;
+	public String getTeam_tryOutSession() {
+		return team_tryOutSession;
 	}
-	public void setTeam_name(String team_name) {
-		this.team_name = team_name;
+	public void setTeam_tryOutSession(String team_name) {
+		this.team_tryOutSession = team_name;
 	}
 	public String getActivity_id() {
 		return activity_id;

@@ -1,17 +1,13 @@
 package com.example.spartan.controller;
 
+import com.example.spartan.entity.Coach;
+import com.example.spartan.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.spartan.entity.Coach;
-import com.example.spartan.repository.CoachRepository;
+import java.util.List;
 
 @CrossOrigin(origins="*")
 @RestController
@@ -40,9 +36,23 @@ public class CoachController {
 		
 	}
 	
-	@GetMapping("/test")
+	/*@GetMapping("/test")
 	public void testAPI() {
 		System.out.println("Hello");
+	}*/
+
+	@CrossOrigin(origins="*")
+	@PostMapping("/assessStudentRequest/{studentssn}/{sessionId}/{decision}")
+	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("sessionId") String sessionId, @PathVariable("decision") String decision) {
+
+		return coachRepo.assessRequest(studentssn,sessionId,decision);
+
 	}
-	
+
+	@GetMapping("/getAllPendingRequests")
+	public List getAllPendingRequests() {
+		return coachRepo.getAllPendingRequests();
+	}
+
+
 }

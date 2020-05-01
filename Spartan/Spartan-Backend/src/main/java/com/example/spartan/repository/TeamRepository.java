@@ -20,11 +20,14 @@ public class TeamRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public boolean getStudentStatus(String student_id) {
+    public boolean getStudentStatus(String student_id,String team_id) {
 
         boolean result = false;
 
-        String sql = "select IFNULL(max(student_id),0) from team_tryouts where student_id = '"+student_id+"'";
+        String sql = "select IFNULL(max(student_id),0) from team_tryouts where student_id = '"+student_id+"' and team_id = '"+team_id+"'"  ;
+        System.out.println("sql");
+        System.out.println(sql);
+
         int status =  jdbcTemplate.queryForObject(sql, Integer.class);
 
         if (status > 0) {
@@ -35,9 +38,9 @@ public class TeamRepository {
 
     }
 
-    public Team getTeamByName(String team_name){
+    public Team getTeamByName(String team_tryOutSession){
 
-        String sql = "select t.team_id, t.coach_ssn from team t where t.team_name = '"+team_name+"'";
+        String sql = "select t.session_id, t.coach_ssn from team t where t.team_tryOutSession = '"+team_tryOutSession+"'";
 
         return jdbcTemplate.query(sql, new ResultSetExtractor<Team>() {
 
@@ -46,7 +49,7 @@ public class TeamRepository {
 
                 Team t = new Team();
                 while (rs.next()) {
-                    t.setTeam_id(rs.getString(1));
+                    t.setSessionId(rs.getString(1));
                     t.setCoach_ssn(rs.getString(2));
                 }
                 return t;
@@ -123,7 +126,7 @@ public class TeamRepository {
         System.out.println(payload.get(payload.keySet().toArray()[3]));
         System.out.println(payload.get(payload.keySet().toArray()[4]));
 
-        jdbcTemplate.update("insert into team_tryouts(student_id,coach_ssn,team_id,status) values(?,?,?,?)",
+        jdbcTemplate.update("insert into team_tryouts(student_id,coach_ssn,session_id,status) values(?,?,?,?)",
                 payload.get(payload.keySet().toArray()[0]), payload.get(payload.keySet().toArray()[4]), payload.get(payload.keySet().toArray()[3]),
                 "Pending");
 
