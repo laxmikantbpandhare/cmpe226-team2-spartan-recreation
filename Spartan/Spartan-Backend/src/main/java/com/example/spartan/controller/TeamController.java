@@ -80,8 +80,7 @@ public class TeamController {
         try {
             List result = teamRepo.getActivity();
 
-            System.out.println("result"+result);
-            //System.out.println("result"+result);
+//            System.out.println("result"+result);
             return result;
         }
         catch(Exception e) {

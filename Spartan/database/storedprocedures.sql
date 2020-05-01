@@ -4,6 +4,7 @@ drop PROCEDURE if exists sp_enroll_student;
 drop PROCEDURE if exists sp_remove_enrolled_student;
 drop PROCEDURE if exists sp_remove_session;
 drop PROCEDURE if exists sp_approve_student;
+drop PROCEDURE if exists sp_approve_tryOutRequest;
 drop trigger if exists InsertStudentTrigger;
 drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;

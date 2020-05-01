@@ -95,7 +95,7 @@ public class TeamRepository {
 
         List teamList = new ArrayList();
 
-        String sql = "select activi ty_name from activity";
+        String sql = "select activity_name from activity";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
             @Override
             public List extractData(ResultSet rs) throws SQLException, DataAccessException {

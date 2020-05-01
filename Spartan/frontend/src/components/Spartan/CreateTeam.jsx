@@ -67,7 +67,6 @@ class CreateTeam extends Component {
   registerStudent(e) {
     console.log("entered");
     console.log(e.target.id);
-    //console.log(this.event.target.id);
     console.log(sessionStorage);
 
     const data = {
@@ -102,9 +101,6 @@ class CreateTeam extends Component {
       });
   }
 
-  OpenProperty = (property) => {
-    this.props.history.push(`/teamTryOut/isregister/${property.propertyId}`);
-  };
 
   render() {
     const { classes } = this.props;
