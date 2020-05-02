@@ -146,12 +146,6 @@ class CreateTeam extends Component {
     //   student_email: sessionStorage.getItem("userEmail"),
     // };
 
-    console.log("data", this.state.teamname);
-    console.log("data", this.state.teamname1);
-    console.log("data", this.state.teamname2);
-    console.log("data", this.state.teamname3);
-    console.log("data", this.state.teamname4);
-    console.log("data pathavatana", data);
 
     axios.post(API_URL + "/coaches/newTryOutSession", data).then((response) => {
       console.log("Registration status", response);

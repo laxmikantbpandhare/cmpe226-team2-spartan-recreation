@@ -419,13 +419,13 @@ begin
     
     SELECT 'Insert sample data into Team Table';
     
-    insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (1,"Basketball" , 4, '5057' );
-	insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (2,"Football", 5,  '7427');
+    insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (1,"Basketball_tryout_session" , 4, '5057' );
+	insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (2,"Football_tryout_session", 5,  '7427');
     
     SELECT 'Insert sample data into Team TryOuts Table';
 
-	insert into team_tryouts (student_id, coach_ssn, session_id, status) values (4288,5057, 1, "approved" );
-	insert into team_tryouts (student_id, coach_ssn, session_id, status) values (8888,7427, 2, "rejected" );
+	insert into team_tryouts (student_id, coach_ssn, session_id, status) values (4288,5057, 1, "pending" );
+	insert into team_tryouts (student_id, coach_ssn, session_id, status) values (8888,7427, 2, "pending" );
 	
     SELECT 'Insert sample data into Session Table';
  

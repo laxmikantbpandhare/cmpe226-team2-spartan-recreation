@@ -67,7 +67,7 @@ public class CoachController {
 		System.out.println("Hello");
 	}*/
 
-	@CrossOrigin(origins="*")
+//	@CrossOrigin(origins="*")
 	@PostMapping("/assessStudentRequest/{studentssn}/{sessionId}/{decision}")
 	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("sessionId") String sessionId, @PathVariable("decision") String decision) {
 
@@ -75,7 +75,7 @@ public class CoachController {
 
 	}
 
-	@GetMapping("/getAllPendingRequests")
+	@GetMapping("/getAllPendingRequests/{coachssn}")
 	public List getAllPendingRequests(@PathVariable String coachssn) {
 		return coachRepo.getAllPendingRequests(coachssn);
 	}
