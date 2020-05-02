@@ -6,8 +6,6 @@ import com.example.spartan.entity.Team;
 import com.example.spartan.mail.SendMail;
 import com.example.spartan.repository.CoachRepository;
 import com.mongodb.client.MongoCollection;
-import java.util.Date;
-
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -120,6 +119,15 @@ public class CoachController {
 
 	@PostMapping("/newTryOutSession")
 	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
+
+		System.out.println("Create newTryOutSession");
+		System.out.println("Printing Params");
+
+		System.out.println(payload.get(payload.keySet().toArray()[0]));
+		System.out.println(payload.get(payload.keySet().toArray()[1]));
+		System.out.println(payload.get(payload.keySet().toArray()[2]));
+		System.out.println(payload.get(payload.keySet().toArray()[3]));
+		System.out.println(payload.get(payload.keySet().toArray()[4]));
 
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();

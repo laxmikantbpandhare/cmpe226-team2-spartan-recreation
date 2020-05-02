@@ -49,7 +49,7 @@ create table user (
 );
 
 create table team (
-	session_id  varchar(10) primary key, 
+	session_id  int primary key AUTO_INCREMENT, 
 	team_tryOutSession varchar(50) unique not null,
     activity_id varchar(10),
     coach_ssn varchar(10),
@@ -61,7 +61,7 @@ create table team (
 create table team_tryouts (
 	student_id varchar(10),
 	coach_ssn varchar(10),
-	session_id varchar(10),
+	session_id int,
 	status char(8) not null check (status = 'approved' or status = 'rejected' or status = 'pending'),
     PRIMARY KEY (student_id,session_id),
     foreign key (student_id) references student(ssn) on delete cascade on update cascade,
@@ -76,7 +76,7 @@ create table activity (
 );
 
 create table session (
-	session_id varchar(10) primary key, 
+	session_id int primary key AUTO_INCREMENT, 
 	session_name varchar(50) not null, 
 	capacity int, 
 	section varchar(50),
@@ -91,7 +91,7 @@ create table session (
 
 create table enrollment (
 	student_id	varchar(10),
-	session_id varchar(10),
+	session_id int,
 	status char(8) not null check (status = 'enrolled' or status = 'waitlist'),
 	list_order int not null,
     primary key (student_id,session_id),

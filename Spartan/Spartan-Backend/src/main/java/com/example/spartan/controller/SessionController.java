@@ -1,13 +1,5 @@
 package com.example.spartan.controller;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-
 import com.example.spartan.database.MongoDB;
 import com.example.spartan.entity.Session;
 import com.example.spartan.mail.SendMail;
@@ -15,7 +7,6 @@ import com.example.spartan.repository.InstructorRepository;
 import com.example.spartan.repository.SessionRepository;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +15,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins="*")
@@ -198,6 +190,18 @@ public class SessionController {
 		.append("payload", payload);
 		coll.insertOne(doc);
 
+		/*System.out.println(payload.get(payload.keySet().toArray()[0]));
+		System.out.println(payload.get(payload.keySet().toArray()[1]));
+		System.out.println(payload.get(payload.keySet().toArray()[2]));
+		System.out.println(payload.get(payload.keySet().toArray()[3]));
+		System.out.println(payload.get(payload.keySet().toArray()[4]));
+		System.out.println(payload.get(payload.keySet().toArray()[5]));
+		System.out.println(payload.get(payload.keySet().toArray()[6]));
+		System.out.println(payload.get(payload.keySet().toArray()[7]));
+		System.out.println(payload.get(payload.keySet().toArray()[8]));
+		System.out.println(payload.get(payload.keySet().toArray()[9]));
+		System.out.println(payload.get(payload.keySet().toArray()[10]));*/
+
 		// System.out.println("New session to be created - \n"+ 
 		// 					"name = "+(String)payload.get(payload.keySet().toArray()[1])+
 		// 					" date ="+(String)payload.get(payload.keySet().toArray()[10])+
@@ -207,11 +211,11 @@ public class SessionController {
 			sessionRepo.createSession(payload);
 			System.out.println("SUCCESS");
 
-			String receiver = (String)payload.get(payload.keySet().toArray()[9]);
+			String receiver = (String)payload.get(payload.keySet().toArray()[8]);
 			if(!receiver.equals("")) {
 				SendMail y = new SendMail();
 				y.sendEmail("You have Created Session in Spartan Recreation", receiver,
-						"You have Created Session in Spartan Recreation with name "+ (String)payload.get(payload.keySet().toArray()[1])+"." +"\n\n For more details check your dashboard\n\n " +
+						"You have Created Session in Spartan Recreation with name "+ (String)payload.get(payload.keySet().toArray()[0])+"." +"\n\n For more details check your dashboard\n\n " +
 								"Thanks and Regards, \n Spartan Recreation Team");
 			}
 
