@@ -1,12 +1,18 @@
 package com.example.spartan.controller;
 
+import com.example.spartan.database.MongoDB;
 import com.example.spartan.entity.User;
 import com.example.spartan.repository.UserRepository;
+import com.mongodb.client.MongoCollection;
+
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +29,7 @@ public class  UserController {
 
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.getUser();
     }
 
@@ -39,6 +45,14 @@ public class  UserController {
     @CrossOrigin(origins="*")
     @PostMapping("/authenticate")
     public  Map<String, String> auth(@RequestBody Map<String, String> payload) throws ParseException {
+        
+        MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST /authenticate")
+		.append("payload", payload );
+		coll.insertOne(doc);
+        
         System.out.println("payload"+payload);
         String email_id = (String)payload.get(payload.keySet().toArray()[0]);
         String password = (String)payload.get(payload.keySet().toArray()[1]);
@@ -79,6 +93,13 @@ public class  UserController {
 
     @PostMapping("/loadSampleData")
     public String loadSampleData() {
+
+        MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST /loadSampleData");
+        coll.insertOne(doc);
+        
         return userRepository.loadSampleData();
 
     }

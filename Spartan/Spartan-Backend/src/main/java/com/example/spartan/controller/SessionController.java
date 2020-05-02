@@ -1,6 +1,8 @@
 package com.example.spartan.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import com.example.spartan.mail.SendMail;
 import com.example.spartan.repository.InstructorRepository;
 import com.example.spartan.repository.SessionRepository;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,24 @@ public class SessionController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
+	@PostMapping("/testLog")
+	public void testLog(@RequestBody Map<String, String> payload) {
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "testLog")
+		.append("payload", payload );
+		coll.insertOne(doc);	
+	}
+
+	@GetMapping("/getLog")
+	public String getAllLog() {
+		MongoCursor<Document> cursor = MongoDB.getinstance().getCollection().find().iterator();
+		StringBuilder s = new StringBuilder();
+		while(cursor.hasNext())
+			s.append(cursor.next().entrySet()+"\n");
+		return s.toString();
+	}
 
 
 	@PostMapping("/enroll") 
@@ -51,11 +72,9 @@ public class SessionController {
 		
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();
-		Session s = getSessionByID(payload.get(payload.keySet().toArray()[0]));
-		doc.append("api", "enroll")
-		.append("session", s.getSession_name())
-		.append("activity",s.getActivity_id())
-		.append("owner", s.getInstructor_ssn());
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST sessions/enroll")
+		.append("payload", payload);
 		coll.insertOne(doc);
 
 		System.out.println("Session_id = "+payload.get(payload.keySet().toArray()[0]));
@@ -95,6 +114,14 @@ public class SessionController {
 	@PostMapping("/removes/enroll")
 	public String removeEnrolledStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST sessions/removes/enroll")
+		.append("payload", payload);
+		coll.insertOne(doc);
+		
 		System.out.println("enrollment payload = "+payload);
 		SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
 					.withProcedureName("SP_REMOVE_ENROLLED_STUDENT");
@@ -122,6 +149,13 @@ public class SessionController {
 
 	@PostMapping("/removes/session")
 	public String removeSession(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST sessions/removes/session")
+		.append("payload", payload);
+		coll.insertOne(doc);
 
 		System.out.println("session payload = "+payload);
 		List result = sessionRepo.getEnrolledStudentsForSession(payload.get(payload.keySet().toArray()[0]));
@@ -168,17 +202,15 @@ public class SessionController {
 
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();
-		doc.append("api", "newSession")
-		.append("session", payload.get(payload.keySet().toArray()[1]))
-		.append("activity",payload.get(payload.keySet().toArray()[7]))
-		.append("location",payload.get(payload.keySet().toArray()[4]))
-		.append("owner", payload.get(payload.keySet().toArray()[8]));
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST session/new")
+		.append("payload", payload);
 		coll.insertOne(doc);
 
-		System.out.println("New session to be created - \n"+ 
-							"name = "+(String)payload.get(payload.keySet().toArray()[1])+
-							" date ="+(String)payload.get(payload.keySet().toArray()[10])+
-							"email="+(String)payload.get(payload.keySet().toArray()[9]));
+		// System.out.println("New session to be created - \n"+ 
+		// 					"name = "+(String)payload.get(payload.keySet().toArray()[1])+
+		// 					" date ="+(String)payload.get(payload.keySet().toArray()[10])+
+		// 					"email="+(String)payload.get(payload.keySet().toArray()[9]));
 				
 		try {
 			sessionRepo.createSession(payload);
@@ -203,6 +235,13 @@ public class SessionController {
 	@GetMapping("/instructor/{instructor_ssn}")
 	public List<Session> getSessionsForInstructor(@PathVariable String instructor_ssn) {
 
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "GET sessions/instructor/{instructor_ssn}")
+		.append("payload", instructor_ssn);
+		coll.insertOne(doc);
+		
 		try {
 			List<Session> result = sessionRepo.getSessionByInstructor(instructor_ssn);
 			System.out.println(result);
@@ -216,6 +255,13 @@ public class SessionController {
 	@GetMapping("/sessions/{student_ssn}")
 	public List getEnrolledSessionsForStudent(@PathVariable String student_ssn) {
 
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "GET sessions/instructor/{student_ssn}")
+		.append("payload", student_ssn);
+		coll.insertOne(doc);
+		
 		try {
 			List result = sessionRepo.getEnrolledSessionByStudents(student_ssn);
 			System.out.println(result);
@@ -228,6 +274,14 @@ public class SessionController {
 
 	@GetMapping("/enrolled/{session_id}")
 	public List getEnrolledStudentsForSession(@PathVariable String session_id) {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "GET sessions/enrolled/{session_id}")
+		.append("payload", session_id);
+		coll.insertOne(doc);
+
 		try {
 			List result = sessionRepo.getEnrolledStudentsForSession(session_id);
 			System.out.println("Result=="+result);
@@ -241,11 +295,12 @@ public class SessionController {
 
 	@PostMapping("/search")
 	public List<Session> getSessionsList(@RequestBody Map<String, String> payload) {
-		System.out.println("Search payload - "+payload);
+
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();
-		doc.append("api", "search")
-		.append("query", (String)payload.get(payload.keySet().toArray()[3]));
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST sessions/search")
+		.append("payload", payload);
 		coll.insertOne(doc);
 		
 		try {
@@ -261,6 +316,13 @@ public class SessionController {
 	
 	@GetMapping("/{id}")
 	public Session getSessionByID(@PathVariable String id) {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "GET sessions/{id}")
+		.append("payload", id);
+		coll.insertOne(doc);
 		return sessionRepo.getSessionByID(id);
 	}
 	
