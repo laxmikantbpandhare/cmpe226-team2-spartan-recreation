@@ -43,14 +43,14 @@ class LoginComponent extends Component {
       role: this.state.role
     };
     console.log("data", data);
-    if(this.state.email === "kong.li@sjsu.edu"){
-      if(this.state.password === "admin"){
-        sessionStorage.setItem(AUTHENTICATED_USER_SESSION, this.state.email);
-        this.props.history.push(`/websitetraffic`)
-      }else{
-        this.setState({ hasLoginFailed: true });
-      }
-    }else{
+    // if(this.state.email === "kong.li@sjsu.edu"){
+    //   if(this.state.password === "admin"){
+    //     sessionStorage.setItem(AUTHENTICATED_USER_SESSION, this.state.email);
+    //     this.props.history.push(`/websitetraffic`)
+    //   }else{
+    //     this.setState({ hasLoginFailed: true });
+    //   }
+    // }else{
         AuthenticationForApiService.authenticate(
           this.state.email,
           this.state.password,
@@ -65,6 +65,7 @@ class LoginComponent extends Component {
             sessionStorage.setItem("userEmail", response.data.email_id);
             sessionStorage.setItem("ssn", response.data.ssn);
             sessionStorage.setItem("role", response.data.role);
+        
             if(response.data.role === "Student" && response.data.valid === "valid"){
                 this.props.history.push(`/search`)
             }
@@ -76,6 +77,9 @@ class LoginComponent extends Component {
             } 
             else if(response.data.role === "Coach" && response.data.valid === "valid"){
               this.props.history.push(`/createteam`)
+            } 
+            else if(response.data.role === "Admin" && response.data.valid === "valid"){
+              this.props.history.push(`/websitetraffic`)
             } 
             else if(response.data.valid === "unregistered") {
               console.log("User has not been approved yet");
@@ -97,7 +101,7 @@ class LoginComponent extends Component {
             this.setState({ showSuccessMessage: false });
             this.setState({ hasLoginFailed: true });
           });
-    }
+    // }
   }
 
   render() {
@@ -173,6 +177,7 @@ class LoginComponent extends Component {
                           <option value="Coach">Coach</option>
                           <option value="Instructor">Instructor</option>
                           <option value="Front Desk Assistant">Front Desk Assistant</option>
+                          <option value="Admin">Admin</option>
                         </select>
                       </div>
                     </div>
