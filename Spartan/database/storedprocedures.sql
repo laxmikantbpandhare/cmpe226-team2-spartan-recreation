@@ -5,11 +5,16 @@ drop PROCEDURE if exists sp_remove_enrolled_student;
 drop PROCEDURE if exists sp_remove_session;
 drop PROCEDURE if exists sp_approve_student;
 drop PROCEDURE if exists sp_approve_tryOutRequest;
+drop PROCEDURE if exists sp_load_sampledata;
 drop trigger if exists InsertStudentTrigger;
 drop trigger if exists InsertInstructorTrigger;
 drop trigger if exists InsertCoachTrigger;
 drop trigger if exists InsertFDATrigger;
 drop trigger if exists removeEnrolledStudents;
+drop trigger if exists deletStudentTrigger;
+drop trigger if exists deleteInstructorTrigger;
+drop trigger if exists deleteCoachTrigger;
+drop trigger if exists deleteFDATrigger;
 drop view if exists tryOutSessionDetails;
 drop view if exists gettingRequests;
 
@@ -338,9 +343,105 @@ WHERE t.coach_ssn = c.ssn;
 
 
 CREATE VIEW gettingRequests AS
-SELECT s.ssn, s.fname, s.lname, s.college_year, t.team_tryOutSession
+SELECT s.ssn, s.fname, s.lname, s.college_year, t.team_tryOutSession, t.coach_ssn
 FROM student s,team_tryouts tt, team t
 WHERE s.ssn = tt.student_id  
 and tt.session_id=t.session_id
 and tt.status = 'pending';
+
+delimiter $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_load_sampledata`(
+OUT status_out varchar(20)
+)
+begin
+
+	DECLARE exit handler for sqlexception
+	  BEGIN
+	  SELECT 'Error occured';
+	  ROLLBACK;
+	  RESIGNAL;
+	END;
+	
+	SET status_out = FALSE;
+    
+    START TRANSACTION;
+    
+    SELECT 'Deleting all records from Spartan Database ';
+    
+    delete from team_tryouts;
+    delete from team;
+    delete from enrollment;
+    delete from session;
+    delete from activity;
+    delete from student_registration;
+    delete from coach;
+    delete from front_desk_assistant;
+    delete from instructor;
+    delete from student;
+    
+    
+    SELECT 'Insert sample data into Coach Table';
+    
+	insert into coach values ('5057','sayalishripad.kulkarni@sjsu.edu','Sayali','Kulkarni','fall 2020','abcd','coach');
+	insert into coach values ('7427','shivani.reddy@sjsu.edu','Shivani','Reddy','fall 2020','abcd','coach');
+
+	SELECT 'Insert sample data into Front Desk Assistant Table';
+    
+	insert into front_desk_assistant values ('8088','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','abcd','front_desk_assistant');
+	insert into front_desk_assistant values ('9088','priyachaitanya.yadav@sjsu.edu','priya','yadav','fall 2020','abcd','front_desk_assistant');
+    
+    SELECT 'Insert sample data into Instructor Table';
+    
+    insert into instructor values ('5088','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','abcd','instructor');
+	insert into instructor values ('6088','priyachaitanya.yadav@sjsu.edu','priya','yadav','fall 2020','abcd','instructor');
+    
+    SELECT 'Insert sample data into Student Table';
+    
+    insert into student values ('4288','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','abcd','student');
+	insert into student values ('8888','priya.khadge.yadav@sjsu.edu','priya','khadge','fall 2020','abcd','student');
+    
+    SELECT 'Insert sample data into Student Registration Table';
+    
+    insert into student_registration (student_ssn,status,registered_by) values ('4288', true,'8088');
+    insert into student_registration (student_ssn,status,registered_by) values ('8888', true,'9088');
+    
+    SELECT 'Insert sample data into Activity Table';
+    
+    insert into activity values ("1" , "Yoga");
+	insert into activity values ("2" , "Zumba");
+	insert into activity values ("3" , "Fitness");
+	insert into activity values ("4" , "Basketball");
+	insert into activity values ("5" , "Football");
+	insert into activity values ("6" , "Volleyball");
+	insert into activity values ("7" , "Badminton");
+    
+    SELECT 'Insert sample data into Team Table';
+    
+    insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (1,"Basketball" , 4, '5057' );
+	insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (2,"Football", 5,  '7427');
+    
+    SELECT 'Insert sample data into Team TryOuts Table';
+
+	insert into team_tryouts (student_id, coach_ssn, session_id, status) values (4288,5057, 1, "approved" );
+	insert into team_tryouts (student_id, coach_ssn, session_id, status) values (8888,7427, 2, "rejected" );
+	
+    SELECT 'Insert sample data into Session Table';
+ 
+	insert into session (session_id, session_name, capacity, section, room_number , start_time ,end_time,activity_id,instructor_ssn,session_date,session_description ) 
+					values (1, "Yoga", 20, 2 , "1", '08:00:00','10:00:00',1,'5088', CURDATE()+1,"Advance Yoga Session" );
+	
+    insert into session (session_id, session_name, capacity, section, room_number, start_time,end_time ,activity_id , instructor_ssn,session_date,session_description )
+					values (2, "Zumba",25, 1, "2", '08:00:00','10:00:00',2,'6088', CURDATE()+1, "Zumba for begginers" );
+                    
+	SELECT 'Insert sample data into Enrollment Table';
+    
+	insert into enrollment (student_id, session_id, status,list_order) values (4288,1, "enrolled", 1);
+	insert into enrollment (student_id, session_id, status,list_order) values (8888, 2, "enrolled", 1 );
+	
+    COMMIT;
+    
+    SET status_out = True;
+    
+end$$
+delimiter ;
 
