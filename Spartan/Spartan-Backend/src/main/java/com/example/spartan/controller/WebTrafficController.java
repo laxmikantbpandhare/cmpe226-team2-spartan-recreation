@@ -1,10 +1,5 @@
 package com.example.spartan.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.print.Doc;
-
 import com.example.spartan.database.MongoDB;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
