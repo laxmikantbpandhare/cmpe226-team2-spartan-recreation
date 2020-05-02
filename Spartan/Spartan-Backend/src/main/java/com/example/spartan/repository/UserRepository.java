@@ -1,20 +1,16 @@
 package com.example.spartan.repository;
 
-import com.example.spartan.entity.Student;
 import com.example.spartan.entity.User;
 import com.example.spartan.entity.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -132,4 +128,15 @@ public class UserRepository {
         }
 
 	}
+
+    public boolean loadSampleData() {
+
+        SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("SP_LOAD_SAMPLEDATA");
+
+        Boolean CallResult = call.executeFunction(Boolean.class);
+        return CallResult;
+    }
+
+
 }
