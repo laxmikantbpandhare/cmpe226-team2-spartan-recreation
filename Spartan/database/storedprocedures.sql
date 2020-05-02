@@ -203,7 +203,7 @@ delimiter ;
 
 delimiter $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_enroll_student`(
-in sp_sessionid varchar(10),
+in sp_sessionid int,
 in sp_capacity int(11),
 in sp_studentssn varchar(10),
 OUT status_out varchar(20)
@@ -388,20 +388,20 @@ begin
 
 	SELECT 'Insert sample data into Front Desk Assistant Table';
     
-	insert into front_desk_assistant values ('8088','laxmikantbhaskar.pandhare@sjsu.edu','Farha','Kauser','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','front_desk_assistant');
+	insert into front_desk_assistant values ('8088','laxmikantbhaskar.pandhare@sjsu.edu','Laxmikant','Pandhare','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','front_desk_assistant');
 	insert into front_desk_assistant values ('0000','kong.li@sjsu.edu','Professor Kong','Li','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','Admin');
     
     SELECT 'Insert sample data into Instructor Table';
     
-	insert into instructor values ('5088','priyachaitanya.yadav@sjsu.edu','Farha','Kauser','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','instructor');
+	insert into instructor values ('5088','priyachaitanya.yadav@sjsu.edu','Priya','Yadav','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','instructor');
 	  
     SELECT 'Insert sample data into Student Table';
     
-  	insert into student values ('8888','07priyayadav@gmail.com','priya','khadge','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','student');
+  	insert into student values ('8888','07priyayadav@gmail.com','Priya','Yadav','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','student');
     
     SELECT 'Insert sample data into Student Registration Table';
     
-    insert into student_registration (student_ssn,status,registered_by) values ('8888', true,'9088');
+    insert into student_registration (student_ssn,status,registered_by) values ('8888', true,'8088');
     
     SELECT 'Insert sample data into Activity Table';
     
@@ -415,7 +415,7 @@ begin
     
     SELECT 'Insert sample data into Team Table';
     
-    insert into team (session_id, team_tryOutSession, activity_id, coach_ssn) values (1,"Basketball_tryout_session" , 4, '5057' );
+    insert into team (team_tryOutSession, activity_id, coach_ssn) values ("Basketball_tryout_session" , 4, '5057' );
     
     SELECT 'Insert sample data into Team TryOuts Table';
 
@@ -423,8 +423,8 @@ begin
 	
     SELECT 'Insert sample data into Session Table';
  
-	insert into session (session_id, session_name, capacity, section, room_number , start_time ,end_time,activity_id,instructor_ssn,session_date,session_description ) 
-					values (1, "Yoga", 20, 2 , "1", '08:00:00','10:00:00',1,'5088', CURDATE()+1,"Advance Yoga Session" );
+	insert into session (session_name, capacity, section, room_number , start_time ,end_time,activity_id,instructor_ssn,session_date,session_description ) 
+					values ( "Yoga", 20, 2 , "1", '08:00:00','10:00:00',1,'5088', CURDATE()+1,"Advance Yoga Session" );
 	
                     
 	SELECT 'Insert sample data into Enrollment Table';

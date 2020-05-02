@@ -1,5 +1,14 @@
 package com.example.spartan.repository;
 
+import com.example.spartan.entity.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,17 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.example.spartan.entity.Enrollment;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCallback;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.stereotype.Repository;
-
-import com.example.spartan.entity.Session;
-import org.springframework.web.bind.annotation.RequestBody;
-
 @Repository
 public class SessionRepository {
 
@@ -30,21 +28,24 @@ public class SessionRepository {
     JdbcTemplate jdbcTemplate;
     
     public Boolean createSession(@RequestBody Map<String, String> payload) throws Exception {
-    	String query="insert into session values(?,?,?,?,?,?,?,?,?,?,?)";
+    	String query="insert into session (session_name, capacity, section, room_number , start_time ,end_time,activity_id,instructor_ssn,session_date,session_description ) " +
+				"values(?,?,?,?,?,?,?,?,?,?)";
 
-		String session_id = (String)payload.get(payload.keySet().toArray()[0]);
-		String session_name = (String)payload.get(payload.keySet().toArray()[1]);
-		int capacity = Integer.parseInt(payload.get(payload.keySet().toArray()[2]));
-		String section = (String)payload.get(payload.keySet().toArray()[3]);
-		int room_no = Integer.parseInt(payload.get(payload.keySet().toArray()[4]));
-		String start_time = (String)payload.get(payload.keySet().toArray()[5]);
-		String end_time = (String)payload.get(payload.keySet().toArray()[6]);
-		String activity_id = (String)payload.get(payload.keySet().toArray()[7]);
-		String instructor_ssn = (String)payload.get(payload.keySet().toArray()[8]);
+    	System.out.println("query"+query);
+
+		//String session_id = (String)payload.get(payload.keySet().toArray()[0]);
+		String session_name = (String)payload.get(payload.keySet().toArray()[0]);
+		int capacity = Integer.parseInt(payload.get(payload.keySet().toArray()[1]));
+		String section = (String)payload.get(payload.keySet().toArray()[2]);
+		int room_no = Integer.parseInt(payload.get(payload.keySet().toArray()[3]));
+		String start_time = (String)payload.get(payload.keySet().toArray()[4]);
+		String end_time = (String)payload.get(payload.keySet().toArray()[5]);
+		String activity_id = (String)payload.get(payload.keySet().toArray()[6]);
+		String instructor_ssn = (String)payload.get(payload.keySet().toArray()[7]);
 //		String date = (String)payload.get(payload.keySet().toArray()[10]);
-		String description = (String)payload.get(payload.keySet().toArray()[11]);
+		String description = (String)payload.get(payload.keySet().toArray()[10]);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = sdf1.parse((String)payload.get(payload.keySet().toArray()[10]));
+		java.util.Date date = sdf1.parse((String)payload.get(payload.keySet().toArray()[9]));
 
 		java.sql.Date date1 = convertJavaDateToSqlDate(date);
     	return jdbcTemplate.execute(query , new PreparedStatementCallback<Boolean>() {
@@ -53,17 +54,17 @@ public class SessionRepository {
 			public Boolean doInPreparedStatement(PreparedStatement ps) 
 					throws SQLException, DataAccessException {
 
-				ps.setString(1, session_id);
-				ps.setString(2, session_name);
-				ps.setInt(3 , capacity );
-				ps.setString(4, section);
-				ps.setInt(5, room_no);
-				ps.setString(6 , start_time);
-				ps.setString(7, end_time);
-				ps.setString(8, activity_id);
-				ps.setString(9, instructor_ssn);
-				ps.setDate(10, (Date) date1);
-				ps.setString(11,description);
+				//ps.setString(1, session_id);
+				ps.setString(1, session_name);
+				ps.setInt(2 , capacity );
+				ps.setString(3, section);
+				ps.setInt(4, room_no);
+				ps.setString(5 , start_time);
+				ps.setString(6, end_time);
+				ps.setString(7, activity_id);
+				ps.setString(8, instructor_ssn);
+				ps.setDate(9, (Date) date1);
+				ps.setString(10,description);
                            
                 return ps.executeUpdate() > 0;
 							

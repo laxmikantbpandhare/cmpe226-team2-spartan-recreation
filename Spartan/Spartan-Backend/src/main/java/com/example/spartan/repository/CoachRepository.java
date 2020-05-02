@@ -99,9 +99,12 @@ public class CoachRepository {
 
     public Boolean createTryOutSession(@RequestBody Map<String, String> payload) throws Exception {
 
-        String query="insert into team (session_id,team_tryOutSession,activity_id,coach_ssn) values(?,?,?,?)";
+        String query="insert into team (team_tryOutSession,activity_id,coach_ssn) values(?,?,?)";
 
-        String session_id = (String)payload.get(payload.keySet().toArray()[0]);
+        System.out.println("Create Coach Repo");
+
+
+        //String session_id = (String)payload.get(payload.keySet().toArray()[0]);
         String team_tryOutSession = (String)payload.get(payload.keySet().toArray()[1]);
         String activity_id = (String)payload.get(payload.keySet().toArray()[2]);
         String coach_ssn = (String)payload.get(payload.keySet().toArray()[3]);
@@ -112,10 +115,10 @@ public class CoachRepository {
             public Boolean doInPreparedStatement(PreparedStatement ps)
                     throws SQLException, DataAccessException {
 
-                ps.setString(1, session_id);
-                ps.setString(2, team_tryOutSession);
-                ps.setString(3, activity_id);
-                ps.setString(4, coach_ssn);
+                //ps.setString(1, session_id);
+                ps.setString(1, team_tryOutSession);
+                ps.setString(2, activity_id);
+                ps.setString(3, coach_ssn);
 
                 return ps.executeUpdate() > 0;
 
