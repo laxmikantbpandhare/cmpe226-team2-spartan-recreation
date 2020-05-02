@@ -54,7 +54,7 @@ public class  UserController {
 
         if(role.equals("Student")){
             Boolean result = userRepository.verifyRegistration(ssn);
-            System.out.println("Student Registration = "+result);
+//            System.out.println("Student Registration = "+result);
             if(!result) {
                 map.put("valid", "unregistered");
                 return map;
@@ -63,7 +63,10 @@ public class  UserController {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(password);
-        boolean isPasswordMatch = encoder.matches(password, hashedPassword);
+        System.out.println("passwoed"+s);
+        System.out.println("hasdhed"+hashedPassword);
+        //i modified below
+        boolean isPasswordMatch = encoder.matches(password,s);
         if (isPasswordMatch){
             map.put("valid", "valid");
             return map;
