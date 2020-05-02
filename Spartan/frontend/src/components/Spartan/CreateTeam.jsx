@@ -255,7 +255,7 @@ class CreateTeam extends Component {
                           <td>
                           <CardActions>
                             <button id="Basketball" onClick={() => this.registerStudent("Basketball")}>
-                              Registers
+                              Create Team
                             </button>
                           </CardActions>
                           </td>
@@ -282,7 +282,7 @@ class CreateTeam extends Component {
                           <td>
                           <CardActions>
                             <button id="Football" onClick={() => this.registerStudent("Football")}>
-                              Registers
+                            Create Team
                             </button>
                           </CardActions>
                           </td>
@@ -311,7 +311,7 @@ class CreateTeam extends Component {
                           <td>
                           <CardActions>
                             <button id="Volleyball" onClick={() => this.registerStudent("Volleyball")}>
-                              Registers
+                            Create Team
                             </button>
                           </CardActions>
                           </td>
@@ -339,7 +339,7 @@ class CreateTeam extends Component {
                           <td>
                           <CardActions>
                             <button id="Badminton" onClick={() => this.registerStudent("Badminton")}>
-                              Registers
+                            Create Team
                             </button>
                           </CardActions>
                           </td>
