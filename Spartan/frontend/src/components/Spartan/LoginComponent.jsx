@@ -70,6 +70,12 @@ class LoginComponent extends Component {
         else if(response.data.role === "Coach" && response.data.valid === "valid"){
           this.props.history.push(`/createteam`)
         } 
+        else if(response.data.valid === "unregistered") {
+          console.log("User has not been approved yet");
+          this.setState({
+            unregisteredUser : true
+          })
+        }
         else if(response.data.valid === "invalid") {
           console.log("User has not been registered yet");
           this.setState({ hasLoginFailed: true });

@@ -116,4 +116,20 @@ public class UserRepository {
 
         return ssn;
     }
+
+	public Boolean verifyRegistration(String ssn) {
+
+		String query = "select student_ssn from student_registration where student_ssn = ? and status = true";
+        Object[] inputs = new Object[] {ssn};
+        String student_ssn = null;
+        try {
+            student_ssn = jdbcTemplate.queryForObject(query, inputs , String.class);
+            System.out.println("Student ssn from student_reg - "+student_ssn);
+            return true;
+        }
+        catch(DataAccessException e) {
+            return false;
+        }
+
+	}
 }
