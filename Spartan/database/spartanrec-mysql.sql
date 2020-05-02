@@ -94,6 +94,7 @@ create table enrollment (
 	session_id varchar(10),
 	status char(8) not null check (status = 'enrolled' or status = 'waitlist'),
 	list_order int not null,
+    primary key (student_id,session_id),
     foreign key(student_id) references student(ssn) on delete cascade on update cascade,
 	foreign key(session_id) references session(session_id) on delete cascade on update cascade
 );

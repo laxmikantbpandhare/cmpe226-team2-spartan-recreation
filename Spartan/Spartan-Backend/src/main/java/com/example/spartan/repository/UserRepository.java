@@ -1,7 +1,12 @@
 package com.example.spartan.repository;
 
+import java.text.ParseException;
+import java.util.Map;
+import java.util.List;
+
 import com.example.spartan.entity.User;
 import com.example.spartan.entity.UserRowMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,10 +15,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-
-import java.text.ParseException;
-import java.util.List;
-import java.util.Map;
 
 
 @Repository
