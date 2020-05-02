@@ -21,7 +21,28 @@ export default class WebsiteTraffic extends Component {
       dataAPI : [],
       dataAcitivity : []
     }
+
+    this.loadDatabase = this.loadDatabase.bind(this)
   }
+
+  loadDatabase() {
+
+    axios.post(API_URL+"/loadSampleData").then( (response) => {
+        console.log("Enrollment response",response);
+        if(response.status === 200) {
+          alert(
+            "Successfully Loaded Data into Database."
+          );
+        }
+        else {
+          alert(
+            "There is some issue with the loading of data into Database."
+          );
+        }
+
+    })
+}
+
   componentWillMount() {
     axios.get(API_URL+"/apidata").then((res) => {
         var temp = res.data.split(",")
@@ -48,14 +69,14 @@ export default class WebsiteTraffic extends Component {
   render() {
     return (
       <div>
-        
+    
       <div style = {{display : "flex" , justifyContent : "center"}}>
         <AppBar >
-          <Toolbar>
-            <Typography variant='h7'>
+          {/* <Toolbar>
+            <Typography variant='h6'>
               Spartan Recreation Website Traffic
             </Typography>
-          </Toolbar>
+          </Toolbar> */}
           </AppBar>
         <Paper style={{backgroundColor : "#76a8f2",padding : "30px", margin : "10px" , height : "auto", width : "auto"}}>
           <Typography variant = 'h5'>
@@ -142,7 +163,16 @@ export default class WebsiteTraffic extends Component {
           </Paper>
 
         </div>
-        
+        <div class="col-sm-3 col-md-3 ">
+                  <div class="form-group">
+                    <br />
+                    <button id="Volleyball"class="form-control btn btn-danger" onClick={this.loadDatabase}>
+                            Load Data Into Database
+                    </button>
+                    <br />
+                    <br />
+                  </div>
+                  </div>
       </div>
     )
   }

@@ -129,12 +129,12 @@ public class UserRepository {
 
 	}
 
-    public boolean loadSampleData() {
+    public String loadSampleData() {
 
         SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("SP_LOAD_SAMPLEDATA");
 
-        Boolean CallResult = call.executeFunction(Boolean.class);
+        String CallResult = call.executeFunction(String.class);
         return CallResult;
     }
 
