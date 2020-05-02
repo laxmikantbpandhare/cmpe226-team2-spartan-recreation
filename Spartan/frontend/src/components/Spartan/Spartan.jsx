@@ -16,6 +16,7 @@ import TeamTryOut from "./TeamTryOut";
 import SessionDisplayInstructor from "./SessionDisplayInstructor";
 import StudentEnrolledSessions from "./StudentEnrolledSessions";
 import PendingRegistrations from "./PendingRegistrations";
+import PendingStudentRequests from "./PendingStudentRequests";
 import CreateTeam from "./CreateTeam";
 import TeamDisplayCoach from "./TeamDisplayCoach";
 import WebsiteTraffic from "./WebsiteTraffic";
@@ -47,6 +48,7 @@ class Spartan extends Component {
               <Route path="/login" component={LoginComponent} />
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
+              <Route path = "/pendingStudentRequests" exact component = {PendingStudentRequests} />
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}

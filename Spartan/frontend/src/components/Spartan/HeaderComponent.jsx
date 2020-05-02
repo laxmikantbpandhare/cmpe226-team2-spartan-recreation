@@ -123,6 +123,7 @@ class HeaderComponent extends Component {
                     <ul className="navbar-nav">
                         {isUserLoggedIn && <li><Link className="nav-link" to="/createteam">Home</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/teamdisplaycoach">TryOut Teams</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/pendingStudentRequests">Student Requests</Link></li>}
                         <li><Link className="nav-link" to=""><font color="red">Current Time: {this.state.date}</font></Link></li>
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">

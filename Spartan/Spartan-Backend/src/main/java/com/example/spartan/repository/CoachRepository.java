@@ -70,8 +70,9 @@ public class CoachRepository {
     public List getAllPendingRequests(String coachssn) {
 
         String query = "select ssn, fname, lname, college_year, team_tryOutSession from gettingRequests" +
-                "where coach_ssn='"+coachssn+"'";
+                " where coach_ssn='"+coachssn+"'";
 
+//        System.out.println("query"+query);
         return jdbcTemplate.query(query, new ResultSetExtractor<List>() {
 
             @Override
@@ -85,6 +86,7 @@ public class CoachRepository {
                     s.add(rs.getString(2));
                     s.add(rs.getString(3));
                     s.add(rs.getString(4));
+                    s.add(rs.getString(5));
                     resultList.add(s);
                 }
 
