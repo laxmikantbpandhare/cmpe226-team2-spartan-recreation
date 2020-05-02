@@ -1,9 +1,14 @@
 package com.example.spartan.controller;
 
+import com.example.spartan.database.MongoDB;
 import com.example.spartan.entity.Coach;
 import com.example.spartan.entity.Team;
 import com.example.spartan.mail.SendMail;
 import com.example.spartan.repository.CoachRepository;
+import com.mongodb.client.MongoCollection;
+import java.util.Date;
+
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +37,14 @@ public class CoachController {
 	
 	@PostMapping("/new")
 	public ResponseEntity<String> createNewCoach(@RequestBody Coach coach) {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST coaches/new")
+		.append("payload", coach );
+		coll.insertOne(doc);
+
 		System.out.println("New coach employee to be created - \n"+ 
 							"name = "+coach.getFname()+" "+coach.getLname()+
 							" ssn = "+coach.getSsn());
@@ -52,6 +66,13 @@ public class CoachController {
 	@GetMapping("/coach/{instructor_ssn}")
 	public List<Team> getSessionsForInstructor(@PathVariable String instructor_ssn) {
 
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "GET coaches/coach/{coach_ssn}")
+		.append("payload", instructor_ssn );
+		coll.insertOne(doc);
+
 		try {
 			List<Team> result = coachRepo.getSessionByInstructor(instructor_ssn);
 			System.out.println("results here"+result);
@@ -70,6 +91,13 @@ public class CoachController {
 	@PostMapping("/assessStudentRequest/{studentssn}/{tryOutSessionName}/{decision}")
 	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("tryOutSessionName") String tryOutSessionName, @PathVariable("decision") String decision) {
 
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST coaches/assessStudentRequest/{studentssn}/{tryOutSessionName}/{decision}")
+		.append("payload", studentssn+"/"+tryOutSessionName+"/"+decision );
+		coll.insertOne(doc);
+
 		String session_id = coachRepo.getSessionIdByName(tryOutSessionName);
 		return coachRepo.assessRequest(studentssn,session_id,decision);
 
@@ -77,6 +105,14 @@ public class CoachController {
 
 	@GetMapping("/getAllPendingRequests/{coachssn}")
 	public List getAllPendingRequests(@PathVariable String coachssn) {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "GET coaches/getAllPendingRequests/{coachssn}")
+		.append("payload", coachssn );
+		coll.insertOne(doc);
+
 		return coachRepo.getAllPendingRequests(coachssn);
 	}
 
@@ -84,6 +120,14 @@ public class CoachController {
 
 	@PostMapping("/newTryOutSession")
 	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST coaches/newTryOutSession")
+		.append("payload", payload );
+		coll.insertOne(doc);
+		
 		System.out.println("New try session to be created - \n"+
 				"session name = "+(String)payload.get(payload.keySet().toArray()[1])+
 				"email="+(String)payload.get(payload.keySet().toArray()[4]));
@@ -112,6 +156,14 @@ public class CoachController {
 
 	@PostMapping("/removes/session")
 	public String removeTryOutSession(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
+
+		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+		Document doc = new Document();
+		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
+		.append("api", "POST coaches/removes/session")
+		.append("payload", payload );
+		coll.insertOne(doc);
+
 
 		System.out.println("Try out session payload = "+payload);
 		List result = coachRepo.getRegisteredStudentsForTryOut(payload.get(payload.keySet().toArray()[0]));
