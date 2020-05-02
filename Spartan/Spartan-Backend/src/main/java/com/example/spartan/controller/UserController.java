@@ -75,7 +75,7 @@ public class  UserController {
     }
 
     @PostMapping("/loadSampleData")
-    public boolean loadSampleData() {
+    public String loadSampleData() {
         return userRepository.loadSampleData();
 
     }
