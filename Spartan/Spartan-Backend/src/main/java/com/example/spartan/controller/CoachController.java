@@ -1,7 +1,6 @@
 package com.example.spartan.controller;
 
 import com.example.spartan.entity.Coach;
-import com.example.spartan.entity.Session;
 import com.example.spartan.entity.Team;
 import com.example.spartan.mail.SendMail;
 import com.example.spartan.repository.CoachRepository;
@@ -77,8 +76,8 @@ public class CoachController {
 	}
 
 	@GetMapping("/getAllPendingRequests")
-	public List getAllPendingRequests() {
-		return coachRepo.getAllPendingRequests();
+	public List getAllPendingRequests(@PathVariable String coachssn) {
+		return coachRepo.getAllPendingRequests(coachssn);
 	}
 
 

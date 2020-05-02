@@ -67,9 +67,10 @@ public class CoachRepository {
     }
 
 
-    public List getAllPendingRequests() {
+    public List getAllPendingRequests(String coachssn) {
 
-        String query = "select ssn, fname, lname, college_year, team_tryOutSession from gettingRequests;";
+        String query = "select ssn, fname, lname, college_year, team_tryOutSession from gettingRequests" +
+                "where coach_ssn='"+coachssn+"'";
 
         return jdbcTemplate.query(query, new ResultSetExtractor<List>() {
 
