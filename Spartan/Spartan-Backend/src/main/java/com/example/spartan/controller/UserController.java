@@ -50,7 +50,7 @@ public class  UserController {
 		Document doc = new Document();
 		doc.append("timestamp" , new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
 		.append("api", "POST /authenticate")
-		.append("payload", payload );
+		.append("email", (String)payload.get(payload.keySet().toArray()[0] ));
 		coll.insertOne(doc);
         
         System.out.println("payload"+payload);

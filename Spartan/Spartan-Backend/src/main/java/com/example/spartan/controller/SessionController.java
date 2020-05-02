@@ -57,15 +57,6 @@ public class SessionController {
 		coll.insertOne(doc);	
 	}
 
-	@GetMapping("/getLog")
-	public String getAllLog() {
-		MongoCursor<Document> cursor = MongoDB.getinstance().getCollection().find().iterator();
-		StringBuilder s = new StringBuilder();
-		while(cursor.hasNext())
-			s.append(cursor.next().entrySet()+"\n");
-		return s.toString();
-	}
-
 
 	@PostMapping("/enroll") 
 	public String enrollStudent(@RequestBody Map<String, String> payload) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
