@@ -15,12 +15,10 @@ import SessionCreation from "./SessionCreation";
 import TeamTryOut from "./TeamTryOut";
 import SessionDisplayInstructor from "./SessionDisplayInstructor";
 import StudentEnrolledSessions from "./StudentEnrolledSessions";
-import PendingRegistrations from "./PendingRegistrations"
-import CreateTeam from "./CreateTeam"
-import TeamDisplayCoach from "./TeamDisplayCoach"
-
-
-import WebsiteTraffic from "./WebsiteTraffic"
+import PendingRegistrations from "./PendingRegistrations";
+import CreateTeam from "./CreateTeam";
+import TeamDisplayCoach from "./TeamDisplayCoach";
+import WebsiteTraffic from "./WebsiteTraffic";
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -39,24 +37,14 @@ class Spartan extends Component {
               <Route path="/login" component={LoginComponent} />
               <Route path="/instructorDashboard/sessionCreation" component={SessionCreation}/>
               <Route path="/sessionDetails"  component={SessionsComponent}/>
-              <Route
-                path="/instructorDashboard/sessionCreation"
-                component={SessionCreation}
-              />
+              <Route path="/instructorDashboard/sessionCreation" component={SessionCreation} />
               <Route path="/instructorDashboard" component={SessionDisplayInstructor} />
-              <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />   
-              <Route path="/teamTryOut" component={TeamTryOut} />  
+              <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />    
               <Route path="/createteam" component={CreateTeam} />
               <Route path="/teamdisplaycoach" component={TeamDisplayCoach} />
-              <Route path="/StudentEnrolledSessions" component={StudentEnrolledSessions} />
-              
-              <Route path="/teamTryOut" component={TeamTryOut} />
               <Route path="/websitetraffic" component={WebsiteTraffic} />
               <Route path="/teamTryOut" component={TeamTryOut} />
-              {/* <Route path="/search/searchResult/:propertyId" component={SearchResultDetails} /> */}
               <Route path="/login" component={LoginComponent} />
-              <Route path = "/sessionCreation"  component = {SessionCreation}/>
-              <Route path = "/sessionDetails"  component = {SessionsComponent} />
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
