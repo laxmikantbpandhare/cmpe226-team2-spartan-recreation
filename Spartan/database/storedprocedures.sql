@@ -304,7 +304,7 @@ DECLARE exit handler for sqlexception
   RESIGNAL;
 END;
 
-UPDATE team_tryouts SET `status` = sp_decision WHERE student_ssn = sp_studentssn and session_id = sp_session_id;
+UPDATE team_tryouts SET `status` = sp_decision WHERE student_id = sp_studentssn and session_id = sp_session_id;
 
 set status_out = TRUE;
 

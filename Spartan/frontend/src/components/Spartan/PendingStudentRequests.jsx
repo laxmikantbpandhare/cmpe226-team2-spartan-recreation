@@ -110,7 +110,7 @@ class PendingStudentRequests extends Component {
                 console.log("==================APPROVING!===================",rowData.ssn)
                 const fda = sessionStorage.getItem('ssn');
                   axios
-                    .post(API_URL+`/coaches/assessStudentRequest/`+rowData.ssn+`/`+fda)
+                  .post(API_URL+`/coaches/assessStudentRequest/`+rowData.ssn+`/`+rowData.session_name+`/`+`approved`)
                     .then((res) => {
                       console.log("after approval call ", res.data);
                       // const admin = sessionStorage.getItem('ssn');
@@ -135,10 +135,10 @@ class PendingStudentRequests extends Component {
   
                 onClick: (event, rowData) => {
   
-                  console.log("==================APPROVING!===================",rowData.ssn)
+                  console.log("==================APPROVING!===================",rowData.session_name)
                   const fda = sessionStorage.getItem('ssn');
                     axios
-                      .post(API_URL+`/coaches/assessStudentRequest/`+rowData.ssn+`/`+fda)
+                      .post(API_URL+`/coaches/assessStudentRequest/`+rowData.ssn+`/`+rowData.session_name+`/`+`rejected`)
                       .then((res) => {
                         console.log("after approval call ", res.data);
                         // const admin = sessionStorage.getItem('ssn');

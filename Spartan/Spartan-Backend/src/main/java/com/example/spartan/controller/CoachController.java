@@ -67,7 +67,6 @@ public class CoachController {
 		System.out.println("Hello");
 	}*/
 
-	@CrossOrigin(origins="*")
 	@PostMapping("/assessStudentRequest/{studentssn}/{tryOutSessionName}/{decision}")
 	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("tryOutSessionName") String tryOutSessionName, @PathVariable("decision") String decision) {
 
