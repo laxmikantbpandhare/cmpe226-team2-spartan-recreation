@@ -51,14 +51,14 @@ public class CoachRepository {
     }
 
 
-    public boolean assessRequest(String studentssn, String sessionId, String decision ) {
+    public boolean assessRequest(String studentssn, String session_id, String decision ) {
 
         SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("SP_APPROVE_TRYOUTREQUEST");
 
         SqlParameterSource paramMap = new MapSqlParameterSource()
                 .addValue("sp_studentssn" , studentssn)
-                .addValue("sp_session_id" , sessionId)
+                .addValue("sp_session_id" , session_id)
                 .addValue("sp_decision" , decision)
                 ;
 
@@ -175,6 +175,19 @@ public class CoachRepository {
                 return resultList;
             }
 
+        });
+    }
+
+    public String getSessionIdByName(String tryOutSessionName){
+
+        String sql = "select t.session_id from team t where t.team_tryOutSession = '"+tryOutSessionName+"'";
+
+        return jdbcTemplate.query(sql, new ResultSetExtractor<String>() {
+            @Override
+            public String extractData(ResultSet rs) throws SQLException,
+                    DataAccessException {
+                return rs.next() ? rs.getString("session_id") : null;
+            }
         });
     }
 

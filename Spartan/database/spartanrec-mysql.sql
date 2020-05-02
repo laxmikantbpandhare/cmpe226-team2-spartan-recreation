@@ -4,7 +4,7 @@ use cmpe226_Spartan;
 
 create table student (
 	ssn	varchar(10) primary key, 
-	email_id	varchar(50) not null, 
+	email_id	varchar(50) unique not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
 	college_year varchar(15) not null,
@@ -15,7 +15,7 @@ create table student (
 
 create table coach (
 	ssn	varchar(10) primary key, 
-	email_id	varchar(50) not null, 
+	email_id	varchar(50) unique not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
 	joining_year varchar(15) not null,
@@ -25,7 +25,7 @@ create table coach (
 
 create table front_desk_assistant (
 	ssn	varchar(10) primary key, 
-	email_id	varchar(50) not null, 
+	email_id	varchar(50)  unique not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
 	joining_year varchar(15) not null,
@@ -35,7 +35,7 @@ create table front_desk_assistant (
 
 create table instructor (
 	ssn	varchar(10) primary key, 
-	email_id	varchar(50) not null, 
+	email_id	varchar(50) unique not null, 
 	fname	varchar(50) not null, 		
 	lname	varchar(50) not null,
 	joining_year varchar(15) not null,
@@ -45,12 +45,12 @@ create table instructor (
 
 create table user (
 	ssn	varchar(10) primary key, 
-	email_id	varchar(50) not null
+	email_id varchar(50) not null
 );
 
 create table team (
 	session_id  varchar(10) primary key, 
-	team_tryOutSession varchar(50) not null,
+	team_tryOutSession varchar(50) unique not null,
     activity_id varchar(10),
     coach_ssn varchar(10),
 	year int default 2020
