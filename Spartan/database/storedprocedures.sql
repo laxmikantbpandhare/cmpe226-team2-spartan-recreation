@@ -384,23 +384,23 @@ begin
     
     SELECT 'Insert sample data into Coach Table';
     
-	insert into coach values ('5057','sayalishripad.kulkarni@sjsu.edu','Sayali','Kulkarni','fall 2020','abcd','coach');
-	insert into coach values ('7427','shivani.reddy@sjsu.edu','Shivani','Reddy','fall 2020','abcd','coach');
+	insert into coach values ('5057','sayalishripad.kulkarni@sjsu.edu','Sayali','Kulkarni','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','coach');
+	insert into coach values ('7427','shivani.reddy@sjsu.edu','Shivani','Reddy','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','coach');
 
 	SELECT 'Insert sample data into Front Desk Assistant Table';
     
-	insert into front_desk_assistant values ('8088','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','abcd','front_desk_assistant');
+	insert into front_desk_assistant values ('8088','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','front_desk_assistant');
 	insert into front_desk_assistant values ('9088','priyachaitanya.yadav@sjsu.edu','priya','yadav','fall 2020','abcd','front_desk_assistant');
     
     SELECT 'Insert sample data into Instructor Table';
     
-    insert into instructor values ('5088','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','abcd','instructor');
-	insert into instructor values ('6088','priyachaitanya.yadav@sjsu.edu','priya','yadav','fall 2020','abcd','instructor');
+    insert into instructor values ('5088','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','instructor');
+	insert into instructor values ('6088','priyachaitanya.yadav@sjsu.edu','priya','yadav','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','instructor');
     
     SELECT 'Insert sample data into Student Table';
     
-    insert into student values ('4288','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','abcd','student');
-	insert into student values ('8888','priya.khadge.yadav@sjsu.edu','priya','khadge','fall 2020','abcd','student');
+    insert into student values ('4288','farha.kauser@sjsu.edu','Farha','Kauser','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','student');
+	insert into student values ('8888','priya.khadge.yadav@sjsu.edu','priya','khadge','fall 2020','$2a$10$8GDqoqhSserNrrbQYiVfzepMPa093dIq1gwKDlOTxuOJAt5XUK/5a','student');
     
     SELECT 'Insert sample data into Student Registration Table';
     
