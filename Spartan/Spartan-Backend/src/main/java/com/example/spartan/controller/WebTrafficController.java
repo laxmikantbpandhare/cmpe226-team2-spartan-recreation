@@ -69,6 +69,21 @@ public class WebTrafficController {
         System.out.println(""+yoga+","+zumba+","+fitness+","+basketball+","+football+","+volleyball+","+badminton);
         return ""+yoga+","+zumba+","+fitness+","+basketball+","+football+","+volleyball+","+badminton;
     }
+
+
+    @GetMapping("/getAppLogs")
+    public String getAllLogs() {
+
+        MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
+        MongoCursor<Document> cursor = coll.find().iterator();
+        StringBuilder s = new StringBuilder();
+        while(cursor.hasNext()){
+            s.append(cursor.next().entrySet()+"$");
+        }
+
+        return s.toString();
+    }
+
 }
 
 

@@ -20,6 +20,7 @@ import PendingStudentRequests from "./PendingStudentRequests";
 import CreateTeam from "./CreateTeam";
 import TeamDisplayCoach from "./TeamDisplayCoach";
 import WebsiteTraffic from "./WebsiteTraffic";
+import AppLogs from "./AppLogs"
 
 // import AssetDisplay from "./AssetDisplay.jsx";
 
@@ -49,6 +50,8 @@ class Spartan extends Component {
               <Route path = "/sessionCreation" exact component = {SessionCreation}/>
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
               <Route path = "/pendingStudentRequests" exact component = {PendingStudentRequests} />
+              <Route path = "/appLogs" exact component = {AppLogs} />
+
               {/* <AuthenticatedRoute path="/bookingconfirmation" component={BookingConfirmation} />
               <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
               <Route path="/hostdashboard/:name" component={HostDashboard} /> */}
