@@ -68,10 +68,11 @@ public class CoachController {
 	}*/
 
 	@CrossOrigin(origins="*")
-	@PostMapping("/assessStudentRequest/{studentssn}/{sessionId}/{decision}")
-	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("sessionId") String sessionId, @PathVariable("decision") String decision) {
+	@PostMapping("/assessStudentRequest/{studentssn}/{tryOutSessionName}/{decision}")
+	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("tryOutSessionName") String tryOutSessionName, @PathVariable("decision") String decision) {
 
-		return coachRepo.assessRequest(studentssn,sessionId,decision);
+		String session_id = coachRepo.getSessionIdByName(tryOutSessionName);
+		return coachRepo.assessRequest(studentssn,session_id,decision);
 
 	}
 
