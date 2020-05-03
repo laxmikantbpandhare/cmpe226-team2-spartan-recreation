@@ -135,7 +135,7 @@ class HeaderComponent extends Component {
             )
 
         }
-        else if(role === "Admin"){
+        else if(role === "Admin" && isUserLoggedIn){
 
             display = (
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

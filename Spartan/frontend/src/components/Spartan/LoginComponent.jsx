@@ -4,7 +4,7 @@ import AuthenticationForApiService from "./AuthenticationForApiService.js";
 // import GoogleLogin from "react-google-login";
 // import { API_URL } from "../../Constants";
 // import axios from "axios";
-export const AUTHENTICATED_USER_SESSION = "authenticatedUser";
+// export const AUTHENTICATED_USER_SESSION = "authenticatedUser";
 class LoginComponent extends Component {
   constructor(props) {
     super(props);

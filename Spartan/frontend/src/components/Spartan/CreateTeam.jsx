@@ -149,10 +149,18 @@ class CreateTeam extends Component {
 
     axios.post(API_URL + "/coaches/newTryOutSession", data).then((response) => {
       console.log("Registration status", response);
-      if (response.data) {
+      if (response.status === 200) {
         this.setState({
           alreadyregistered: true,
         });
+        alert(
+          "Team Created Successfully."
+        );
+      }
+      else{
+        alert(
+          "Error in TryOut Team Creation."
+        );
       }
     });
 
