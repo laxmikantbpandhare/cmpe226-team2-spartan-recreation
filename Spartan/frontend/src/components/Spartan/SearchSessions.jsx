@@ -200,7 +200,7 @@ class SearchSessions extends Component {
                   <div class="col-sm-6 col-md-6">
                     <div class="col-sm-8 col-md-8">
                       <label for="where">
-                        <h5>CHECK-IN *</h5>
+                        <h5>Start Date *</h5>
                       </label>
                       <input
                         onChange={this.ChangeHandler}
@@ -219,7 +219,7 @@ class SearchSessions extends Component {
                   <div class="col-sm-6 col-md-6">
                     <div class="col-sm-8 col-md-8">
                       <label for="where">
-                        <h5>CHECKOUT *</h5>
+                        <h5>End Date *</h5>
                       </label>
                       <input
                         onChange={this.ChangeHandler}
