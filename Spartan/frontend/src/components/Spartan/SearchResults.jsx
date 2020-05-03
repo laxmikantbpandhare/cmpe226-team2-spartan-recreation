@@ -112,7 +112,7 @@ class SearchResults extends Component {
 
                                 <hr></hr>
                                 <button class="btn btn-danger" name="BookButton"  onClick={() => this.OpenProperty(property)}>
-                                    <span>Property Details</span>
+                                    <span>Session Details</span>
                                 </button>
                             </div>
                         </div>
