@@ -88,7 +88,7 @@ public class CoachController {
 	}*/
 
 	@PostMapping("/assessStudentRequest/{studentssn}/{tryOutSessionName}/{decision}")
-	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("tryOutSessionName") String tryOutSessionName, @PathVariable("decision") String decision) {
+	public boolean approveStudent(@PathVariable("studentssn") String studentssn, @PathVariable("tryOutSessionName") String tryOutSessionName, @PathVariable("decision") String decision) throws MessagingException, IOException, com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException {
 
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();
@@ -97,7 +97,23 @@ public class CoachController {
 		.append("payload", studentssn+"/"+tryOutSessionName+"/"+decision );
 		coll.insertOne(doc);
 
+
+
+
 		String session_id = coachRepo.getSessionIdByName(tryOutSessionName);
+		String email = coachRepo.getEmail(studentssn);
+		if(!email.equals("") && decision.equals("approved")) {
+			SendMail y = new SendMail();
+			y.sendEmail("Your request approved for TryOut Session", email,
+					"Your request has been approved for TryOut Session in the Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
+		else if(!email.equals("") && decision.equals("rejected")) {
+			SendMail y = new SendMail();
+			y.sendEmail("Your request has been rejected for TryOut Session", email,
+					"Your request has been rejected for TryOut Session in the Spartan Recreation." +"\n\n For more details check your dashboard\n\n " +
+							"Thanks and Regards, \n Spartan Recreation Team");
+		}
 		return coachRepo.assessRequest(studentssn,session_id,decision);
 
 	}
