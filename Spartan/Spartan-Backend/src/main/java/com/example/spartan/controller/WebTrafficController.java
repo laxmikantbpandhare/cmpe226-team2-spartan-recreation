@@ -21,19 +21,17 @@ public class WebTrafficController {
         try {
             while (cursor.hasNext()) {
                 // String d = (String) cursor.next().toString();
-                Document d = cursor.next();
-                if(d.containsKey("api")) {
-                    switch(d.get("api").toString()) {
-                        case "search" : search++; break;
-                        case "enroll" : enroll++; break;
-                        case "create" : create++; break;
-                    }
+                String d = cursor.next().toString().toLowerCase(); 
+                if(d.contains("search")) 
+                    search++;
+                if(d.contains("enroll")) 
+                    enroll++;
+                if(d.contains("create") || d.contains("new")) 
+                    create++;
                 }
             }
-        }
-        catch(Exception e) {
-
-        }
+        catch(Exception e) {}
+        
         return ""+search+","+enroll+","+create;
     }
 
@@ -48,24 +46,26 @@ public class WebTrafficController {
 
         try {
             while (cursor.hasNext()) {
-                // String d = (String) cursor.next().toString();
-                Document d = cursor.next();
-                if(d.containsKey("activity")) {
-                    switch(d.get("activity").toString()) {
-                        case "1" : yoga++; break;
-                        case "2" : zumba++; break;
-                        case "3" : fitness++; break;
-                        case "4" : basketball++; break;
-                        case "5" : football++; break;
-                        case "6" : volleyball++; break;
-                        case "7" : badminton++; break;
-                    }
-                }
+                String d = cursor.next().toString().toLowerCase(); 
+                if(d.contains("zumba"))
+                    zumba++;
+                else if(d.contains("yoga"))
+                    yoga++;
+                else if(d.contains("fitness"))
+                    fitness++;
+                else if(d.contains("basketball"))
+                    basketball++;
+                else if(d.contains("volleyball"))
+                    volleyball++;
+                else if(d.contains("badminton"))
+                    badminton++; 
+                else if(d.contains("football"))
+                    football++; 
             }
         }
         catch(Exception e) {
 
-        }
+         }
         System.out.println(""+yoga+","+zumba+","+fitness+","+basketball+","+football+","+volleyball+","+badminton);
         return ""+yoga+","+zumba+","+fitness+","+basketball+","+football+","+volleyball+","+badminton;
     }

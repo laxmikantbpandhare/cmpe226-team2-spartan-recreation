@@ -43,7 +43,9 @@ public class TeamController {
             payload.put("team_id",t.sessionId);
             payload.put("coach_ssn",t.coach_ssn);
 
-            boolean status = teamRepo.getStudentStatus(payload.get(payload.keySet().toArray()[0]),payload.get(payload.keySet().toArray()[4]));
+            System.out.println("PAYLOAD PRIYA"+payload);
+
+            boolean status = teamRepo.getStudentStatus(payload.get(payload.keySet().toArray()[0]),payload.get(payload.keySet().toArray()[3]));
 
             String receiver = (String)payload.get(payload.keySet().toArray()[1]);
 
