@@ -194,4 +194,14 @@ public class CoachRepository {
         });
     }
 
+
+    public String getEmail(String ssn) {
+
+        String query = "SELECT email_id FROM student WHERE ssn = ?";
+        Object[] inputs = new Object[] {ssn};
+        String email = jdbcTemplate.queryForObject(query, inputs, String.class);
+
+        return email;
+    }
+
 }

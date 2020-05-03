@@ -249,7 +249,7 @@ class SignUp extends Component {
                         <h5>Password</h5>
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         className="form-control"
                         name="password"
                         id="password"

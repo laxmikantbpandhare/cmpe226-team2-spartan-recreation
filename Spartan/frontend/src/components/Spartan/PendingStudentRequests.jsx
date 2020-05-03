@@ -131,7 +131,7 @@ class PendingStudentRequests extends Component {
             },
             {
                 icon: () => <ThumbDown />,
-                tooltip: "Approve student",
+                tooltip: "Reject student",
   
                 onClick: (event, rowData) => {
   
