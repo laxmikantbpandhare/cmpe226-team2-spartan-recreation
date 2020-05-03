@@ -80,10 +80,18 @@ class TeamTryOut extends Component {
     axios.post(API_URL + "/teamTryOut/isregister", data).then((response) => {
       console.log("Registration status", response);
       if (response.data) {
+        alert(
+          "You have registered for tryout session."
+        );
         this.setState({
           alreadyregistered: true,
         });
       }
+    })
+    .catch((error) => {
+      alert(
+        "There is an error in registration."
+      );
     });
   }
 

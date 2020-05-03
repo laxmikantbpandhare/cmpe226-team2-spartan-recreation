@@ -57,7 +57,7 @@ const columns = [
 class PendingRegistrations extends Component {
   constructor(props) {
     super(props);
-    console.log("inside pending reg ", this.props);
+    // console.log("inside pending reg ", this.props);
     this.state = {
       rows: null,
       columns: columns,
@@ -75,7 +75,7 @@ class PendingRegistrations extends Component {
         data: studentarr
       });
 
-      console.log("STUDENT DATA", res.data);
+      // console.log("STUDENT DATA", res.data);
     });
   }
   render() {
@@ -101,7 +101,7 @@ class PendingRegistrations extends Component {
                   axios
                     .post(API_URL+`/approveStudent/`+rowData.ssn+`/`+fda)
                     .then((res) => {
-                      console.log("after approval call ", res.data);
+                      // console.log("after approval call ", res.data);
                       // const admin = sessionStorage.getItem('ssn');
                       axios.get(API_URL+`/allPendingStudents`).then((res) => {
                         let studentarr = new Array();
@@ -111,7 +111,7 @@ class PendingRegistrations extends Component {
                         this.setState({
                           data: studentarr
                         });                 
-                        console.log("STUDENT DATA", res.data);
+                        // console.log("STUDENT DATA", res.data);
                       });
 
                     });

@@ -47,34 +47,30 @@ class SearchSessions extends Component {
       date3.getTime() + date3.getTimezoneOffset() * 60000
     );
 
-    console.log("selected date", utcstartDate);
-    console.log("current date from backend", utcCurrentDate);
+    // console.log("selected date", utcstartDate);
+    // console.log("current date from backend", utcCurrentDate);
     var difference1 = utcstartDate - utcCurrentDate;
     var days1 = difference1 / (24 * 3600 * 1000);
 
     var difference2 = utcendDate - utcCurrentDate;
     var days2 = difference2 / (24 * 3600 * 1000);
 
-    console.log("Days1 data", days1);
+    // console.log("Days1 data", days1);
 
-    if (this.state.location === "") alert("Address is Empty");
-    else if (this.state.startDate === "") alert("CHECK-IN Date is Empty");
-    else if (this.state.endDate === "") alert("CHECKOUT Date is Empty");
+    if (this.state.location === "") alert("Session Name is Empty");
+    else if (this.state.startDate === "") alert("Start Date is Empty");
+    else if (this.state.endDate === "") alert("End Date is Empty");
     else if (days1 > 365 || days2 > 365)
       alert(
         "You cannot book for next Year. Please try adjusting your search by changing your dates."
       );
     else if (days <= 0)
       alert(
-        "CHECKOUT date cannot be same or less than Check-IN date. Please try adjusting your search by changing your dates."
+        "End Date date cannot be same or less than Start Date date. Please try adjusting your search by changing your dates."
       );
     else if (days1 < 0)
       alert(
-        "CheckIN Date cannot be less that Today's date. Please try adjusting your search by changing your dates."
-      );
-    else if (days > 14)
-      alert(
-        "You can't book for more than 14 days. Please try adjusting your search by changing your dates."
+        "Start Date cannot be less that Today's date. Please try adjusting your search by changing your dates."
       );
     else {
       const data = {
@@ -84,18 +80,16 @@ class SearchSessions extends Component {
         propertyDescription: this.state.propertyDescription,
       };
 
-      console.log("data", data);
       localStorage.setItem("product_details", JSON.stringify(data));
 
       axios
         .post(API_URL + `/sessions/search`, data)
         .then((response) => {
-          console.log("Status Code : ", response.status);
           if (response.status === 200) {
             this.setState({
               responseData: response.data,
             });
-            console.log(response);
+            // console.log(response);
             if (!response.data) {
               alert("No Available Sessions for your Search!");
             }

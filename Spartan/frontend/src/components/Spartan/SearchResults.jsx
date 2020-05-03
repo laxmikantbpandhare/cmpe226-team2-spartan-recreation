@@ -37,7 +37,7 @@ class SearchResults extends Component {
     }
 
     OpenProperty = property => {
-        console.log("PROPERTY",property)
+        // console.log("PROPERTY",property)
         this.setState({
             datatest: true,
         })
@@ -67,7 +67,7 @@ class SearchResults extends Component {
             view = this.state.information.map(property => {    
                     if(!property.picture)
                     {
-                        console.log("data",property.city)
+                        // console.log("data",property.city)
                         displayImage = (
                             <div>
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

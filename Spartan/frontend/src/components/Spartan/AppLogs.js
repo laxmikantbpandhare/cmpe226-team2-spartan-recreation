@@ -18,7 +18,7 @@ export default class AppLogs extends Component {
 
   componentWillMount() {
     axios.get(API_URL+"/getAppLogs").then((res) => {
-        console.log("LOGS",res.data)
+        // console.log("LOGS",res.data)
         var temp = res.data.split("$")
         this.setState({
             data : temp

@@ -58,7 +58,7 @@ class HeaderComponent extends Component {
     render() {
         const isUserLoggedIn = AuthenticationForApiService.isUserLoggedIn();
         var role = sessionStorage.getItem('role');
-        console.log(role);
+        // console.log(role);
         let display = null;
         if(role === "Student"){
                 display = (
@@ -135,7 +135,7 @@ class HeaderComponent extends Component {
             )
 
         }
-        else if(role === "Admin"){
+        else if(role === "Admin" && isUserLoggedIn){
 
             display = (
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">

@@ -43,12 +43,6 @@ class SignUp extends Component {
   };
 
   submitSignUp = (e) => {
-    // let role = "";
-    // if (this.state.email.includes("@sjsu.edu")) {
-    //   role = "host";
-    // } else {
-    //   role = "user";
-    // }
 
     console.log("submit login called");
     //  var headers = new Headers();
