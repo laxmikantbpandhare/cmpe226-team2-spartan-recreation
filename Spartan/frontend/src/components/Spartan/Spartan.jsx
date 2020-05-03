@@ -47,7 +47,7 @@ class Spartan extends Component {
               <Route path="/websitetraffic" component={WebsiteTraffic} />
               <Route path="/teamTryOut" component={TeamTryOut} />
               <Route path="/login" component={LoginComponent} />
-              <Route path = "/sessionCreation" exact component = {SessionCreation}/>
+              <Route path = "/sessionCreation" component = {SessionCreation}/>
               <Route path = "/pendingRegistrations" exact component = {PendingRegistrations} />
               <Route path = "/pendingStudentRequests" exact component = {PendingStudentRequests} />
               <Route path = "/appLogs" exact component = {AppLogs} />

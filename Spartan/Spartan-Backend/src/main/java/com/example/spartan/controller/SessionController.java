@@ -181,7 +181,7 @@ public class SessionController {
 
 	
 	@PostMapping("/new")
-	public ResponseEntity<String> createNewSession(@RequestBody Map<String, String> payload) {
+	public boolean createNewSession(@RequestBody Map<String, String> payload) {
 
 		MongoCollection<Document> coll = MongoDB.getinstance().getCollection();
 		Document doc = new Document();
@@ -190,25 +190,9 @@ public class SessionController {
 		.append("payload", payload);
 		coll.insertOne(doc);
 
-		/*System.out.println(payload.get(payload.keySet().toArray()[0]));
-		System.out.println(payload.get(payload.keySet().toArray()[1]));
-		System.out.println(payload.get(payload.keySet().toArray()[2]));
-		System.out.println(payload.get(payload.keySet().toArray()[3]));
-		System.out.println(payload.get(payload.keySet().toArray()[4]));
-		System.out.println(payload.get(payload.keySet().toArray()[5]));
-		System.out.println(payload.get(payload.keySet().toArray()[6]));
-		System.out.println(payload.get(payload.keySet().toArray()[7]));
-		System.out.println(payload.get(payload.keySet().toArray()[8]));
-		System.out.println(payload.get(payload.keySet().toArray()[9]));
-		System.out.println(payload.get(payload.keySet().toArray()[10]));*/
-
-		// System.out.println("New session to be created - \n"+ 
-		// 					"name = "+(String)payload.get(payload.keySet().toArray()[1])+
-		// 					" date ="+(String)payload.get(payload.keySet().toArray()[10])+
-		// 					"email="+(String)payload.get(payload.keySet().toArray()[9]));
 				
 		try {
-			sessionRepo.createSession(payload);
+			boolean b = sessionRepo.createSession(payload);
 			System.out.println("SUCCESS");
 
 			String receiver = (String)payload.get(payload.keySet().toArray()[8]);
@@ -219,11 +203,14 @@ public class SessionController {
 								"Thanks and Regards, \n Spartan Recreation Team");
 			}
 
-			return ResponseEntity.ok().body("");
+			if(b)
+				return true;
+			
+			return false;
 		}
 		catch(Exception e) {		
 			e.printStackTrace();	
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getCause().toString());
+			return false;
 		}		
 	}
 		

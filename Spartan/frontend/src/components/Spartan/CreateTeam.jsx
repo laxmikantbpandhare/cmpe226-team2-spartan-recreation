@@ -72,11 +72,9 @@ class CreateTeam extends Component {
 
   registerStudent = property => {
 
-    console.log("DSFVGBS",property)
 
       var data = "";
     if(property === "Basketball"){
-      console.log("in  basketball")
       if(this.state.teamname1 === "")
       {
         alert(
@@ -138,17 +136,11 @@ class CreateTeam extends Component {
         student_email: sessionStorage.getItem("userEmail"),
       };
     }
-    // const data = {
-    //   session_id : "10",
-    //   team_name: this.state.teamname,
-    //   activity_id: this.state.activity,
-    //   student_ssn: sessionStorage.getItem("ssn"),
-    //   student_email: sessionStorage.getItem("userEmail"),
-    // };
+
 
 
     axios.post(API_URL + "/coaches/newTryOutSession", data).then((response) => {
-      console.log("Registration status", response);
+      // console.log("Registration status", response);
       if (response.status === 200) {
         this.setState({
           alreadyregistered: true,
@@ -162,7 +154,12 @@ class CreateTeam extends Component {
           "Error in TryOut Team Creation."
         );
       }
-    });
+    })
+    .catch((e) => {
+      alert(
+        "Error in TryOut Team Creation."
+      );
+    });;
 
   }
 
@@ -170,7 +167,7 @@ class CreateTeam extends Component {
     axios
       .get(API_URL + "/teamTryOut/getactivity")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({
           teamDetails: response.data,
         });

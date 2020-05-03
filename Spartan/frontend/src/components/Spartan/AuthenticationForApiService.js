@@ -5,7 +5,7 @@ export const AUTHENTICATED_USER_SESSION = "authenticatedUser";
 
 class AuthenticationForApiService {
   authenticate(email_id,password,role) {
-    console.log("Authenticate call");
+    // console.log("Authenticate call");
     const url = `${API_URL}/authenticate`
     return axios.post(url, {
       email_id,  

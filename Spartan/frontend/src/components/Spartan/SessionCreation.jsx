@@ -34,8 +34,8 @@ class SessionCreation extends Component {
   submitSession = (e) => {
     // console.log(sessionStorage.userEmail);
     // console.log(sessionStorage.ssn);
+    e.preventDefault();
     const data = {
-      //session_id: this.state.session_id,
       session_name: this.state.session_name,
       capacity: this.state.capacity,
       section: this.state.section,
@@ -46,21 +46,24 @@ class SessionCreation extends Component {
       instructor_ssn: sessionStorage.getItem("ssn"),
       instructor_email: sessionStorage.getItem("userEmail"),
       session_date: this.state.session_date,
-      session_description: this.state.session_description,
+      session_description: this.state.session_description
     };
 
     axios.post(API_URL + "/sessions/new", data).then((response) => {
+      console.log("response",response)
       if (response.status === 200) {
-        console.log("Success!");
+        alert(
+          "Session Created Successfully."
+        );
         this.props.history.push(`/instructorDashboard`);
       } else {
         console.log("Session creation failed!");
       }
 
-      console.log("Sent object", this.state);
+      // console.log("Sent object", this.state);
     });
 
-    console.log("DATA SENT", JSON.stringify(data));
+    // console.log("DATA SENT", JSON.stringify(data));
   };
 
   render() {

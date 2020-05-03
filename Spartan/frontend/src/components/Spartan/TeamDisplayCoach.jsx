@@ -69,6 +69,9 @@ class TeamDisplayCoach extends Component {
     axios.post(API_URL + `/coaches/removes/session`, data).then((response) => {
       if (response.status === 200) {
         console.log("Success!", response);
+        alert(
+          "Team Deleted Successfully."
+        );
         window.location.reload();
       } else {
         console.log("Session creation failed!");

@@ -58,7 +58,7 @@ class HeaderComponent extends Component {
     render() {
         const isUserLoggedIn = AuthenticationForApiService.isUserLoggedIn();
         var role = sessionStorage.getItem('role');
-        console.log(role);
+        // console.log(role);
         let display = null;
         if(role === "Student"){
                 display = (

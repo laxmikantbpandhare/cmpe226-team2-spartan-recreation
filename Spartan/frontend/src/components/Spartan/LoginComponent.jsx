@@ -42,7 +42,7 @@ class LoginComponent extends Component {
       password: this.state.password,
       role: this.state.role
     };
-    console.log("data", data);
+    // console.log("data", data);
     // if(this.state.email === "kong.li@sjsu.edu"){
     //   if(this.state.password === "admin"){
     //     sessionStorage.setItem(AUTHENTICATED_USER_SESSION, this.state.email);
@@ -57,7 +57,7 @@ class LoginComponent extends Component {
           this.state.role
         )
           .then((response) => {
-            console.log("response", response);
+            // console.log("response", response);
             AuthenticationForApiService.registerSuccessfulLogin(
               this.state.email,
               response.data.token
@@ -82,19 +82,19 @@ class LoginComponent extends Component {
               this.props.history.push(`/websitetraffic`)
             } 
             else if(response.data.valid === "unregistered") {
-              console.log("User has not been approved yet");
+              // console.log("User has not been approved yet");
               this.setState({
                 unregisteredUser : true
               })
             }
             else if(response.data.valid === "invalid") {
-              console.log("User has not been registered yet");
+              // console.log("User has not been registered yet");
               this.setState({ hasLoginFailed: true });
             }
             else {
               this.setState({ hasLoginFailed: true });
             }
-            console.log("submit login called");
+            // console.log("submit login called");
           })
           .catch((e) => {
             console.log("e", e);

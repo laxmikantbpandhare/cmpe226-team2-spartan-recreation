@@ -85,7 +85,7 @@ class PendingStudentRequests extends Component {
         data: studentarr
       });
 
-      console.log("STUDENT DATA", res.data);
+      // console.log("STUDENT DATA", res.data);
     });
   }
   render() {
@@ -107,12 +107,12 @@ class PendingStudentRequests extends Component {
 
               onClick: (event, rowData) => {
 
-                console.log("==================APPROVING!===================",rowData.ssn)
+                // console.log("==================APPROVING!===================",rowData.ssn)
                 const fda = sessionStorage.getItem('ssn');
                   axios
                   .post(API_URL+`/coaches/assessStudentRequest/`+rowData.ssn+`/`+rowData.session_name+`/`+`approved`)
                     .then((res) => {
-                      console.log("after approval call ", res.data);
+                      // console.log("after approval call ", res.data);
                       // const admin = sessionStorage.getItem('ssn');
                       axios.get(API_URL+`/allPendingStudents`).then((res) => {
                         let studentarr = new Array();
@@ -122,7 +122,7 @@ class PendingStudentRequests extends Component {
                         this.setState({
                           data: studentarr
                         });                 
-                        console.log("STUDENT DATA", res.data);
+                        // console.log("STUDENT DATA", res.data);
                       });
 
                     });
@@ -135,12 +135,12 @@ class PendingStudentRequests extends Component {
   
                 onClick: (event, rowData) => {
   
-                  console.log("==================APPROVING!===================",rowData.session_name)
+                  // console.log("==================APPROVING!===================",rowData.session_name)
                   const fda = sessionStorage.getItem('ssn');
                     axios
                       .post(API_URL+`/coaches/assessStudentRequest/`+rowData.ssn+`/`+rowData.session_name+`/`+`rejected`)
                       .then((res) => {
-                        console.log("after approval call ", res.data);
+                        // console.log("after approval call ", res.data);
                         // const admin = sessionStorage.getItem('ssn');
                         axios.get(API_URL+`/allPendingStudents`).then((res) => {
                           let studentarr = new Array();
@@ -150,7 +150,7 @@ class PendingStudentRequests extends Component {
                           this.setState({
                             data: studentarr
                           });                 
-                          console.log("STUDENT DATA", res.data);
+                          // console.log("STUDENT DATA", res.data);
                         });
   
                       });

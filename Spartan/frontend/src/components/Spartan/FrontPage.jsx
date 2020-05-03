@@ -51,15 +51,15 @@ class FrontPage extends Component {
         var date3 = new Date((this.state.currentdate).slice(0, 10));
         var utcCurrentDate = new Date(date3.getTime() + date3.getTimezoneOffset() * 60000);
 
-        console.log("selected date",utcstartDate)
-        console.log("current date from backend",utcCurrentDate)
+        // console.log("selected date",utcstartDate)
+        // console.log("current date from backend",utcCurrentDate)
         var difference1 = utcstartDate - utcCurrentDate;
         var days1 = difference1/(24*3600*1000);
 
         var difference2 = utcendDate - utcCurrentDate;
         var days2 = difference2/(24*3600*1000);
 
-        console.log("Days1 data",days1);
+        // console.log("Days1 data",days1);
 
         if(this.state.location === "")
             alert("Address is Empty");
@@ -87,17 +87,17 @@ class FrontPage extends Component {
                 wifi : this.state.wifi,
                 priceRange : this.state.priceRange
             }
-        console.log("data",data);
+        // console.log("data",data);
             localStorage.setItem('product_details', JSON.stringify(data));
            
             axios.post( API_URL + `/search/property`,data)
                 .then(response => {
-                    console.log("Status Code : ",response.status);
+                    // console.log("Status Code : ",response.status);
                     if(response.status === 200){
                         this.setState({
                             responseData:response.data//,
                         })
-                        console.log(response);
+                        // console.log(response);
                         if(!response.data){
                             alert("No Available Properties")
                         }
@@ -140,13 +140,13 @@ class FrontPage extends Component {
 
         axios.get(API_URL + `/admin/date/`)
         .then(response => {
-            console.log("Status Code : ", response.status);
+            // console.log("Status Code : ", response.status);
             if (response.status === 200) {
                 this.setState({
                     currentdate: response.data,
                     datefound: true
                 })
-                console.log("response data",response.data)
+                // console.log("response data",response.data)
 
                 if (!response.data) {
                     alert("No Available Properties")
