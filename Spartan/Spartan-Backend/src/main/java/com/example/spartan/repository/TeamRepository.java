@@ -24,7 +24,7 @@ public class TeamRepository {
 
         boolean result = false;
 
-        String sql = "select IFNULL(max(student_id),0) from team_tryouts where student_id = '"+student_id+"' and team_id = '"+team_id+"'"  ;
+        String sql = "select IFNULL(max(student_id),0) from team_tryouts where student_id = '"+student_id+"' and session_id = '"+team_id+"'"  ;
         System.out.println("sql");
         System.out.println(sql);
 
