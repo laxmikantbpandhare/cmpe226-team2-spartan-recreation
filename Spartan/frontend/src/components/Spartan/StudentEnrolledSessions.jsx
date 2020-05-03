@@ -111,9 +111,9 @@ class StudentEnrolledSessions extends Component {
                         <div class="row">
                             <div class="col-md-7 right-side">
                                 <h3>{property.propertyDescription}</h3><br></br>
-                                <p class="info"><strong>Session Name :</strong> {property[0]} <strong> Section :</strong>  {property[2]} </p>
-                                 <p> <strong> Session Date : </strong>  {property[3]}   <strong> NUMMBER : </strong>  {property[7]} 
-                                    <strong> Start  Time : </strong>  {property[4]} <strong> End Time : </strong>  {property[5]}      </p> 
+                                <p class="info"><strong>Session Name :</strong> {property[0]} <strong> Section :</strong>  {property[1]} </p>
+                                 <p> <strong> Session Date : </strong>  {property[5]}   <strong> Room Number: </strong>  {property[2]} 
+                                    <strong> Start  Time : </strong>  {property[3]} <strong> End Time : </strong> {property[4]}</p> 
                                   
                             
                                 <p class="info"> <strong> Description : </strong> {property[6]}</p>
