@@ -23,7 +23,7 @@ Spartan Application is using MySQL 8.0.18 on wherein Spartan’s database exists
 
 ## ER mapped into Relations
 
-![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan recreation/blob/master/Spartan/images/Design/Schema.png)
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/Design/Schema.png)
 
 
 ## Build Instructions
