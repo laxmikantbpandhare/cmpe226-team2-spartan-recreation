@@ -17,6 +17,15 @@ Spartan Application is using MySQL 8.0.18 on wherein Spartan’s database exists
 ## High Level Design Diagram
 ![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/Design/architecture.png)
 
+## Entity Relationship (ER) Diagram
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/Design/ER.png)
+
+## ER mapped into Relations
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan recreation/blob/master/Spartan/images/Design/Schema.png)
+
+
 ## Build Instructions
 
 Two folders are there: 
@@ -37,24 +46,15 @@ Import all the dependeccies required to run spring boot applciation and run the 
 
 As part of the bonus features, We have decided to generate application logs using a NoSQL database like MongoDB. Each user action could have a different structure such as API, payload, activity etc. Such unstructured data can be stored in the form of documents in a MongoDB database collection. Each API hit generates a document with a timestamp in the mongo collection. These logs are only visible to the admin user and no one else. 
 
-#### Guest and Host can give rating.
-
-![alt text](https://github.com/kumarrishabh0289/airbnb/blob/laxmikant_new/images/Bonus%20Features.png)
-
-![alt text](https://github.com/kumarrishabh0289/airbnb/blob/laxmikant_new/images/host%20side%20rating.png)
-
-#### Implemented Google Map feature.
-
-Further, we have integrated google map functionality in our application. Once the user enters the location, then its location gets displayed on the google location. Google Map shows for the location entered below. Once you click on view larger map, you can see below.
-
-![alt text](https://github.com/kumarrishabh0289/airbnb/blob/laxmikant_new/images/Map.png)
-
 ## Application
 A glimpse of the application
 
 #### Admin
 
+##### Admin able to see dashboard with applicationd etails and able to load the sample data into the application.
+
 ![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Admin/Admin%20Dashboard.png)
 
+##### Admin able to see application logs.
 
-
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Admin/Application%20Logs.png)
