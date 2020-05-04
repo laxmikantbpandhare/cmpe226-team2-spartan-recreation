@@ -138,3 +138,105 @@ A glimpse of the application
 ##### Admin able to see application logs.
 
 ![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Admin/Application%20Logs.png)
+
+
+### Coach
+
+##### Coach able to create the team tryoput session.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Coach/create%20team.png)
+
+##### Email sent to Coach.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Coach/email%20for%20creation%20of%20tryout%20team.png)
+
+##### List of tryout sessions created.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Coach/list%20of%20team%20tryouts.png)
+
+##### Coach can approve or deny the requests from students.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Coach/requests%20from%20Students.png)
+
+##### Email sent to students about Coach's decision.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Coach/email%20for.%20approve%20or%20reject%20decision.png)
+
+
+### Instructor
+
+
+##### Instructor can create the session.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Instructor/create%20session.png)
+
+##### Email will be se3nt to instructor
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Instructor/email.jpeg)
+
+##### Instructor Dashboard
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Instructor/instructor%20dashboard.png)
+
+
+### Student Registaration with Front Desk Assistant
+
+
+##### Student signup to the application.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student%20Registration%20and%20FDA/student%20signup.png)
+
+##### Student tries to login but fails with below message.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student%20Registration%20and%20FDA/student%20login%20gets.%20%20error.png)
+
+##### Front Desk Assistant gets that request from student.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student%20Registration%20and%20FDA/pending%20requets.%20with.%20FDA.png)
+
+##### Front Desk Assistant approves it.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student%20Registration%20and%20FDA/After.%20Approval.png)
+
+##### Email will be sent to student about approval.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student%20Registration%20and%20FDA/email%20to%20student.png)
+
+
+### Student
+
+
+##### Student searches for the session.
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/Search%20for%20session.png)
+
+
+##### search resultts
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/search%20results.png)
+
+##### enrolled session
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/display%20s%20elected.%20session.png)
+
+
+##### email sent to student after enrollment
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/email%20for%20enroolment.png)
+
+
+##### list of enrolled sessions
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/enrolled%20sessions.png)
+
+##### Student can drop that session
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/can%20delete%20session.png)
+
+##### After drop of a session
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/after%20delete.png)
+
+##### Email will be sent about cancellation
+
+![alt text](https://github.com/laxmikantbpandhare/cmpe226-team2-spartan-recreation/blob/master/Spartan/images/application/Student/email%20for%20enrollment%20cancellation.png)
