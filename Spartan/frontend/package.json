@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.9.1",
     "@mobiscroll/react-lite": "^4.9.0",
     "@progress/kendo-react-dateinputs": "^3.9.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bootstrap": "^4.4.0",
     "chart.js": "^2.8.0",
     "formik": "^1.5.1",
