@@ -25,7 +25,7 @@
     "react-geosuggest": "^2.12.1",
     "react-google-login": "^5.0.7",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.8"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
